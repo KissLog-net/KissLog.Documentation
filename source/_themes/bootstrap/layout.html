@@ -1,0 +1,64 @@
+{% extends "basic/layout.html" %}
+
+{% set theme_css_files = [
+    '_static/bootstrap/dist/css/bootstrap.min.css',
+	'_static/font-awesome/css/font-awesome.min.css'
+  ]
+%}
+
+{% set css_files = css_files + theme_css_files %}
+
+{% set script_files = [
+    '_static/jquery/dist/jquery.min.js',
+    '_static/bootstrap/dist/js/bootstrap.min.js'
+  ]
+%}
+
+{% block doctype %}
+<!DOCTYPE html>
+{% endblock %}
+
+{%- block extrahead %}
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+{%- endblock %}
+
+{%- block content %}
+
+<div id="navbar" class="navbar navbar-light bg-light navbar-expand-md">
+	<div class="navbar-brand d-flex align-items-center wmin-0 mr-5">
+		<a href="https://kisslog.net" class="d-block">
+            <span class="navbar-brand-text"> <i class="fa fa-leaf" style="color: #27ae60;"></i> KissLog </span>
+        </a>
+	</div>
+	<div id="navbar-mobile" class="collapse navbar-collapse">
+		{% include "nav.html" %}
+	</div>
+</div>
+
+<div class="container">
+  <div class="row">
+    {%- block sidebar1 %}
+    <div class="col-md-3">
+      <div id="sidebar" class="bs-sidenav" role="complementary">
+        <h4>Contents</h4>
+        {%- for sidebartemplate in sidebars %}
+          {%- include sidebartemplate %}
+        {%- endfor %}
+      </div>
+    </div>
+    {% endblock %}
+    <div class="col-md-9">
+      {% block body %}{% endblock %}
+    </div>
+    {% block sidebar2 %} {# possible location for sidebar #} {% endblock %}
+  </div>
+</div>
+
+{%- endblock %}
+
+{%- block footer %}
+  Footer
+{%- endblock %}
