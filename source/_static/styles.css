@@ -1,0 +1,48 @@
+#toctree ul {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+#toctree ul > li {
+    position: relative;
+    display: block; 
+}
+
+
+/* All levels of nav */
+.bs-sidenav #toctree ul > li > a {
+    display: block;
+    color: #428bca;
+    padding: 5px 20px;
+}
+.bs-sidenav #toctree ul > li > a:hover,
+.bs-sidenav #toctree ul > li > a:focus {
+    text-decoration: none;
+    background-color: #e5e3e9;
+    border-right: 1px solid #dbd8e0;
+}
+.bs-sidenav #toctree ul > .active > a,
+.bs-sidenav #toctree ul > .active:hover > a,
+.bs-sidenav #toctree ul > .active:focus > a {
+  font-weight: bold;
+  color: #563d7c;
+  background-color: transparent;
+  border-right: 1px solid #563d7c;
+}
+
+.bs-sidenav #toctree li a.current,
+.bs-sidenav #toctree li a.current:hover,
+.bs-sidenav #toctree li a.current:focus {
+  color: #fff;
+  background-color: #428bca;
+  text-shadow: none;
+}
+
+.bs-sidenav #toctree ul ul > li > a {
+  padding-top:    5px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+  font-size: 95%;
+}
+
