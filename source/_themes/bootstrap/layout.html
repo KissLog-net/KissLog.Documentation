@@ -25,6 +25,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 {%- endblock %}
 
+{% block header %}{% endblock %}
+{% block relbar1 %}{% endblock %}
+{% block relbar2 %}{% endblock %}
+
 {%- block content %}
 
 <div id="navbar" class="navbar navbar-light bg-light navbar-expand-md">
@@ -43,10 +47,16 @@
     {%- block sidebar1 %}
     <div class="col-md-3">
       <div id="sidebar" class="bs-sidenav" role="complementary">
-        <h4>Contents</h4>
-        {%- for sidebartemplate in sidebars %}
-          {%- include sidebartemplate %}
-        {%- endfor %}
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Contents</h4>
+          </div>
+          <div class="card-body">
+            {%- for sidebartemplate in sidebars %}
+              {%- include sidebartemplate %}
+            {%- endfor %}
+          </div>
+        </div>
       </div>
     </div>
     {% endblock %}

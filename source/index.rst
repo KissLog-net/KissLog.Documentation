@@ -16,5 +16,6 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
-   install-instructions/index
    getting-started/index
+   install-instructions/index
+   
