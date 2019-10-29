@@ -1,3 +1,15 @@
+.markdown-body .highlighttable { width: 100%; border-color: transparent; }
+.markdown-body .highlighttable tr { border: 0 none; }
+.markdown-body .highlighttable td { border: 0 none; }
+
+.markdown-body .highlighttable .linenos { padding: 0 0.5em 0 1em; background-color: #f6f8fa; }
+.markdown-body .highlighttable .code { padding: 0 0 0 0.5em; width: 100%; background-color: #f6f8fa; }
+
+.markdown-body .highlighttable .code .highlight { margin: 0; }
+.markdown-body .highlighttable .code .highlight > pre { padding-left: 0; }
+
+.markdown-body .highlighttable .linenos .linenodiv { margin-top: 16px; }
+
 #toctree ul {
     margin-bottom: 0;
     padding-left: 0;

@@ -4,46 +4,46 @@ Getting started
 ILogger represents the principal component used to write log messages.
 
 .. code-block:: c#
-    :emphasize-lines: 7,12
+    :emphasize-lines: 3,8
 
-    using KissLog;
-
-    public class MyCacheProvider : ICacheProvider
+    public T Get<T>(string key)
     {
-        public T Get<T>(string key)
+        ILogger logger = Logger.Factory.Get();
+
+        var item = _cache.Get<T>(key);
+        if(item == null)
         {
-            ILogger logger = Logger.Factory.Get();
-
-            var item = _cache.Get<T>(key);
-            if(item == null)
-            {
-                logger.Warn(string.Format("Cache entry for {0} was not found", key));
-            }
-
-            retutn item;
+            logger.Warn(string.Format("Cache entry for {0} was not found", key));
         }
+
+        retutn item;
     }
 
 Create instance
 -------------------------
 
-ILogger has a scoped lifetime. You create it when you need it.
+ILogger has a scoped lifetime.
+
+It should be created at the beginning of a method, and flushed at the end of the method.
 
 Web applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For web applications, the ILogger is created automatically per each http request (connection).
+For web applications, the ILogger is created and flushed automatically per each http request (connection).
 
-To receive the instance of the ILogger, use the ``Logger.Factory.Get()`` factory method.
+To acquire the instance of the ILogger, use the ``Logger.Factory.Get()`` factory method.
 
 .. code-block:: c#
 
     public void Foo()
     {
+        // receive the ILogger instance
         ILogger logger = Logger.Factory.Get();
+
+        logger.Debug("Foo started");
     }
 
-Calling the factory method multiple times will return the same instance of ILogger.
+Calling the ``Logger.Factory.Get()`` method multiple times will return the same instance of ILogger.
 
 .. code-block:: c#
 
@@ -58,8 +58,10 @@ Calling the factory method multiple times will return the same instance of ILogg
 
         ILogger myLogger = Logger.Factory.Get();
 
+        int numberOfLogs = (Logger(myLogger)).DataContainer.LogMessages.Count();
+
         int expected = 5;
-        int actual = (Logger(myLogger)).DataContainer.LogMessages.Count();
+        int actual = numberOfLogs;
 
         Assert.IsTrue(actual == expected, "Logger.Factory.Get() should return the same instance");
     }
@@ -70,21 +72,37 @@ Windows / Console applications
 For non-web applications, create and flush the logger manually.
 
 .. code-block:: c#
+    :linenos:
+    :emphasize-lines: 3,13,19
 
     static void Main(string[] args)
     {
-        // create the logger
         ILogger logger = new Logger(url: "Main");
 
-        // execute Main
-        logger.Info("Executing main");
+        try
+        {
+            logger.Info("Executing main");
 
-        // notify the listeners
-        Logger.NotifyListeners(logger);
+            // execute Main
+        }
+        catch(Exception ex)
+        {
+            logger.Error(ex);
+            throw;
+        }
+        finally
+        {
+            // notify the listeners
+            Logger.NotifyListeners(logger);
+        }
     }
+
+We use **try-catch-finally** to make sure that we capture any unhandled exceptions (line 13), and we notify the listeners when the method ends (line 19).
 
 Register the listeners
 -------------------------
+
+Listeners implements the ``ILogListener`` interface, and they are responsible with saving the logs.
 
 Listeners are registered at application startup using the ``KissLogConfiguration.Listeners`` container.
 
@@ -92,19 +110,44 @@ Listeners are registered at application startup using the ``KissLogConfiguration
 
     protected void Application_Start()
     {
-        // KissLog.net cloud listener
+        // register the KissLog.net listener
         KissLogConfiguration.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
             ConfigurationManager.AppSettings["KissLog.OrganizationId"],
             ConfigurationManager.AppSettings["KissLog.ApplicationId"])
         ));
 
-        // NLog listener -> send all the KissLog logs to NLog targets
+        // register NLog listener
         KissLogConfiguration.Listeners.Add(new NLogTargetListener());
+
+        if(bool.Parse(ConfigurationManager.AppSettings["UseSqlListener"]))
+        {
+            KissLogConfiguration.Listeners.Add(new SqlListener());
+        }
     }
+
+Custom listeners can be created by implementing the ``ILogListener`` interface.
+
+Listeners trigger events
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 KissLog listeners are triggered automatically on three separate events: **OnBeginRequest**, **OnMessage** and **OnFlush**.
 
-Custom listeners can be created by implementing the ``ILogListener`` interface.
+.. code-block:: none
+
+    BEGIN [GET /api/getUsers]        <---- OnBeginRequest()
+    
+
+    ILogger logger = Logger.Factory.Get();
+
+    logger.Debug("step 1");          <---- OnMessage()
+
+    ...
+    logger.Info("step n");           <---- OnMessage()
+
+
+    
+    END [200 OK GET /api/getUsers]   <---- OnFlush()
+
 
 Configuration
 -------------------------

@@ -3,6 +3,7 @@
 {% set theme_css_files = [
     '_static/bootstrap/dist/css/bootstrap.min.css',
     '_static/font-awesome/css/font-awesome.min.css',
+    '_static/github-markdown-css/github-markdown.css',
     '_static/limitless.css',
     '_static/styles.css'
   ]
@@ -63,7 +64,9 @@
     </div>
     {% endblock %}
     <div class="col-md-9">
-      {% block body %}{% endblock %}
+        <div class="markdown-body">
+            {% block body %}{% endblock %}
+        </div>
     </div>
     {% block sidebar2 %} {# possible location for sidebar #} {% endblock %}
   </div>
