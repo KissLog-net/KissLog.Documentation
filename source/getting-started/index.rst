@@ -16,31 +16,46 @@ ILogger represents the principal component used to write log messages.
             logger.Warn(string.Format("Cache entry for {0} was not found", key));
         }
 
-        retutn item;
+        return item;
     }
+
+.. figure:: basic-usage.png
+   :alt: Basic usage
+   :align: center
+
+   Basic usage
 
 Create instance
 -------------------------
 
-ILogger has a scoped lifetime.
+ILogger has a scoped lifetime. 
 
-It should be created at the beginning of a method, and flushed at the end of the method.
+It should be created at the beginning of a method, and flushed at the end of the methods execution.
 
 Web applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For web applications, the ILogger is created and flushed automatically per each http request (connection).
 
-To acquire the instance of the ILogger, use the ``Logger.Factory.Get()`` factory method.
+To acquire the ILogger instance, use the ``Logger.Factory.Get()`` factory method.
 
 .. code-block:: c#
+    :emphasize-lines: 6
 
-    public void Foo()
+    public class HomeController : Controller
     {
-        // receive the ILogger instance
-        ILogger logger = Logger.Factory.Get();
+        private readonly ILogger _logger;
+        public HomeController()
+        {
+            _logger = Logger.Factory.Get();
+        }
 
-        logger.Debug("Foo started");
+        public IActionResult Index()
+        {
+            _logger.Debug("Hello World!");
+
+            return View();
+        }
     }
 
 Calling the ``Logger.Factory.Get()`` method multiple times will return the same instance of ILogger.

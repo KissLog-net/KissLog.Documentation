@@ -3,7 +3,7 @@ Console applications
 
 For Console applications, you need to create and flush the ILogger manually.
 
-This can be achieved by using a **try-catch-finally** block, which simulates the BEGIN / END of a method.
+This can be achieved by using a **try-catch-finally** block, which simulates the BEGIN and the END of a method.
 
 .. code-block:: c#
     :linenos:
@@ -31,10 +31,10 @@ This can be achieved by using a **try-catch-finally** block, which simulates the
         }
     }
 
+Calling ``Logger.NotifyListeners(logger)`` in the **finally** block (line 19) ensures that the listeners will execute the ``OnFlush()`` method.
+
 Notifying the listeners
 --------------------------
-
-Unlike web applications, where the listeners are notified automatically at the end of the request, in Console applications you need to notify them manually.
 
 The log listeners are notified as following:
 
@@ -67,7 +67,7 @@ The log listeners are notified as following:
         }
     }
 
-Use different loggers
+Use separate instances
 --------------------------
 
 ILogger has a scoped lifetime. In Console applications, the *scope* is defined by the method itself.
@@ -99,7 +99,7 @@ If you have different entry methods, you need to create and flush the logger for
 Full example
 --------------------------
 
-In the following example we have a Console application which is saving the logs to KissLog.net.
+In the following example we have a Console application which is saving the logs to KissLog.net. 
 
 .. code-block:: c#
     :linenos:
@@ -145,7 +145,8 @@ In the following example we have a Console application which is saving the logs 
         }
     }
 
-.. image:: console-app-example.png
+.. figure:: console-app-example.png
    :alt: Console application
    :align: center
 
+   "Main" logs on KissLog.net
