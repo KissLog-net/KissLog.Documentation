@@ -28,6 +28,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 {%- endblock %}
 
+{%- block body_tag %}<body class="bg-light">{% endblock %}
+
 {% block header %}{% endblock %}
 {% block relbar1 %}{% endblock %}
 {% block relbar2 %}{% endblock %}
@@ -47,32 +49,36 @@
     </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    {%- block sidebar1 %}
-    <div class="col-md-3">
-      <div id="sidebar" class="bs-sidenav" role="complementary">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Contents</h4>
-          </div>
-          <div class="card-body">
-            {%- for sidebartemplate in sidebars %}
-              {%- include sidebartemplate %}
-            {%- endfor %}
-          </div>
+<div id="container">
+    <div class="container">
+        <div class="row">
+            {%- block sidebar1 %}
+            <div class="col-md-3">
+            <div id="sidebar" class="bs-sidenav" role="complementary">
+                <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Contents</h4>
+                </div>
+                <div class="card-body">
+                    {%- for sidebartemplate in sidebars %}
+                    {%- include sidebartemplate %}
+                    {%- endfor %}
+                </div>
+                </div>
+            </div>
+            </div>
+            {% endblock %}
+            <div class="col-md-9">
+                <div class="markdown-body">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+            {% block sidebar2 %} {# possible location for sidebar #} {% endblock %}
         </div>
-      </div>
     </div>
-    {% endblock %}
-    <div class="col-md-9">
-        <div class="markdown-body">
-            {% block body %}{% endblock %}
-        </div>
-    </div>
-    {% block sidebar2 %} {# possible location for sidebar #} {% endblock %}
-  </div>
 </div>
+
+
 
 {%- endblock %}
 
