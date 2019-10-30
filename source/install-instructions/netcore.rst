@@ -3,36 +3,35 @@
 
 These steps describe how to install and configure KissLog for a .NET Core application.
 
-.. contents::
-   :local:
+1. Install NuGet Package
 
-Install NuGet Package
--------------------------
-
-.. code-block::
+.. code-block:: none
 
     PM> Install-Package KissLog.AspNetCore
    
 
-Update appSettings.json
--------------------------
+2. Update **appSettings.json**
 
-Replace `Organization ID` and `Application ID` with corresponding values from KissLog account page.
+Replace **OrganizationID** and **ApplicationID** with Api Key values from the application configuration page.
 
 .. code-block:: javascript
-    :caption: appsettings.json
 
     {
-        "KissLog.OrganizationId": "Organization ID",
-        "KissLog.ApplicationId": "Application ID"
+        "KissLog.OrganizationId": "OrganizationID",
+        "KissLog.ApplicationId": "ApplicationID"
     }
 
-Update Startup.cs
--------------------------
+.. figure:: aspNetCore-apiKey.png
+   :alt: Api Key
+   :align: center
+
+   KissLog.net application configuration
+
+3. Update **Startup.cs**
 
 .. code-block:: c#
     :linenos:
-    :caption: Startup.cs
+    :emphasize-lines: 18-22,41-46
 
     using KissLog.Apis.v1.Listeners;
     using KissLog.AspNetCore;
@@ -51,7 +50,6 @@ Update Startup.cs
 
             public void ConfigureServices(IServiceCollection services)
             {
-                // register dependencies
                 services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
                 services.AddScoped<ILogger>((context) =>
                 {
@@ -92,12 +90,11 @@ Update Startup.cs
         }
     }
 
-Use the ILogger
--------------------------
+4. Use the ILogger
 
 .. code-block:: c#
     :linenos:
-    :caption: HomeController.cs
+    :emphasize-lines: 7,10,15
 
     using KissLog;
 
@@ -119,3 +116,20 @@ Use the ILogger
             }
         }
     }
+
+Testing
+-------------------------------------------
+
+To test the KissLog configuration, trigger a request on /Home/Index. The request should be visible on KissLog.net.
+
+.. figure:: aspNetCore-request-details.png
+   :alt: Request log details
+   :align: center
+
+   Request log details
+
+.. figure:: aspNetCore-request-logs.png
+   :alt: Request logs
+   :align: center
+
+   Request logs

@@ -20,10 +20,10 @@ ILogger represents the principal component used to write log messages.
     }
 
 .. figure:: basic-usage.png
-   :alt: Basic usage
+   :alt: Viewing log messages
    :align: center
 
-   Basic usage
+   Viewing log messages
 
 Create instance
 -------------------------
@@ -112,12 +112,12 @@ For non-web applications, create and flush the logger manually.
         }
     }
 
-We use **try-catch-finally** to make sure that we capture any unhandled exceptions (line 13), and we notify the listeners when the method ends (line 19).
+We use **try-catch-finally** to make sure that we capture any unhandled exceptions (line 13), and we notify the listeners (line 19).
 
 Register the listeners
 -------------------------
 
-Listeners implements the ``ILogListener`` interface, and they are responsible with saving the logs.
+Listeners are responsible with saving the logs.
 
 Listeners are registered at application startup using the ``KissLogConfiguration.Listeners`` container.
 
@@ -142,10 +142,16 @@ Listeners are registered at application startup using the ``KissLogConfiguration
 
 Custom listeners can be created by implementing the ``ILogListener`` interface.
 
-Listeners trigger events
+Listeners events
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-KissLog listeners are triggered automatically on three separate events: **OnBeginRequest**, **OnMessage** and **OnFlush**.
+KissLog listeners are triggered automatically on three separate events:
+
+- **OnBeginRequest()** is executed when the HTTP request starts
+
+- **OnMessage()** is executed for each log message created
+
+- **OnFlush()** is executed when the HTTP request has completed
 
 .. code-block:: none
 

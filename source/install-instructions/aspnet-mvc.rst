@@ -3,40 +3,38 @@ AspNet MVC
 
 These steps describe how to install and configure KissLog for an Asp.Net MVC application.
 
-.. contents::
-   :local:
+1. Install NuGet Package
 
-Install NuGet Package
--------------------------
-
-.. code-block::
+.. code-block:: none
 
     PM> Install-Package KissLog.AspNet.Mvc
 
 
-Update web.config
--------------------------
+2. Update **web.config**
 
-Replace `Organization ID` and `Application ID` with corresponding values from KissLog account page.
+Replace **OrganizationID** and **ApplicationID** with Api Key values from the application configuration page.
 
 .. code-block:: xml
     :linenos:
-    :caption: web.config
 
     <configuration>
         <appSettings>
-            <add key="KissLog.OrganizationId" value="Organization ID" />
-            <add key="KissLog.ApplicationId" value="Application ID" />
+            <add key="KissLog.OrganizationId" value="OrganizationID" />
+            <add key="KissLog.ApplicationId" value="ApplicationID" />
         </appSettings>
     </configuration>
 
+.. figure:: aspNet-apiKey.png
+   :alt: Api Key
+   :align: center
 
-Update Global.asax
--------------------------
+   KissLog.net application configuration
+
+3. Update **Global.asax**
 
 .. code-block:: c#
     :linenos:
-    :caption: Global.asax
+    :emphasize-lines: 15,17,29-42,45,47-52
 
     using KissLog.Apis.v1.Listeners;
     using KissLog.AspNet.Mvc;
@@ -93,12 +91,11 @@ Update Global.asax
         }
     }
 
-Use the ILogger
--------------------------
+4. Use the ILogger
 
 .. code-block:: c#
     :linenos:
-    :caption: HomeController.cs
+    :emphasize-lines: 7,10,15
 
     using KissLog;
 
@@ -120,3 +117,20 @@ Use the ILogger
             }
         }
     }
+
+Testing
+-------------------------------------------
+
+To test the KissLog configuration, trigger a request on /Home/Index. The request should be visible on KissLog.net.
+
+.. figure:: aspNetMvc-request-details.png
+   :alt: Request log details
+   :align: center
+
+   Request log details
+
+.. figure:: aspNetMvc-request-logs.png
+   :alt: Request logs
+   :align: center
+
+   Request logs

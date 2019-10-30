@@ -5,15 +5,15 @@ Windows services applications have the same behavior as :doc:`console-apps`.
 
 A typical windows service application has three events:
 
-- OnStart() - triggered when the service starts (event)
+- **OnStart()** - triggered when the service starts
 
-- OnStop() - triggered when the service stops (event)
+- **OnStop()** - triggered when the service stops
 
-- Execute() - the actual service implementation
+- **Execute()** - the actual service implementation
 
 We log the ``Execute()`` method by using a **try-catch-finally** block to simulate the BEGIN and the END of the action.
 
-Calling ``Logger.NotifyListeners(logger)`` in the **finally** block (line 19) ensures that the listeners will execute the ``OnFlush()`` method.
+We call ``Logger.NotifyListeners(logger)`` (line 19) to ensure that the listeners will execute the **OnFlush()** event.
 
 .. code-block:: c#
     :linenos:
@@ -42,14 +42,12 @@ Calling ``Logger.NotifyListeners(logger)`` in the **finally** block (line 19) en
         }
     }
 
-``OnStart()`` and ``OnStop()`` methods are triggered by Windows.
-
-
-These two methods are *events / hooks* - they don't represent the actual implementation of the service.
+Full example
+--------------------------
 
 .. code-block:: c#
     :linenos:
-    :emphasize-lines: 8,12,19,21,30,35,49
+    :emphasize-lines: 10,14,21,23,32,39,53
 
     using KissLog;
 
@@ -84,7 +82,7 @@ These two methods are *events / hooks* - they don't represent the actual impleme
             {
                 Logger.Info("Service stopped");
 
-                _timer.Stop();
+                timer.Stop();
             }
 
             public void Execute(object source, ElapsedEventArgs e)
@@ -112,15 +110,29 @@ These two methods are *events / hooks* - they don't represent the actual impleme
                 string organizationId = "0337cd29-a56e-42c1-a48a-e900f3116aa8";
                 string applicationId = "b1d65503-fc9d-4d3d-9f37-3c8be9fcb450";
 
-                // Save the logs to KissLog.net
+                // KissLog.net cloud listener
                 KissLogConfiguration.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(organizationId, applicationId))
                 {
                     UseAsync = false
                 });
 
-                // Save all the KissLog logs to NLog targets (local text files)
-                KissLogConfiguration.Listeners.Add(new NLogTargetListener());
+                // local text file listener
+                KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
+                {
+                    FlushTrigger = FlushTrigger.OnMessage
+                });
             }
         }
     }
 
+.. figure:: windows-services-cloud.png
+   :alt: Windows services logs on KissLog.net
+   :align: center
+
+   Windows services logs on KissLog.net
+
+.. figure:: windows-services-textFile.png
+   :alt: Windows services on text file
+   :align: center
+
+   Windows services logs on text file

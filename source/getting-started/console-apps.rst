@@ -31,20 +31,21 @@ This can be achieved by using a **try-catch-finally** block, which simulates the
         }
     }
 
-Calling ``Logger.NotifyListeners(logger)`` in the **finally** block (line 19) ensures that the listeners will execute the ``OnFlush()`` method.
+We call ``Logger.NotifyListeners(logger)`` (line 19) to ensure that the listeners will execute the **OnFlush()** event.
 
-Notifying the listeners
+Listeners events
 --------------------------
 
 The log listeners are notified as following:
 
-- ``OnBeginRequest()`` is executed automatically when the Logger instance is created
+- **OnBeginRequest()** is executed automatically when the Logger instance is created (line 3)
 
-- ``OnMessage()`` is executed automatically for each log message created
+- **OnMessage()** is executed automatically for each log message created (lines 7, 13)
 
-- ``OnFlush()`` is executed manually by calling ``Logger.NotifyListeners()``
+- **OnFlush()** is executed manually by calling ``Logger.NotifyListeners()`` (line 18)
 
 .. code-block:: c#
+    :linenos:
 
     static void Main(string[] args)
     {
@@ -149,4 +150,4 @@ In the following example we have a Console application which is saving the logs 
    :alt: Console application
    :align: center
 
-   "Main" logs on KissLog.net
+   Console app "Main(string[] args)" on KissLog.net
