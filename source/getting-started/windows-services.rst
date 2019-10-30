@@ -125,13 +125,13 @@ Full example
         }
     }
 
-.. figure:: windows-services-cloud.png
+.. figure:: images/windows-services-cloud.png
    :alt: Windows services logs on KissLog.net
    :align: center
 
    Windows services logs on KissLog.net
 
-.. figure:: windows-services-textFile.png
+.. figure:: images/windows-services-textFile.png
    :alt: Windows services on text file
    :align: center
 

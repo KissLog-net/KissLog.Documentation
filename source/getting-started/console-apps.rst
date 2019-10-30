@@ -146,8 +146,8 @@ In the following example we have a Console application which is saving the logs 
         }
     }
 
-.. figure:: console-app-example.png
+.. figure:: images/console-app-example.png
    :alt: Console application
    :align: center
 
-   Console app "Main(string[] args)" on KissLog.net
+   Console app Main() on KissLog.net

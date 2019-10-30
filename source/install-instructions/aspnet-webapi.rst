@@ -3,25 +3,19 @@ AspNet WebApi
 
 These steps describe how to install and configure KissLog for an Asp.Net WebApi application.
 
-.. contents::
-   :local:
-
-Install NuGet Package
--------------------------
+1. Install NuGet Package
 
 .. code-block::
 
     PM> Install-Package KissLog.AspNet.WebApi
 
 
-Update web.config
--------------------------
+2. Update **web.config**
 
-Replace `OrganizationID` and `ApplicationID` with corresponding values from KissLog account page.
+Replace **OrganizationID** and **ApplicationID** with Api Key values from the application configuration page.
 
 .. code-block:: xml
     :linenos:
-    :caption: web.config
 
     <configuration>
         <appSettings>
@@ -30,13 +24,17 @@ Replace `OrganizationID` and `ApplicationID` with corresponding values from Kiss
         </appSettings>
     </configuration>
 
+.. figure:: images/aspNet-apiKey.png
+   :alt: Api Key
+   :align: center
 
-Update Global.asax
--------------------------
+   KissLog.net application configuration
+
+3. Update **Global.asax**
 
 .. code-block:: c#
     :linenos:
-    :caption: Global.asax
+    :emphasize-lines: 10, 12, 15-28, 40, 42-47
 
     using KissLog.Apis.v1.Listeners;
     using KissLog.AspNet.Web;
@@ -88,12 +86,11 @@ Update Global.asax
         }
     }
 
-Update WebApiConfig.cs
--------------------------
+4. Update **WebApiConfig.cs**
 
 .. code-block:: c#
     :linenos:
-    :caption: WebApiConfig.cs
+    :emphasize-lines: 12, 15
 
     using KissLog.AspNet.WebApi;
     using System.Web.Http;
@@ -123,12 +120,11 @@ Update WebApiConfig.cs
         }
     }
 
-Use the ILogger
--------------------------
+5. Use the ILogger
 
 .. code-block:: c#
     :linenos:
-    :caption: HomeController.cs
+    :emphasize-lines: 7, 10, 16
 
     using KissLog;
 
@@ -151,3 +147,20 @@ Use the ILogger
             }
         }
     }
+
+Testing
+-------------------------------------------
+
+To test the KissLog configuration, trigger a request on /api/values. The request should be visible on KissLog.net.
+
+.. figure:: images/aspNetWebApi-request-details.png
+   :alt: Request log details
+   :align: center
+
+   Request log details
+
+.. figure:: images/aspNetWebApi-request-logs.png
+   :alt: Request logs
+   :align: center
+
+   Request logs

@@ -24,7 +24,7 @@ Replace **OrganizationID** and **ApplicationID** with Api Key values from the ap
         </appSettings>
     </configuration>
 
-.. figure:: aspNet-apiKey.png
+.. figure:: images/aspNet-apiKey.png
    :alt: Api Key
    :align: center
 
@@ -123,13 +123,13 @@ Testing
 
 To test the KissLog configuration, trigger a request on /Home/Index. The request should be visible on KissLog.net.
 
-.. figure:: aspNetMvc-request-details.png
+.. figure:: images/aspNetMvc-request-details.png
    :alt: Request log details
    :align: center
 
    Request log details
 
-.. figure:: aspNetMvc-request-logs.png
+.. figure:: images/aspNetMvc-request-logs.png
    :alt: Request logs
    :align: center
 

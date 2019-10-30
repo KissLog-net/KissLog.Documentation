@@ -1,3 +1,5 @@
+#navbar .navbar-brand > a:hover { text-decoration: none; }
+
 .markdown-body .highlighttable { width: 100%; border-color: transparent; }
 .markdown-body .highlighttable tr { border: 0 none; }
 .markdown-body .highlighttable td { border: 0 none; }
@@ -10,17 +12,39 @@
 
 .markdown-body .highlighttable .linenos .linenodiv { margin-top: 16px; }
 
-#toctree ul {
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
+div.admonition {
+  padding: 15px 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+  line-height: 1.4;
 }
 
-#toctree ul > li {
-    position: relative;
-    display: block; 
+div.admonition p { margin-bottom: 8px; }
+
+div.admonition p.admonition-title {
+  font-size: 18px;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-top: 0;
+  margin-bottom: 25px;
 }
 
+div.admonition.note { border-left-color: #5bc0de; }
+div.admonition.note p.admonition-title { color: #5bc0de; }
+div.admonition.warning { border-left-color: #f0ad4e; }
+div.admonition.warning p.admonition-title { color: #f0ad4e; }
+
+#toctree ul { margin-bottom: 0; padding-left: 0; list-style: none; }
+#toctree ul > li { position: relative; display: block; }
+
+#toctree > ul > li { margin-bottom: 16px; }
+#toctree > ul > li > a { border-bottom: 1px solid #eaecef; }
+
+#navbar { margin-bottom: 30px; }
+#footer { margin-top: 30px; }
 
 /* All levels of nav */
 .bs-sidenav #toctree ul > li > a {

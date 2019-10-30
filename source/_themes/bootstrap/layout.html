@@ -35,14 +35,16 @@
 {%- block content %}
 
 <div id="navbar" class="navbar navbar-light bg-light navbar-expand-md">
-	<div class="navbar-brand d-flex align-items-center wmin-0 mr-5">
-		<a href="https://kisslog.net" class="d-block">
-            <span class="navbar-brand-text"> <i class="fa fa-leaf" style="color: #27ae60;"></i> KissLog </span>
-        </a>
-	</div>
-	<div id="navbar-mobile" class="collapse navbar-collapse">
-		{% include "nav.html" %}
-	</div>
+    <div class="container">
+        <div class="navbar-brand d-flex align-items-center wmin-0 mr-5">
+            <a href="https://kisslog.net" class="d-block">
+                <span class="navbar-brand-text"> <i class="fa fa-leaf" style="color: #27ae60;"></i> KissLog </span>
+            </a>
+        </div>
+        <div id="navbar-mobile" class="collapse navbar-collapse">
+            {% include "nav.html" %}
+        </div>
+    </div>
 </div>
 
 <div class="container">
@@ -75,5 +77,5 @@
 {%- endblock %}
 
 {%- block footer %}
-  Footer
+    {% include "footer.html" %}
 {%- endblock %}

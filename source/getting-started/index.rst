@@ -19,7 +19,7 @@ ILogger represents the principal component used to write log messages.
         return item;
     }
 
-.. figure:: basic-usage.png
+.. figure:: images/basic-usage.png
    :alt: Viewing log messages
    :align: center
 
