@@ -1,4 +1,4 @@
-Logs output
+NLogTargetListener
 ====================
 
 KissLog saves the logs by using **ILogListener** listeners.
@@ -108,7 +108,7 @@ Implement the logic in the ``OnMessage()`` event.
 Do you want the logs to be saved at the end of the request?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Implement the logic in the ``OnFlush()`` event. 
+Implement the logic in the ``OnFlush()`` event.
 
 **SqlListener** example is saving the logs at the end of the request, by using ``OnFlush()`` event. This is useful to reduce the database overhead.
 
@@ -160,10 +160,7 @@ Implement the logic in the ``OnFlush()`` event.
         }
     }
 
-.. admonition:: Built-in listeners
-    :class: note
-
-    :doc:`../log-listeners/KissLogApiListener`, the listener which saves the logs to KissLog.net, is using the ``OnFlush()`` method.
+**KissLogApiListener**, the listener which saves the logs to KissLog.net, is using the ``OnFlush()`` method.
 
 .. toctree::
    :maxdepth: 1
