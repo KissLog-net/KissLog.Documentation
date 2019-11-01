@@ -4,8 +4,8 @@
     '_static/bootstrap/dist/css/bootstrap.min.css',
     '_static/font-awesome/css/font-awesome.min.css',
     '_static/github-markdown-css/github-markdown.css',
-    '_static/limitless.css',
-    '_static/styles.css'
+    '_static/styles.css',
+    '_static/kissLogDocs.css'
   ]
 %}
  
@@ -53,23 +53,23 @@
     <div class="container">
         <div class="row">
             {%- block sidebar1 %}
-            <div class="col-md-3">
+            <div class="col-md-4">
             <div id="sidebar" class="bs-sidenav" role="complementary">
                 <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Contents</h4>
-                </div>
-                <div class="card-body">
-                    {%- for sidebartemplate in sidebars %}
-                    {%- include sidebartemplate %}
-                    {%- endfor %}
-                </div>
+                    <div class="card-header">
+                        <h4 class="card-title">Contents</h4>
+                    </div>
+                    <div class="card-body">
+                        {%- for sidebartemplate in sidebars %}
+                        {%- include sidebartemplate %}
+                        {%- endfor %}
+                    </div>
                 </div>
             </div>
             </div>
             {% endblock %}
-            <div class="col-md-9">
-                <div class="markdown-body">
+            <div class="col-md-8">
+                <div class="markdown-body" id="page-content">
                     {% block body %}{% endblock %}
                 </div>
             </div>
