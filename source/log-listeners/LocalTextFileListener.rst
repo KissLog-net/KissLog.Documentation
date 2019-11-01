@@ -79,10 +79,9 @@ In the example below, even if we are missing the call to ``Logger.NotifyListener
 
    FlushTrigger.OnMessage output
 
-Using **FlushTrigger.OnMessage** is useful for long-running tasks and for saving logs in non-context scenarios.
+Using **FlushTrigger.OnMessage** is useful for long-running tasks, or when **try-catch-finally** is not practicable.
 
 .. code-block:: c#
-    :caption: Non-contextual logging
     :linenos:
     :emphasize-lines: 5,10,12,17
 

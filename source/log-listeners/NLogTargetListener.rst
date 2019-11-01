@@ -1,166 +1,132 @@
 NLogTargetListener
 ====================
 
-KissLog saves the logs by using **ILogListener** listeners.
+NLogTargetListener is forwarding the logs to NLog logger, implicitly to the NLog targets defined in **NLog.config**.
 
-Listeners are registered at application startup using the ``KissLogConfiguration.Listeners`` container.
+This listener is useful when you want to use KissLog, but also save the logs to NLog.
 
-.. code-block:: c#
-    :caption: Registering log listeners 
-
-    protected void Application_Start()
-    {
-        KissLogConfiguration.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
-            ConfigurationManager.AppSettings["KissLog.OrganizationId"],
-            ConfigurationManager.AppSettings["KissLog.ApplicationId"])
-        ));
-
-        KissLogConfiguration.Listeners.Add(new NLogTargetListener());
-    }
-
-
-Listeners events
+Usage
 ---------------------
 
-KissLog listeners are triggered automatically on three separate events:
-
-- **OnBeginRequest()** - executed at the beginning of the http request
-
-- **OnMessage()** - executed each time a log message is created
-
-- **OnFlush()** - executed at the end of the http request
-
 .. code-block:: c#
-    :caption: ILogListener events
-    :emphasize-lines: 5-7
+    :linenos:
+    :emphasize-lines: 1,5
 
-    namespace KissLog
+    using KissLog;
+
+    static void Main(string[] args)
     {
-        public interface ILogListener
+        KissLogConfiguration.Listeners.Add(new NLogTargetListener());
+
+        ILogger logger = new Logger();
+
+        logger.Info("This log will be saved to NLog");
+    }
+
+.. figure:: images/nlogListener-example.png
+   :alt: NLogTargetListener example
+   :align: center
+
+   NLogTargetListener example
+
+NLog + KissLog example
+---------------------------
+
+In the example below, we have NLog.config which saves the NLog logs to **File** target.
+
+All the logs created in **Program.cs** will be saved to both NLog targets and KissLog.net.
+
+.. code-block:: xml
+    :caption: NLog.config file
+
+    <?xml version="1.0" encoding="utf-8" ?>
+    <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+        <targets>
+            <target xsi:type="File" name="f"
+                fileName="${basedir}/logs/nlog-${shortdate}.log"
+                layout="${longdate} ${uppercase:${level}} ${message}" />
+        </targets>
+        
+        <rules>
+            <logger name="*" minlevel="Trace" writeTo="f" />
+        </rules>
+    </nlog>
+ 
+.. code-block:: c#
+    :linenos:
+
+    using KissLog;
+
+    class Program
+    {
+        static void Main(string[] args)
         {
-            void OnBeginRequest(HttpRequest httpRequest, ILogger logger);
-            void OnMessage(LogMessage message, ILogger logger);
-            void OnFlush(FlushLogArgs args, ILogger logger);
+            ConfigureKissLog();
+
+            ILogger logger = new Logger(url: "Testing NLogTargetListener");
+
+            logger.Debug("This log is created using KissLog.ILogger");
+
+            logger.Info("But it will be saved to NLog targets");
+
+            // trigger KissLogApiListener.OnFlush()
+            Logger.NotifyListeners(logger);
+        }
+
+        static void ConfigureKissLog()
+        {
+            KissLogConfiguration.Listeners.Add(new NLogTargetListener());
+
+            KissLogConfiguration.Listeners.Add(new KissLogApiListener(
+                new KissLog.Apis.v1.Auth.Application("0337cd29-a56e-42c1-a48a-e900f3116aa8", "c49f1fa1-00b8-4a43-8bc6-b327c08fb229")
+            )
+            {
+                UseAsync = false
+            });
         }
     }
 
+.. figure:: images/nlogListener-logs.png
+   :alt: NLog file
+   :align: center
 
-.. code-block:: none
-    :caption: ILogListener events occurrence 
+   NLog file
 
-    BEGIN [GET /api/getUsers]        <---- OnBeginRequest()
-    
+.. figure:: images/nlogListener-KissLog.png
+   :alt: KissLog.net logs
+   :align: center
 
-    ILogger logger = Logger.Factory.Get();
+   KissLog.net logs
 
-    logger.Debug("step 1");          <---- OnMessage()
+Trigger events
+---------------------
 
-    ...
-    logger.Info("step n");           <---- OnMessage()
-
-
-    
-    END [200 OK GET /api/getUsers]   <---- OnFlush()
-
-
-Creating custom listeners
-----------------------------
-
-Custom listeners can be created by implementing the ILogListener interface.
-
-When creating a log listener, you can use any of the three events to write the persistence logic.
-
-Do you want the logs to be saved as soon as they are created?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Implement the logic in the ``OnMessage()`` event.
-
-**TextFileListener** example is saving the logs as soon as they are created, by using the ``OnMessage()`` event.
+NLogTargetListener is forwarding the logs to NLog as soon as they are created, using the ``OnMessage()`` event.
 
 .. code-block:: c#
+    :caption: Simplified implementation of the NLogTargetListener
     :linenos:
-    :emphasize-lines: 11,16,21
+    :emphasize-lines: 17-18
 
-    public class TextFileListener : ILogListener
+    public class NLogTargetListener : ILogListener
     {
-        private readonly string _filePath;
-        public TextFileListener()
-        {
-            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs.txt");
-        }
-
-        public void OnMessage(LogMessage message, ILogger logger)
-        {
-            File.AppendAllText(_filePath, message.Message);
-        }
-
-        public void OnBeginRequest(KissLog.Web.HttpRequest httpRequest, ILogger logger)
-        {
-            // do nothing
-        }
-
-        public void OnFlush(FlushLogArgs args, ILogger logger)
-        {
-            // do nothing
-        }
-    }
-
-Do you want the logs to be saved at the end of the request?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Implement the logic in the ``OnFlush()`` event.
-
-**SqlListener** example is saving the logs at the end of the request, by using ``OnFlush()`` event. This is useful to reduce the database overhead.
-
-.. code-block:: c#
-    :linenos:
-    :emphasize-lines: 11,16,41
-
-    public class SqlListener : ILogListener
-    {
-        private readonly ApplicationDbContext _dbContext;
-        public SqlListener()
-        {
-            _dbContext = new ApplicationDbContext();
-        }
-
         public void OnBeginRequest(HttpRequest httpRequest, ILogger logger)
         {
             // do nothing
         }
 
-        public void OnMessage(LogMessage message, ILogger logger)
+        public void OnFlush(FlushLogArgs args, ILogger logger)
         {
             // do nothing
         }
 
-        public void OnFlush(FlushLogArgs args, ILogger logger)
+        public void OnMessage(LogMessage message, ILogger logger)
         {
-            // create "Request" entity
-            Request request = new Request
-            {
-                DateTime = args.WebProperties.Request.StartDateTime,
-                Url = args.WebProperties.Request.Url.AbsoluteUri,
-                ResponseSatusCode = args.WebProperties.Response.HttpStatusCode
-            };
-
-            // create "LogMessage" entities
-            IList<LogMessage> logs = args.MessagesGroups.SelectMany(p => p.Messages).Select(p => new LogMessage
-            {
-                Request_Id = request.Id,
-                LogLevel = p.LogLevel,
-                Message = p.Message,
-                DateTime = p.DateTime
-            }).ToList();
-
-            _dbContext.Requests.Add(request);
-            _dbContext.LogMessages.AddRange(logs);
-
-            _dbContext.SaveChanges();
+            NLog.Logger logger = NLog.LogManager.GetLogger(message.CategoryName);
+            NLog.LogLevel logLevel = GetLogLevel(message.LogLevel);
+            
+            logger.Log(logLevel, message.Message);
         }
     }
-
-**KissLogApiListener**, the listener which saves the logs to KissLog.net, is using the ``OnFlush()`` method.
-
-.. toctree::
-   :maxdepth: 1
