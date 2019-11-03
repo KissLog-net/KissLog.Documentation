@@ -62,6 +62,9 @@ html_theme_path = ['_themes']
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_title = "KissLog.net documentation"
+
+
 # -- Edit on GitHub -------------------------------------------------
 html_context = {
     'display_github': True,

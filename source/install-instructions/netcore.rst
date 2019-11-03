@@ -12,20 +12,15 @@ These steps describe how to install and configure KissLog for a .NET Core applic
 
 2. Update **appSettings.json**
 
-Replace **OrganizationID** and **ApplicationID** with Api Key values from the application configuration page.
+Replace **OrganizationID** and **ApplicationID** with Api Key values from the KissLog.net application configuration page.
 
 .. code-block:: javascript
+    :caption: appsettings.json
 
     {
         "KissLog.OrganizationId": "OrganizationID",
         "KissLog.ApplicationId": "ApplicationID"
     }
-
-.. figure:: images/aspNetCore-apiKey.png
-   :alt: Api Key
-   :align: center
-
-   KissLog.net application configuration
 
 3. Update **Startup.cs**
 
@@ -123,10 +118,10 @@ Testing
 To test the KissLog configuration, trigger a request on /Home/Index. The request should be visible on KissLog.net.
 
 .. figure:: images/aspNetCore-request-details.png
-   :alt: Request log details
+   :alt: Request details
    :align: center
 
-   Request log details
+   Request details
 
 .. figure:: images/aspNetCore-request-logs.png
    :alt: Request logs

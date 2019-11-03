@@ -12,9 +12,10 @@ These steps describe how to install and configure KissLog for an Asp.Net WebApi 
 
 2. Update **web.config**
 
-Replace **OrganizationID** and **ApplicationID** with Api Key values from the application configuration page.
+Replace **OrganizationID** and **ApplicationID** with Api Key values from the KissLog.net application configuration page.
 
 .. code-block:: xml
+    :caption: web.config
     :linenos:
 
     <configuration>
@@ -23,12 +24,6 @@ Replace **OrganizationID** and **ApplicationID** with Api Key values from the ap
             <add key="KissLog.ApplicationId" value="ApplicationID" />
         </appSettings>
     </configuration>
-
-.. figure:: images/aspNet-apiKey.png
-   :alt: Api Key
-   :align: center
-
-   KissLog.net application configuration
 
 3. Update **Global.asax**
 
@@ -154,10 +149,10 @@ Testing
 To test the KissLog configuration, trigger a request on /api/values. The request should be visible on KissLog.net.
 
 .. figure:: images/aspNetWebApi-request-details.png
-   :alt: Request log details
+   :alt: Request details
    :align: center
 
-   Request log details
+   Request details
 
 .. figure:: images/aspNetWebApi-request-logs.png
    :alt: Request logs
