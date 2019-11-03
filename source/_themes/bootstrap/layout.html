@@ -68,11 +68,15 @@
             </div>
             </div>
             {% endblock %}
+
             <div class="col-md-8">
+                {% include "breadcrumbs.html" %}
+
                 <div class="markdown-body" id="page-content">
                     {% block body %}{% endblock %}
                 </div>
             </div>
+
             {% block sidebar2 %} {# possible location for sidebar #} {% endblock %}
         </div>
     </div>

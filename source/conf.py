@@ -24,6 +24,10 @@ author = 'Catalin Gavan'
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
 
+# If not None, a 'Last updated on:' timestamp is inserted at every page
+# bottom, using the given strftime format.
+# The empty string is equivalent to '%b %d, %Y'.
+# html_last_updated_fmt = "%b %d, %Y"
 
 # -- General configuration ---------------------------------------------------
 
@@ -57,3 +61,13 @@ html_theme_path = ['_themes']
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- Edit on GitHub -------------------------------------------------
+html_context = {
+    'display_github': True,
+    'github_user': 'KissLog-net',
+    'github_repo': 'KissLog.Documentation',
+    'github_version': 'master',
+    'conf_py_path': '/source/',
+    'source_suffix': '.rst'
+}

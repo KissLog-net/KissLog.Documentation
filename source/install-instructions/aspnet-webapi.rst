@@ -5,7 +5,7 @@ These steps describe how to install and configure KissLog for an Asp.Net WebApi 
 
 1. Install NuGet Package
 
-.. code-block::
+.. code-block:: none
 
     PM> Install-Package KissLog.AspNet.WebApi
 

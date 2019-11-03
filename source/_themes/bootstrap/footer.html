@@ -3,8 +3,15 @@
         <span class="navbar-text">&copy; KissLog.net 2019</span>
 
         <ul class="navbar-nav ml-lg-auto">
+            {%- if last_updated %}
+                <li class="nav-item mr-3">
+                    <span class="navbar-text" id="sphinx-updated">
+                        {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+                    </span>
+                </li>
+            {%- endif %}
             <li class="nav-item">
-                <span class="navbar-text">
+                <span class="navbar-text" id="sphinx-version">
                     {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx-doc.org/">Sphinx</a> {{ sphinx_version }}.{% endtrans %}
                 </span>
             </li>

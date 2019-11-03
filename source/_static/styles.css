@@ -1,42 +1,4 @@
-.markdown-body .highlighttable { width: 100%; border-color: transparent; }
-.markdown-body .highlighttable tr { border: 0 none; }
-.markdown-body .highlighttable td { border: 0 none; }
-
-.markdown-body .highlighttable .linenos { padding: 0 0.5em 0 1em; background-color: #f6f8fa; }
-.markdown-body .highlighttable .code { padding: 0 0 0 0.5em; width: 100%; background-color: #f6f8fa; }
-
-.markdown-body .highlighttable .code .highlight { margin: 0; }
-.markdown-body .highlighttable .code .highlight > pre { padding-left: 0; }
-
-.markdown-body .highlighttable .linenos .linenodiv { margin-top: 16px; }
-
-.markdown-body code { color: inherit; }
-
-div.literal-block-wrapper { padding: 0; margin-bottom: 1em; }
-
-div.admonition {
-  padding: 15px 20px;
-  margin: 20px 0;
-  border: 1px solid #eee;
-  border-left-width: 5px;
-  border-radius: 3px;
-  line-height: 1.4;
-}
-div.admonition p { margin-bottom: 8px; }
-div.admonition p.admonition-title {
-  font-size: 18px;
-  font-family: inherit;
-  font-weight: 500;
-  line-height: 1.1;
-  margin-top: 0;
-  margin-bottom: 25px;
-}
-
-div.admonition.note { border-left-color: #5bc0de; }
-div.admonition.note p.admonition-title { color: #5bc0de; }
-div.admonition.warning { border-left-color: #f0ad4e; }
-div.admonition.warning p.admonition-title { color: #f0ad4e; }
-
+/* Toc menu ================================= */
 .toc-menu ul { margin-bottom: 0; padding-left: 0; list-style: none; }
 .toc-menu ul a { display: block; padding: .5rem 1rem; text-decoration: none; }
 .toc-menu ul ul > li > a { padding: .5rem 1rem .5rem 2.5rem; }
@@ -45,3 +7,37 @@ div.admonition.warning p.admonition-title { color: #f0ad4e; }
 .toc-menu a:not(.current):hover { color: #333; background-color: #f5f5f5; }
 .toc-menu > ul > li > a { border-bottom: 1px solid  #eaecef; }
 .toc-menu > ul > li { margin-bottom: 16px; }
+
+/* Info boxes ================================= */
+div.admonition {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}
+div.admonition p.admonition-title { margin-top: 0; margin-bottom: .25rem; }
+div.admonition p { margin-bottom: 8px; }
+div.admonition p:last-child { margin-bottom: 0; }
+
+div.admonition.note { border-left-color: #5bc0de; }
+div.admonition.note p.admonition-title { color: #5bc0de; }
+
+div.admonition.warning { border-left-color: #f0ad4e; }
+div.admonition.warning p.admonition-title { color: #f0ad4e; }
+
+/* css fixes ================================= */
+.markdown-body .highlighttable { width: 100%; border-color: transparent; }
+.markdown-body .highlighttable tr { border: 0 none; }
+.markdown-body .highlighttable td { border: 0 none; }
+.markdown-body .highlighttable .linenos { padding: 0 0.5em 0 1em; background-color: #f6f8fa; }
+.markdown-body .highlighttable .code { padding: 0 0 0 0.5em; width: 100%; background-color: #f6f8fa; }
+.markdown-body .highlighttable .code .highlight { margin: 0; }
+.markdown-body .highlighttable .code .highlight > pre { padding-left: 0; }
+.markdown-body .highlighttable .linenos .linenodiv { margin-top: 16px; }
+.markdown-body code { color: inherit; }
+.breadcrumb .breadcrumb-item.ml-auto::before { content: none; }
+div.literal-block-wrapper { padding: 0; margin-bottom: 1em; }
+
+h1:first-child { margin-top: 0; }
