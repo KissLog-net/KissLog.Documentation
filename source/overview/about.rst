@@ -13,7 +13,7 @@ Some of the main features of KissLog are:
 
 - Centralized logging using `KissLog.net <https://kissLog.net/>`_ cloud or on-premises integration
 
-.. figure:: centralized-logging.png
+.. figure:: images/centralized-logging.png
    :alt: KissLog.net centralized logging
    :align: center
 
@@ -22,10 +22,10 @@ Some of the main features of KissLog are:
 Framework support
 -------------------------
 
-- :doc:`../install-instructions/netcore`
-- :doc:`../install-instructions/aspnet-webapi`
-- :doc:`../install-instructions/aspnet-mvc`
-- :doc:`../install-instructions/console-applications`
+- :doc:`../docs/install-instructions/netcore`
+- :doc:`../docs/install-instructions/aspnet-webapi`
+- :doc:`../docs/install-instructions/aspnet-mvc`
+- :doc:`../docs/install-instructions/console-applications`
 
 Basic usage
 -------------------------
@@ -171,7 +171,7 @@ If you use **NLog** in your application, you can register the KissLog target, wh
         }
     }
 
-.. figure:: nlog-integration.png
+.. figure:: images/nlog-integration.png
    :alt: NLog logs on KissLog.net
    :align: center
 
@@ -224,7 +224,7 @@ If you use **log4Net** in your application, you can register the KissLog appende
         }
     }
 
-.. figure:: log4net-integration.png
+.. figure:: images/log4net-integration.png
    :alt: log4net logs on KissLog.net
    :align: center
 
@@ -259,10 +259,6 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
-   self   
-   getting-started/index
-   install-instructions/index
-   dependency-injection
-   logs-output/index
-   log-listeners/index
-   change-log/index
+   self
+   on-premises
+   ../docs/index

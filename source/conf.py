@@ -64,6 +64,7 @@ html_static_path = ['_static']
 
 html_title = "KissLog.net documentation"
 
+master_doc = "overview/about"
 
 # -- Edit on GitHub -------------------------------------------------
 html_context = {

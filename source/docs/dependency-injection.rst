@@ -10,7 +10,7 @@ When ask for ILogger, resolve it at runtime with ``Logger.Factory.Get()`` factor
 
     For non-web applications, do not inject the ILogger with IoC container.
 
-    Instead, the ILogger should be created and flushed manually. Check the :doc:`../getting-started/console-apps` example.
+    Instead, the ILogger should be created and flushed manually. Check the :doc:`../docs/getting-started/console-apps` example.
 
 .NET Core
 -----------------------

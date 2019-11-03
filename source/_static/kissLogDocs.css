@@ -6,3 +6,8 @@
 .card-header .card-title { margin-bottom: 0; }
 
 .breadcrumb { font-size: 14px; }
+
+.toc-menu > ul > li { margin-bottom: 32px; }
+.toc-menu > ul > li > a { font-weight: 500; }
+.toc-menu > ul > li > ul > li { margin-bottom: 16px; }
+

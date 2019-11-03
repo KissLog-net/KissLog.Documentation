@@ -2,6 +2,8 @@
 .toc-menu ul { margin-bottom: 0; padding-left: 0; list-style: none; }
 .toc-menu ul a { display: block; padding: .5rem 1rem; text-decoration: none; }
 .toc-menu ul ul > li > a { padding: .5rem 1rem .5rem 2.5rem; }
+.toc-menu ul ul > li > ul > li > a { padding: .5rem 1rem .5rem 4rem; }
+
 .toc-menu ul > ul > li > a { border-bottom: 1px solid #eaecef; }
 .toc-menu a.current { background-color: #dbeefd; color: #114e7e; font-weight: 500; }
 .toc-menu a:not(.current):hover { color: #333; background-color: #f5f5f5; }
