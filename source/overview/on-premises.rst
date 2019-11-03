@@ -1,7 +1,16 @@
 KissLog on-premises
 ======================
 
-*in progress...*
+KissLog can be installed on-premises.
+
+Using KissLog on-premises, all the data will be stored and accessible only from within your in-house servers.
+
+If you would like to try KissLog.net on-premises for free, please send an email to catalingavan@gmail.com.
+
+Configuration guide
+------------------------
+
+`Download configuration guide.pdf <https://kisslog.net/Overview/DownloadConfigurationGuide>`_
 
 Arhitecture
 ------------------------
@@ -25,6 +34,7 @@ can be used to save and to query the logs.
    :align: center
 
    KissLog arhitecture
+
 
 .. figure:: images/kissLog-network.png
    :alt: KissLog network

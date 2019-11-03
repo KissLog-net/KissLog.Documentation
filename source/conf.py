@@ -66,6 +66,8 @@ html_title = "KissLog.net documentation"
 
 master_doc = "overview/about"
 
+html_favicon = 'favicon.ico'
+
 # -- Edit on GitHub -------------------------------------------------
 html_context = {
     'display_github': True,

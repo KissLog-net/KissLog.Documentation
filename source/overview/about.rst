@@ -261,5 +261,5 @@ Table of Contents
 
    self
    on-premises
-   ../licensing/index
    ../docs/index
+   ../licensing/index

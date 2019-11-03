@@ -7,7 +7,7 @@ We truly appreciate the passion and efforts of developers who are trying to make
 
 In order to use KissLog.net on-premises, licensee must fully agree and comply with these license terms.
 
-We are trying to keep this list up-to-date. If we unintentionally missed to list a component, please send us an email to <a href="mailto:catalingavan@gmail.com">catalingavan@gmail.com</a>.
+We are trying to keep this list up-to-date. If we unintentionally missed to list a component, please send an email to catalingavan@gmail.com.
 
 Back-end components
 -----------------------------------
