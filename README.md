@@ -1,3 +1,3 @@
 # KissLog.Documentation
 
-This repository contains the source documentation for https://docs.kisslog.net/
+This repository contains [Sphinx-based](http://sphinx-doc.org) documentation for [KissLog](https://kisslog.net). https://docs.kisslog.net
