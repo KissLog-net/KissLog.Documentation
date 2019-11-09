@@ -1,13 +1,18 @@
-name: "Pull Request Docs Check"
-on: 
-- pull_request
+name: "sphinx"
+on: [pull_request]
 
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: ammaraskar/sphinx-action@master
+    - name: Install Python
+      uses: actions/setup-python@v1
       with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        args: "-b html source/ build/"
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Build Sphinx docs
+      run: |
+        make html
