@@ -6,7 +6,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: ammaraskar/sphinx-action@master
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
       with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        args: "source/"
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        sudo apt install pandoc
+        python -m pip install --upgrade pip
+        pip install -U sphinx
+    - name: Build sphinx documentation
+      run: |
+        make html
