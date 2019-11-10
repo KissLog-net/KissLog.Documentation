@@ -3,10 +3,22 @@ Can't see any logs on KissLog.net
 
 If you can't see any logs on KissLog.net, please follow these troubleshooting steps:
 
-Step 1: Double check the :doc:`../install-instructions/index`
---------------------------------------------------------------------
+Step 1: Double check the :doc:`install instructions <../install-instructions/index>`
+--------------------------------------------------------------------------------------
 
 Make sure that the install instructions have been applied correctly.
+
+Also, make sure that you register the :doc:`../log-listeners/KissLogApiListener` listener. This listener is saving the logs to KissLog.net.
+
+.. code-block:: c#
+    :emphasize-lines: 3-5
+
+    protected void Application_Start()
+    {
+        KissLogConfiguration.Listeners.Add(new KissLogApiListener(
+            new KissLog.Apis.v1.Auth.Application("KissLog.OrganizationId", "KissLog.ApplicationId")
+        ));
+    }
 
 Step 2: Check the application keys
 --------------------------------------------------------------------
@@ -19,12 +31,12 @@ You can find them under the KissLog.net application configuration page.
    :alt: Application configuration Api Key
    :align: center
 
-Make sure that you register the ``KissLogApiListener`` with the corresponding keys:
+Registering the ``KissLogApiListener`` listener:
 
 .. code-block:: c#
     :emphasize-lines: 7-9
 
-    private void ConfigureKissLog()
+    private void Application_Start()
     {
         string organizationId = "49c5da92-e827-47dd-8135-824cf6a6e75e";
         string applicationId = "b1502e5f-1c4e-4dd9-83c6-668aef49ba7a";
@@ -45,7 +57,7 @@ If, for some reason, the request was unsuccessful, the details will be available
 .. code-block:: c#
     :emphasize-lines: 5
 
-    private void ConfigureKissLog()
+    private void Application_Start()
     {
         KissLogConfiguration.InternalLog = (string logMessage, LogLevel level) =>
         {
@@ -84,10 +96,12 @@ You notify the kisslog listeners using ``Logger.NotifyListeners(logger)``.
 
 .. code-block:: c#
     :linenos:
-    :emphasize-lines: 12
+    :emphasize-lines: 14
 
     static void Main(string[] args)
     {
+        ConfigureKissLog();
+
         ILogger logger = new Logger(url: "Main");
 
         try
@@ -105,18 +119,53 @@ When you register the ``KissLogApiListener``, specify the **UseAsync** property 
 
 .. code-block:: c#
     :linenos:
-    :emphasize-lines: 10
+    :emphasize-lines: 21
 
-    private void ConfigureKissLog()
+    namespace ConsoleApp_sample
     {
-        string organizationId = "49c5da92-e827-47dd-8135-824cf6a6e75e";
-        string applicationId = "b1502e5f-1c4e-4dd9-83c6-668aef49ba7a";
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                ConfigureKissLog();
 
+                // code removed for simplicity
+            }
+
+            static void ConfigureKissLog()
+            {
+                string organizationId = "49c5da92-e827-47dd-8135-824cf6a6e75e";
+                string applicationId = "b1502e5f-1c4e-4dd9-83c6-668aef49ba7a";
+
+                KissLogConfiguration.Listeners.Add(new KissLogApiListener(
+                    new KissLog.Apis.v1.Auth.Application(organizationId, applicationId)
+                )
+                {
+                    UseAsync = false
+                });
+            }
+        }
+    }
+
+KissLog.net on-premises
+--------------------------------------------------------------------
+
+If you are using KissLog.net on-premises, make sure that you provide the URL to your KissLog.Backend instance.
+
+.. code-block:: c#
+    :emphasize-lines: 7
+
+    protected void Application_Start()
+    {
         KissLogConfiguration.Listeners.Add(new KissLogApiListener(
-            new KissLog.Apis.v1.Auth.Application(organizationId, applicationId)
+            new KissLog.Apis.v1.Auth.Application("KissLog.OrganizationId", "KissLog.ApplicationId")
         )
         {
-            UseAsync = false
+            ApiUrl = "http://api.my-kisslog.net"
         });
     }
 
+Didn't help?
+--------------------------------------------------------------------
+
+Open a ticket on `GitHub issues <https://github.com/KissLog-net/KissLog.Sdk/issues>`_.

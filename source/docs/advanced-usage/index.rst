@@ -1,7 +1,7 @@
-Troubleshooting
+Advanced usage
 =====================
 
 .. toctree::
     :maxdepth: 1
 
-    KissLogApiListener-no-logs
+    filter-requests
