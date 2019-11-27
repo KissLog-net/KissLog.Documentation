@@ -15,7 +15,8 @@ To filter the requests based on any custom conditions, extend the ``LogListenerP
 
 .. code-block:: c#
     :linenos:
-        
+    :emphasize-lines: 15
+
     namespace MyApplication
     {
         public class CustomListenerParser : LogListenerParser

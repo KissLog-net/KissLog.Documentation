@@ -1,6 +1,12 @@
 Getting started
 ================
 
+.. rubric:: Contents
+
+* `Create instance`_
+* `Register the listeners`_
+* `Configuration`_
+
 ILogger represents the principal component used to write log messages.
 
 .. code-block:: c#
@@ -24,6 +30,7 @@ ILogger represents the principal component used to write log messages.
    :align: center
 
    Viewing log messages
+
 
 Create instance
 -------------------------
@@ -81,38 +88,6 @@ Calling the ``Logger.Factory.Get()`` method multiple times will return the same 
         Assert.IsTrue(actual == expected, "Logger.Factory.Get() should return the same instance");
     }
 
-Windows / Console applications
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-For non-web applications, create and flush the logger manually.
-
-.. code-block:: c#
-    :linenos:
-    :emphasize-lines: 3,13,19
-
-    static void Main(string[] args)
-    {
-        ILogger logger = new Logger(url: "Main");
-
-        try
-        {
-            logger.Info("Executing main");
-
-            // execute Main
-        }
-        catch(Exception ex)
-        {
-            logger.Error(ex);
-            throw;
-        }
-        finally
-        {
-            // notify the listeners
-            Logger.NotifyListeners(logger);
-        }
-    }
-
-We use **try-catch-finally** to make sure that we capture any unhandled exceptions (line 13), and we notify the listeners (line 19).
 
 Register the listeners
 -------------------------
@@ -175,13 +150,27 @@ Configuration
 
 Additional configuration options are available using the ``KissLogConfiguration.Options`` options.
 
-In the example below, we use the ``AppendExceptionDetails(Exception ex)`` handler to log EntityFramework validation exceptions.
-
 .. code-block:: c#
 
     protected void Application_Start()
     {
         KissLogConfiguration.Options
+            .ShouldLogResponseHeader((listener, args, headerName) =>
+            {
+                if (string.Compare(headerName, "X-Auth-Token", true) == 0)
+                    return false;
+
+                return true;
+            })
+            .ShouldLogResponseBody((listener, args, defaultValue) =>
+            {
+                int statusCode = (int)args.WebProperties.Response.HttpStatusCode;
+
+                if (statusCode >= 500)
+                    return true;
+
+                return defaultValue;
+            })
             .AppendExceptionDetails((Exception ex) =>
             {
                 // log EntityFramework validation errors
