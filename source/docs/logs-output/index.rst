@@ -1,6 +1,15 @@
 Logs output
 ====================
 
+.. rubric:: Contents
+
+* `Register listeners`_
+* `Listeners events`_
+* `Creating custom listeners`_
+
+Register listeners
+---------------------
+
 KissLog saves the logs by using **ILogListener** listeners.
 
 Listeners are registered at application startup using the ``KissLogConfiguration.Listeners`` container.
@@ -17,7 +26,6 @@ Listeners are registered at application startup using the ``KissLogConfiguration
 
         KissLogConfiguration.Listeners.Add(new NLogTargetListener());
     }
-
 
 Listeners events
 ---------------------

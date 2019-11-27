@@ -20,6 +20,6 @@ Table of Contents
    dependency-injection
    logs-output/index
    log-listeners/index
-   advanced-usage/index
+   examples/index
    troubleshooting/index
    change-log/index

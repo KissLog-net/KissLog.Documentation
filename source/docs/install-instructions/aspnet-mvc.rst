@@ -4,7 +4,6 @@ AspNet MVC
 These steps describe how to install and configure KissLog for an Asp.Net MVC application.
 
 1. Install NuGet Package
-------------------------------------------------
 
 .. code-block:: none
 

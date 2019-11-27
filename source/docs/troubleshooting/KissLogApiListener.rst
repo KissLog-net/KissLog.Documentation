@@ -1,4 +1,4 @@
-Can't see any logs on KissLog.net
+Can't see any logs
 ===================================
 
 If you can't see any logs on KissLog.net, please follow these troubleshooting steps:
@@ -59,9 +59,9 @@ If, for some reason, the request was unsuccessful, the details will be available
 
     private void Application_Start()
     {
-        KissLogConfiguration.InternalLog = (string logMessage, LogLevel level) =>
+        KissLogConfiguration.InternalLog = (string logMessage) =>
         {
-            Console.WriteLine(logMessage);
+            Debug.WriteLine(logMessage);
         };
     }
 

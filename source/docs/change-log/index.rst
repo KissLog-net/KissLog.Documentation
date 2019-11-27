@@ -1,6 +1,41 @@
 Change log
 =======================================================
 
+KissLog 3.5.2
+--------------------------
+
+KissLog.AspNetCore 2.5.3 | KissLog.AspNet.Mvc 3.5.4 | KissLog.AspNet.WebApi 3.5.4
+
+Release date: 22-11-2019
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Improved fire-and-forget logging for ``KissLogApiListener``.
+
+.. code-block:: c#
+    :emphasize-lines: 11
+
+    namespace KissLog.Apis.v1.Listeners
+    {
+        public class KissLogApiListener : ILogListener
+        {
+            public void OnFlush(FlushLogArgs args, ILogger logger)
+            {
+                IFlusher flusher = CreateFlusher(flushProperties);
+
+                if (UseAsync == true)
+                {
+                    flusher.FlushAsync(request, copy).ConfigureAwait(false);
+                }
+                else
+                {
+                    flusher.Flush(request, copy);
+                }
+            }
+        }
+    }
+
 KissLog 3.5.1
 --------------------------
 
