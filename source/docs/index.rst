@@ -17,6 +17,7 @@ Table of Contents
 
    getting-started/index
    install-instructions/index
+   configuration/index
    dependency-injection
    logs-output/index
    log-listeners/index
