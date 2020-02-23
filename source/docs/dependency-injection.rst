@@ -5,12 +5,12 @@ Integrating KissLog with a dependency injection framework is a simple process.
 
 When ask for ILogger, resolve it at runtime with ``Logger.Factory.Get()`` factory method.
 
-.. admonition:: Non-web applications
+.. admonition:: Console applications
     :class: note
 
     For non-web applications, do not inject the ILogger with IoC container.
 
-    Instead, the ILogger should be created and flushed manually. Check the :doc:`getting-started/console-apps` example.
+    Instead, the ILogger should be created and flushed manually. Check the :doc:`basic-usage/console-applications` example.
 
 .NET Core
 -----------------------

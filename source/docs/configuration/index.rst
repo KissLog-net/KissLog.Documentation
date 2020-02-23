@@ -4,6 +4,34 @@ Configuration
 .. contents::
    :local:
 
+KissLog exposes several configuration options which allows developers to customize the logging behavior.
+
+KissLog configuration can be extended by using the ``KissLogConfiguration.Options`` container.
+
+.. code-block:: c#
+
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        protected void Application_Start()
+        {
+            KissLogConfiguration.Options
+                .ShouldLogResponseHeader((listener, args, headerName) =>
+                {
+                    if (string.Compare(headerName, "X-Auth-Token", true) == 0)
+                        return false;
+
+                    return true;
+                })
+                .ShouldLogRequestFormData((ILogListener listener, FlushLogArgs args, string name) =>
+                {
+                    if (name == "PinNumber")
+                        return false;
+
+                    return true;
+                });
+        }
+    }
+
 AppendExceptionDetails
 -------------------------------------------------------
 

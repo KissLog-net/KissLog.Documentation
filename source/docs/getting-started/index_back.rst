@@ -5,26 +5,46 @@ Getting started
    :local:
    :depth: 1
 
+ILogger represents the principal component used to write log messages.
+
+.. code-block:: c#
+    :emphasize-lines: 3,8
+
+    public T Get<T>(string key)
+    {
+        ILogger logger = Logger.Factory.Get();
+
+        var item = _cache.Get<T>(key);
+        if(item == null)
+        {
+            logger.Warn(string.Format("Cache entry for {0} was not found", key));
+        }
+
+        return item;
+    }
+
+.. figure:: images/basic-usage.png
+   :alt: Viewing log messages
+   :align: center
+
+   Viewing log messages
+
+
 Create instance
 -------------------------
 
-``ILogger`` has a scoped lifetime. 
+ILogger has a scoped lifetime. 
 
 It should be created at the beginning of a method, and flushed at the end of the methods execution.
 
 Web applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: c#
+For web applications, the ILogger is created and flushed automatically per each http request (connection).
 
-    ILogger logger = Logger.Factory.Get();
-
-For web applications, an instance if ``ILogger`` is created and shared automatically per each http request (connection).
-
-To retrieve the current ``ILogger`` instance, use the ``Logger.Factory.Get()`` factory method. 
+To acquire the ILogger instance, use the ``Logger.Factory.Get()`` factory method.
 
 .. code-block:: c#
-    :caption: Example: 
     :emphasize-lines: 6
 
     public class HomeController : Controller
@@ -43,11 +63,12 @@ To retrieve the current ``ILogger`` instance, use the ``Logger.Factory.Get()`` f
         }
     }
 
-Calling the ``Logger.Factory.Get()`` method multiple times will return the same instance of ``ILogger``.
+Calling the ``Logger.Factory.Get()`` method multiple times will return the same instance of ILogger.
 
 .. code-block:: c#
 
-    public IActionResult Index()
+    [TestMethod]
+    public void Factory_Returns_The_Same_Instance()
     {
         for(int i = 1; i <= 5; i++)
         {
@@ -55,48 +76,14 @@ Calling the ``Logger.Factory.Get()`` method multiple times will return the same 
             logger.Info("Hello " + i);
         }
 
-        // get the number of log messages captured for the current http request
-        // 5
-        int numberOfLogs = (Logger(Logger.Factory.Get())).DataContainer.LogMessages.Count();
+        ILogger myLogger = Logger.Factory.Get();
 
-        return View();
-    }
+        int numberOfLogs = (Logger(myLogger)).DataContainer.LogMessages.Count();
 
-Console applications
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        int expected = 5;
+        int actual = numberOfLogs;
 
-.. code-block:: c#
-
-    ILogger logger = new Logger(url: "Main");
-
-For console applications, the ``ILogger`` needs to be created and flushed manually.
-
-This can be achieved by using a **try-catch-finally** block, which simulates the BEGIN and the END of a method.
-
-.. code-block:: c#
-    :linenos:
-    :emphasize-lines: 3,13,19
-
-    static void Main(string[] args)
-    {
-        ILogger logger = new Logger(url: "Main");
-
-        try
-        {
-            logger.Info("Executing main");
-
-            // execute Main
-        }
-        catch(Exception ex)
-        {
-            logger.Error(ex);
-            throw;
-        }
-        finally
-        {
-            // notify the listeners
-            Logger.NotifyListeners(logger);
-        }
+        Assert.IsTrue(actual == expected, "Logger.Factory.Get() should return the same instance");
     }
 
 
