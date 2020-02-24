@@ -8,6 +8,7 @@ Basic usage
     console-applications
 
 .. code-block:: c#
+    :caption: Using ILogger
     :emphasize-lines: 1,18
 
     using KissLog;
@@ -37,3 +38,5 @@ Basic usage
 .. figure:: images/basic-usage.png
    :alt: Viewing log messages
    :align: center
+
+   Logs output

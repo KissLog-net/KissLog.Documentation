@@ -1,7 +1,17 @@
-LocalTextFileListener
+Text file listener
 ==========================
 
-The LocalTextFileListener saves the logs on local text files.
+The `LocalTextFileListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog/Listeners/LocalTextFileListener.cs>`_ saves the logs on local text files.
+
+.. figure:: images/localTextFileListener-output.png
+   :alt: LocalTextFileListener output
+   :align: center
+
+   LocalTextFileListener output
+
+.. contents::
+   :local:
+   :depth: 1
 
 Usage
 ---------------------
@@ -10,37 +20,75 @@ Usage
 
     protected void Application_Start()
     {
-        KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
+        ILogListener textListener = new LocalTextFileListener(@"C:\\my-application\\logs")
         {
-            FlushTrigger = FlushTrigger.OnFlush // OnFlush | OnMessage
-        });
+            FlushTrigger = FlushTrigger.OnMessage
+        };
+
+        KissLogConfiguration.Listeners.Add(textListener);
     }
-
-.. figure:: images/localTextFileListener-output.png
-   :alt: LocalTextFileListener output
-   :align: center
-
-   LocalTextFileListener output
 
 Trigger events
 ---------------------
 
-FlushTrigger.OnMessage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **FlushTrigger.OnMessage**
 
 The listener will save the logs as soon as they are created, using ``OnMessage()`` event.
 
-FlushTrigger.OnFlush
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: c#
+    :linenos:
+    :emphasize-lines: 7,9,11
 
-The listener will save the logs at the end of the http request, using the ``OnFlush()`` event.
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ConfigureKissLog();
+
+            ILogger logger = new Logger(url: "Main");   <---- LocalTextFileListener is executed
+
+            logger.Info("Preparing to execute Main");   <---- LocalTextFileListener is executed
+
+            logger.Warn("Entering infinite loop");      <---- LocalTextFileListener is executed
+
+            while (true) { }
+
+            Logger.NotifyListeners(logger);
+        }
+    }
+
+* **FlushTrigger.OnFlush**
+
+The listener will save the logs when ``Logger.NotifyListeners()`` method is triggered, using ``OnFlush()`` event.
+
+For web applications this happens automatically at the end of the HTTP request.
+
+.. code-block:: c#
+    :linenos:
+    :emphasize-lines: 13
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ConfigureKissLog();
+
+            ILogger logger = new Logger(url: "Main");   
+
+            logger.Info("Preparing to execute Main");
+
+            logger.Warn("Entering infinite loop");
+
+            Logger.NotifyListeners(logger);             <---- LocalTextFileListener is executed
+        }
+    }
 
 Console applications
 ---------------------
 
-For Console applications, it is best to use the **FlushTrigger.OnMessage**, so that the logs are saved as soon as they are created.
+For Console applications it is recommended to use the **FlushTrigger.OnMessage**.
 
-In the example below, even if we are missing the call to ``Logger.NotifyListeners()``, the logs are still saved on the local file.
+This will ensure that the logs will be saved regardless of the method execution time.
 
 .. code-block:: c#
     :linenos:
@@ -66,7 +114,7 @@ In the example below, even if we are missing the call to ``Logger.NotifyListener
 
         static void ConfigureKissLog()
         {
-            KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
+            KissLogConfiguration.Listeners.Add(new LocalTextFileListener(@"C:\\my-application\\logs")
             {
                 FlushTrigger = FlushTrigger.OnMessage
             });
@@ -78,38 +126,4 @@ In the example below, even if we are missing the call to ``Logger.NotifyListener
    :align: center
 
    FlushTrigger.OnMessage output
-
-Using **FlushTrigger.OnMessage** is useful for long-running tasks, or when **try-catch-finally** is not practicable.
-
-.. code-block:: c#
-    :linenos:
-    :emphasize-lines: 5,10,12,17
-
-    public class MvcApplication : System.Web.HttpApplication
-    {
-        protected void Application_Start()
-        {
-            ConfigureKissLog();
-            
-            AreaRegistration.RegisterAllAreas();
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            
-            ILogger logger = new Logger();
-
-            logger.Info("Creating database...");
-
-            var dbContext = new ApplicationDbContext();
-            bool created = dbContext.Database.EnsureCreated();
-
-            logger.Info("Database created: " + created);
-        }
-
-        private void ConfigureKissLog()
-        {
-            KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
-            {
-                FlushTrigger = FlushTrigger.OnMessage
-            });
-        }
-    }
 

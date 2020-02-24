@@ -1,7 +1,15 @@
-KissLogApiListener
+Cloud listener
 ====================
 
-The KissLogApiListener saves the logs to kisslog.net (or KissLog on-premises).
+The `KissLogApiListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.Apis.v1/Listeners/KissLogApiListener.cs>`_ saves the logs to kisslog.net (or KissLog on-premises).
+
+
+
+.. figure:: images/kisslogApiListener-output.png
+   :alt: KissLogApiListener output
+   :align: center
+
+   KissLogApiListener output
 
 .. contents::
    :local:
@@ -24,11 +32,6 @@ Usage
 
 Replace ``"OrganizationId"`` and ``"ApplicationId"`` with values from the KissLog.net application configuration page.
 
-.. figure:: images/kisslogApiListener-output.png
-   :alt: KissLogApiListener output
-   :align: center
-
-   KissLogApiListener output
 
 Trigger events
 ---------------------
@@ -38,7 +41,7 @@ KissLogApiListener is saving the logs at the end of the HTTP request by using th
 .. code-block:: none
     :emphasize-lines: 9
 
-    BEGIN [GET /Products/Details]           <---- OnBeginRequest()
+    GET /Products/Details                   <---- OnBeginRequest()
 
 
     ILogger logger = Logger.Factory.Get();  
@@ -46,9 +49,10 @@ KissLogApiListener is saving the logs at the end of the HTTP request by using th
     logger.Debug("Debug message");          <---- OnMessage()  
 
 
-    END [200 OK GET /Products/Details]      <---- KissLogApiListener is executed
+    HTTP 200 OK                             <---- KissLogApiListener is executed
 
 .. code-block:: c#
+    :caption: Simplified implementation
     :emphasize-lines: 16
 
     public class KissLogApiListener : ILogListener
@@ -73,19 +77,25 @@ KissLogApiListener is saving the logs at the end of the HTTP request by using th
 Console applications
 ---------------------
 
-For Console applications, you need to flush the listener manually.
+For Console applications:
+
+* the listener needs to be flushed manually (line 18)
+
+* **UseAsync** flag must be set to ``false`` (line 26)
 
 .. code-block:: c#
     :linenos:
-    :emphasize-lines: 3,17
+    :emphasize-lines: 18,26
 
     static void Main(string[] args)
     {
+        ConfigureKissLog();
+
         ILogger logger = new Logger(url: "Main");
 
         try
         {
-            
+            logger.Info("Executing main");
         }
         catch(Exception ex)
         {
@@ -94,25 +104,7 @@ For Console applications, you need to flush the listener manually.
         }
         finally
         {
-            // KissLogApiListener.OnFlush() is executed
             Logger.NotifyListeners(logger);
-        }
-    }
-
-
-When using KissLogApiListener for Console applications, specify the **UseAsync** flag to **false**.
-
-.. code-block:: c#
-    :linenos:
-    :emphasize-lines: 15
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ConfigureKissLog();
-
-            // execute Main
         }
 
         static void ConfigureKissLog()
@@ -125,4 +117,4 @@ When using KissLogApiListener for Console applications, specify the **UseAsync**
 
             KissLogConfiguration.Listeners.Add(cloudListener);
         }
-    } 
+    }

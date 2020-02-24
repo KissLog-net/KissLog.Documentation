@@ -1,5 +1,5 @@
-Create instance
-================
+Create ILogger instance
+==========================
 
 .. contents::
    :local:
@@ -16,7 +16,7 @@ Web applications
 
     ILogger logger = Logger.Factory.Get();
 
-For web applications, the ``ILogger`` is created, shared and flushed automatically per each http request (connection).
+For web applications, the ``ILogger`` is created, shared and flushed automatically for each http request (connection).
 
 To retrieve the current ``ILogger`` instance, use the ``Logger.Factory.Get()`` factory method. 
 
@@ -43,6 +43,7 @@ To retrieve the current ``ILogger`` instance, use the ``Logger.Factory.Get()`` f
 Calling the ``Logger.Factory.Get()`` method multiple times will return the same instance of ``ILogger``.
 
 .. code-block:: c#
+    :emphasize-lines: 7,13
 
     public class HomeController : Controller
     {
@@ -53,10 +54,10 @@ Calling the ``Logger.Factory.Get()`` method multiple times will return the same 
                 ILogger logger = Logger.Factory.Get();
                 logger.Info("Hello " + i);
             }
-
-            // get the number of log messages created for the current http request
-            // 5
+            
             int numberOfLogs = (Logger(Logger.Factory.Get())).DataContainer.LogMessages.Count();
+            // get the number of log messages created for the current http request
+            // numberOfLogs == 5
 
             return View();
         }
@@ -103,3 +104,4 @@ This can be achieved by using a **try-catch-finally** block, which simulates the
 
 The optional ``url: "Main"`` argument simulates an Uri identifier for the method which is being executed.
 
+We flush the logs in the **finally** block by executing ``Logger.NotifyListeners()`` method.
