@@ -15,11 +15,14 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
-   getting-started/index
-   install-instructions/index
+   basic-usage/index
+   create-instance/index
+   saving-the-logs/index
+   
    dependency-injection
-   logs-output/index
-   log-listeners/index
+   install-instructions/index
+   configuration/index
+
    examples/index
    troubleshooting/index
    change-log/index
