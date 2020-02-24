@@ -1,40 +1,105 @@
-NLogTargetListener
+NLog listener
 ====================
 
-The NLogTargetListener is forwarding the logs to NLog logger, implicitly to the NLog targets defined in **NLog.config**.
+The `NLogTargetListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.Adapters.NLog/NLogTargetListener.cs>`_ is forwarding the logs to all the NLog targets defined in **NLog.config**.
 
-This listener is useful when you want to use KissLog, but also save the logs to NLog.
+This listener is useful when you want to use both KissLog and NLog outputs.
+
+.. figure:: images/nlogListener-example.png
+   :alt: NLogTargetListener output
+   :align: center
+
+   NLogTargetListener output
+
+.. contents::
+   :local:
+   :depth: 1
 
 Usage
 ---------------------
 
 .. code-block:: c#
-    :linenos:
-    :emphasize-lines: 1,5
 
     using KissLog;
 
-    static void Main(string[] args)
+    class Program
     {
-        KissLogConfiguration.Listeners.Add(new NLogTargetListener());
+        static void Main(string[] args)
+        {
+            ConfigureKissLog();
 
-        ILogger logger = new Logger();
+            ILogger logger = new Logger();
 
-        logger.Info("This log will be saved to NLog");
+            logger.Info("This log will be saved to NLog");
+        }
+
+        static void ConfigureKissLog()
+        {
+            ILogListener nLogListener = new NLogTargetListener();
+            KissLogConfiguration.Listeners.Add(nLogListener);
+        }
     }
 
-.. figure:: images/nlogListener-example.png
-   :alt: NLogTargetListener example
-   :align: center
+Trigger events
+---------------------
 
-   NLogTargetListener example
+NLogTargetListener is forwarding the logs to ``NLog.config`` targets as soon as they are created.
+
+.. code-block:: c#
+    :emphasize-lines: 9,11
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ConfigureKissLog();
+
+            ILogger logger = new Logger(url: "Main");
+
+            logger.Info("Preparing to execute Main");   <---- sent to NLog targets
+
+            logger.Warn("Entering infinite loop");      <---- sent to NLog targets
+
+            while (true) { }
+
+            Logger.NotifyListeners(logger);
+        }
+    }
+
+.. code-block:: c#
+    :caption: Simplified implementation
+    :emphasize-lines: 18
+
+    public class NLogTargetListener : ILogListener
+    {
+        public void OnBeginRequest(HttpRequest httpRequest, ILogger logger)
+        {
+            // do nothing
+        }
+
+        public void OnFlush(FlushLogArgs args, ILogger logger)
+        {
+            // do nothing
+        }
+
+        public void OnMessage(LogMessage message, ILogger logger)
+        {
+            NLog.Logger nlogLogger = NLog.LogManager.GetLogger(message.CategoryName);
+            NLog.LogLevel logLevel = GetLogLevel(message.LogLevel);
+            
+            nlogLogger.Log(logLevel, message.Message);
+        }
+    }
+
 
 NLog + KissLog example
 ---------------------------
 
-In the example below, we have NLog.config which saves the NLog logs to **File** target.
+In the example below, the **Program.cs** is configured to save the logs to:
 
-All the logs created in **Program.cs** will be saved to both NLog targets and KissLog.net.
+* kisslog.net - using the ``KissLogApiListener`` listener
+
+* ``NLog.config`` - using the ``NLogTargetListener`` listener
 
 .. code-block:: xml
     :caption: NLog.config file
@@ -55,7 +120,6 @@ All the logs created in **Program.cs** will be saved to both NLog targets and Ki
     </nlog>
  
 .. code-block:: c#
-    :linenos:
 
     using KissLog;
 
@@ -67,66 +131,46 @@ All the logs created in **Program.cs** will be saved to both NLog targets and Ki
 
             ILogger logger = new Logger(url: "Testing NLogTargetListener");
 
-            logger.Debug("This log is created using KissLog.ILogger");
+            try
+            {
+                logger.Debug("This log is created using KissLog.ILogger");
 
-            logger.Info("But it will be saved to NLog targets");
-
-            // trigger KissLogApiListener.OnFlush()
-            Logger.NotifyListeners(logger);
+                logger.Info("But it will be saved to NLog targets");
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex);
+                throw;
+            }
+            finally
+            {
+                Logger.NotifyListeners(logger);
+            }
         }
 
         static void ConfigureKissLog()
         {
-            KissLogConfiguration.Listeners.Add(new NLogTargetListener());
-
-            KissLogConfiguration.Listeners.Add(new KissLogApiListener(
-                new KissLog.Apis.v1.Auth.Application("0337cd29-a56e-42c1-a48a-e900f3116aa8", "c49f1fa1-00b8-4a43-8bc6-b327c08fb229")
-            )
+            ILogListener nLogListener = new NLogTargetListener(); 
+            ILogListener cloudListener = new KissLogApiListener(new Application("0337cd29-a56e-42c1-a48a-e900f3116aa8", "c49f1fa1-00b8-4a43-8bc6-b327c08fb229"))
             {
+                ApiUrl = "https://api.kisslog.net",
                 UseAsync = false
-            });
+            };
+
+            KissLogConfiguration.Listeners.Add(nLogListener);
+            KissLogConfiguration.Listeners.Add(cloudListener);
         }
     }
 
 .. figure:: images/nlogListener-logs.png
-   :alt: NLog file
+   :alt: NLogTargetListener output
    :align: center
 
-   NLog file
+   NLogTargetListener output
 
 .. figure:: images/nlogListener-KissLog.png
-   :alt: KissLog.net logs
+   :alt: KissLogApiListener output
    :align: center
 
-   KissLog.net logs
+   KissLogApiListener output
 
-Trigger events
----------------------
-
-NLogTargetListener is forwarding the logs to NLog as soon as they are created, using the ``OnMessage()`` event.
-
-.. code-block:: c#
-    :caption: Simplified implementation of the NLogTargetListener
-    :linenos:
-    :emphasize-lines: 17-18
-
-    public class NLogTargetListener : ILogListener
-    {
-        public void OnBeginRequest(HttpRequest httpRequest, ILogger logger)
-        {
-            // do nothing
-        }
-
-        public void OnFlush(FlushLogArgs args, ILogger logger)
-        {
-            // do nothing
-        }
-
-        public void OnMessage(LogMessage message, ILogger logger)
-        {
-            NLog.Logger logger = NLog.LogManager.GetLogger(message.CategoryName);
-            NLog.LogLevel logLevel = GetLogLevel(message.LogLevel);
-            
-            logger.Log(logLevel, message.Message);
-        }
-    }
