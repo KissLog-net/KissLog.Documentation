@@ -75,12 +75,14 @@ For console applications, the ``ILogger`` needs to be created and flushed manual
 This can be achieved by using a **try-catch-finally** block, which simulates the BEGIN and the END of a method.
 
 .. code-block:: c#
-    :emphasize-lines: 5,15,21
+    :emphasize-lines: 7,17,23
 
     class Program
     {
         static void Main(string[] args)
         {
+            ConfigureKissLog();
+
             ILogger logger = new Logger(url: "Main");
 
             try

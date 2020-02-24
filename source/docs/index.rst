@@ -23,12 +23,6 @@ Table of Contents
    install-instructions/index
    configuration/index
 
-   
-   getting-started/index
-   
-   
-   logs-output/index
-   log-listeners/index
    examples/index
    troubleshooting/index
    change-log/index
