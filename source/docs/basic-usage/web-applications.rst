@@ -1,6 +1,13 @@
 Web applications
 ==================
 
+.. contents::
+   :local:
+   :depth: 1
+
+Usage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 For web applications, the ``ILogger`` is created, shared and flushed automatically for each http request (connection).
 
 .. code-block:: c#
@@ -27,6 +34,14 @@ For web applications, the ``ILogger`` is created, shared and flushed automatical
 .. figure:: images/web-application.png
    :alt: Logs
    :align: center
+
+
+Create ILogger instance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: c#
+
+    ILogger logger = Logger.Factory.Get();
 
 Log listeners events
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

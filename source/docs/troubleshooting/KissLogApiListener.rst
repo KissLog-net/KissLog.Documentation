@@ -8,7 +8,7 @@ Step 1: Double check the :doc:`install instructions <../install-instructions/ind
 
 Make sure that the install instructions have been applied correctly.
 
-Also, make sure that you register the :doc:`../log-listeners/KissLogApiListener` listener. This listener is saving the logs to KissLog.net.
+Also, make sure that you register the :doc:`../saving-the-logs/KissLogApiListener` listener. This listener is saving the logs to KissLog.net.
 
 .. code-block:: c#
     :emphasize-lines: 3-5

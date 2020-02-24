@@ -1,6 +1,13 @@
 Console applications
 =======================
 
+.. contents::
+   :local:
+   :depth: 1
+
+Usage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 For console applications, the ``ILogger`` needs to be created and flushed manually.
 
 This can be achieved by using a **try-catch-finally** block, which simulates the BEGIN and the END of a method.
@@ -51,6 +58,13 @@ We flush the logs in the **finally** block by executing ``Logger.NotifyListeners
 .. figure:: images/console-application.png
    :alt: Logs
    :align: center
+
+Create ILogger instance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: c#
+
+    ILogger logger = new Logger(url: "Main");
 
 Log listeners events
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
