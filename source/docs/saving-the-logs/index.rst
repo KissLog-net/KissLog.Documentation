@@ -66,7 +66,6 @@ Log listeners are triggered automatically on three separate events:
 
 .. toctree::
     :maxdepth: 1
-    :hidden:
 
     KissLogApiListener
     LocalTextFileListener

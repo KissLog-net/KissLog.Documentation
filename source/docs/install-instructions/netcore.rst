@@ -12,7 +12,7 @@ These steps describe how to install and configure KissLog for a .NET Core applic
 
 2. Update **appSettings.json**
 
-Replace **OrganizationID** and **ApplicationID** with Api Key values from the KissLog.net application configuration page.
+Replace ``"OrganizationID"`` and ``"ApplicationID"`` with Api Key values from the :ref:`application configuration <apiKeys>` page.
 
 .. code-block:: javascript
     :caption: appsettings.json

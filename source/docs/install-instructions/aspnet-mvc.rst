@@ -12,7 +12,7 @@ These steps describe how to install and configure KissLog for an Asp.Net MVC app
 
 2. Update **web.config**
 
-Replace **OrganizationID** and **ApplicationID** with Api Key values from the KissLog.net application configuration page.
+Replace ``"OrganizationID"`` and ``"ApplicationID"`` with Api Key values from the :ref:`application configuration <apiKeys>` page.
 
 .. code-block:: xml
     :caption: web.config

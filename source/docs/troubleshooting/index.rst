@@ -1,7 +1,7 @@
 Troubleshooting
 =====================
 
-* :doc:`KissLogApiListener` - can't see any logs on KissLog.net
+* :doc:`KissLogApiListener` - can't see any logs on kisslog.net
 
 .. toctree::
     :maxdepth: 1
