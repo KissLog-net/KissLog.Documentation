@@ -30,7 +30,7 @@ Usage
         KissLogConfiguration.Listeners.Add(cloudListener);
     }
 
-Replace ``"OrganizationId"`` and ``"ApplicationId"`` with values from the KissLog.net application configuration page.
+Replace ``"OrganizationId"`` and ``"ApplicationId"`` with values from the :ref:`apiKeys` page.
 
 
 Trigger events
