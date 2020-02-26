@@ -1,7 +1,7 @@
 /* Toc menu ================================= */
 .toc-menu ul { margin-bottom: 0; padding-left: 0; list-style: none; }
 .toc-menu ul a,
-.toc-menu ul span { display: block; padding: .5rem 1rem; text-decoration: none; }
+.toc-menu ul span { display: block; padding: .5rem 2rem; text-decoration: none; }
 
 .toc-menu ul ul > li > a,
 .toc-menu ul ul > li > span { padding: .5rem 1rem .5rem 2.5rem; }
@@ -19,6 +19,20 @@
 .toc-menu > ul > li > span { border-bottom: 1px solid  #eaecef; }
 
 .toc-menu > ul > li { margin-bottom: 16px; }
+
+.toc-menu li span.toctree-expand {
+	float: left;
+	margin-left: -1.2em;
+	font-size: 1em;
+	line-height: 1.7em;
+    color: #4d4d4d;
+    padding: 0;
+}
+.toc-menu li span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+.toc-menu li.current > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome"; }
+
+.toc-menu > ul ul { display: none; }
+.toc-menu li.current > ul { display: block; }
 
 /* Info boxes ================================= */
 div.admonition {
