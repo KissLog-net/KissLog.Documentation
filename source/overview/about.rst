@@ -260,7 +260,7 @@ Table of Contents
    :includehidden:
 
    self
-   on-premises
    ../docs/index
    ../user-interface/index
+   on-premises
    ../licensing/index

@@ -1,13 +1,25 @@
 /* Toc menu ================================= */
 .toc-menu ul { margin-bottom: 0; padding-left: 0; list-style: none; }
 .toc-menu ul a,
-.toc-menu ul span { display: block; padding: .5rem 2rem; text-decoration: none; }
+.toc-menu ul span { display: block; text-decoration: none; }
 
-.toc-menu ul ul > li > a,
-.toc-menu ul ul > li > span { padding: .5rem 1rem .5rem 3rem; }
+/* 1st level */
+.toc-menu > ul > li > a,
+.toc-menu > ul > li > span { padding: .5rem 2rem; }
 
-.toc-menu ul ul > li > ul > li > a,
-.toc-menu ul ul > li > ul > li > span { padding: .5rem 1rem .5rem 4rem; }
+.toc-menu > ul > li:not(.has-children) > a,
+.toc-menu > ul > li:not(.has-children) > span { padding-left: 1rem; }
+
+.toc-menu > ul > li > a,
+.toc-menu > ul > li > span { border-bottom: 1px solid #eaecef; }
+
+/* 2nd level */
+.toc-menu > ul > li > ul > li > a,
+.toc-menu > ul > li > ul > li > span { padding: .5rem 1rem .5rem 3rem; }
+
+/* 3nd level */
+.toc-menu > ul > li > ul > li > ul > li > a,
+.toc-menu > ul > li > ul > li > ul > li > span { padding: .5rem 1rem .5rem 4rem; }
 
 .toc-menu ul > ul > li > a,
 .toc-menu ul > ul > li > span { border-bottom: 1px solid #eaecef; }

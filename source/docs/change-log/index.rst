@@ -1,6 +1,15 @@
 Change log
 =======================================================
 
+KissLog 3.5.5
+--------------------------
+
+KissLog.AspNetCore 2.5.5 | KissLog.AspNet.Mvc 3.5.5 | KissLog.AspNet.WebApi 3.5.5
+
+Release date: 14-12-2019
+
+General improvements
+
 KissLog 3.5.2
 --------------------------
 

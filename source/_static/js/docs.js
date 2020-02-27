@@ -1,12 +1,10 @@
 function init() {
     var $tocMenu = $(".toc-menu");
 
-    $tocMenu.addClass("page-ready");
-
     $tocMenu.find("ul").each(function() {
         var $parentLi = $(this).parent("li");
         if($parentLi.length) {
-            $parentLi.children("a").prepend("<span class='toctree-expand'></span>");
+            $parentLi.addClass("has-children").children("a").prepend("<span class='toctree-expand'></span>");
         }
     });
 
@@ -18,6 +16,8 @@ function init() {
 
         $(this).closest("li").toggleClass("expanded");
     });
+
+    $tocMenu.addClass("page-ready");
 };
 
 $(function(){
