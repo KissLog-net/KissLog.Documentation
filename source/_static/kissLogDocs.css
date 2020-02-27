@@ -14,4 +14,7 @@ body { font-size: 14px; }
 
 .breadcrumb { font-size: 14px; }
 
+
+.toc-menu:not(.page-ready) { visibility: hidden; }
 .toc-menu > ul > li > a { font-weight: 550; }
+

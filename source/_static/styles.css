@@ -47,12 +47,13 @@
 .toc-menu li > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
 .toc-menu li.expanded > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
 
+.toc-menu li > span span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+.toc-menu li.expanded > span span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+
 .toc-menu li > ul { display: none; }
 .toc-menu li.expanded > ul { display: block; }
 
 .toc-menu li.expanded  > a:not(.current) { background-color: #f5f5f5; }
-
-.toc-menu:not(.page-ready) { visibility: hidden; }
 
 /* Info boxes ================================= */
 div.admonition {
