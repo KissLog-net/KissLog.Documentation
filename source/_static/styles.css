@@ -4,7 +4,7 @@
 .toc-menu ul span { display: block; padding: .5rem 2rem; text-decoration: none; }
 
 .toc-menu ul ul > li > a,
-.toc-menu ul ul > li > span { padding: .5rem 1rem .5rem 2.5rem; }
+.toc-menu ul ul > li > span { padding: .5rem 1rem .5rem 3rem; }
 
 .toc-menu ul ul > li > ul > li > a,
 .toc-menu ul ul > li > ul > li > span { padding: .5rem 1rem .5rem 4rem; }
@@ -22,17 +22,23 @@
 
 .toc-menu li span.toctree-expand {
 	float: left;
-	margin-left: -1.2em;
+	margin-left: -32px;
 	font-size: 1em;
 	line-height: 1.7em;
-    color: #4d4d4d;
-    padding: 0;
+    color: rgba(0,0,0,.5);
+    padding: 0 10px;
 }
-.toc-menu li span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
-.toc-menu li.current > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome"; }
 
-.toc-menu > ul ul { display: none; }
-.toc-menu li.current > ul { display: block; }
+.toc-menu li a:hover > span.toctree-expand { color: #333 }
+.toc-menu a.current > span.toctree-expand { color: #114e7e; }
+
+.toc-menu li > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+.toc-menu li.expanded > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+
+.toc-menu li > ul { display: none; }
+.toc-menu li.expanded > ul { display: block; }
+
+.toc-menu li.expanded  > a:not(.current) { background-color: #f5f5f5; }
 
 /* Info boxes ================================= */
 div.admonition {
