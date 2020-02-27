@@ -22,7 +22,10 @@ Usage
 
     protected void Application_Start()
     {
-        ILogListener cloudListener = new KissLogApiListener(new Application("OrganizationId", "ApplicationId"))
+        string organizationId = ConfigurationManager.AppSettings["KissLog.OrganizationId"];
+        string applicationId = ConfigurationManager.AppSettings["KissLog.ApplicationId"];
+
+        ILogListener cloudListener = new KissLogApiListener(new Application(organizationId, applicationId))
         {
             ApiUrl = "https://api.kisslog.net"
         };
@@ -30,8 +33,7 @@ Usage
         KissLogConfiguration.Listeners.Add(cloudListener);
     }
 
-Replace ``"OrganizationId"`` and ``"ApplicationId"`` with values from the :ref:`apiKeys` page.
-
+Get the **"KissLog.OrganizationId"** and the **"KissLog.ApplicationId"** values from the :doc:`Application Api Keys </user-interface/api-keys/index>` page.
 
 Trigger events
 ---------------------

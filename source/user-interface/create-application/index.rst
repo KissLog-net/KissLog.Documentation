@@ -8,23 +8,21 @@ Create application
 Add to existing organization
 -----------------------------------
 
-#. Navigate on the ``/Applications`` menu
+#. Navigate to ``/Applications`` url
 
-#. Select the organization from the top left dropdown menu
+#. **Select the organization** from the top left dropdown menu
 
 #. On the Applications menu, click on the **New** button
 
-#. Provide value for the **Application name**
+#. Provide value for **Application name**
 
 #. Click **Create**
 
-#. Once created, you will be redirected to the Application configuration page
-
-.. figure:: images/create-application-button.png
+.. figure:: images/existing-organization-1.png
    :alt: New button
    :align: center
 
-.. figure:: images/create-application-modal.png
+.. figure:: images/existing-organization-2.png
    :alt: Create application modal
    :align: center
 
@@ -32,20 +30,18 @@ Add to existing organization
 No existing organization
 -----------------------------------
 
-#. Navigate on the ``/Applications`` menu
+#. Navigate to ``/Applications`` url
 
 #. Click on the **Create an organization** link
 
-#. Provide values for **Organization name** and **Application name**
+#. Provide values for **Organization name** and for **Application name**
 
 #. Click **Create**
 
-#. Once created, you will be redirected to the Application configuration page
-
-.. figure:: images/create-organization-link.png
+.. figure:: images/no-existing-organization-1.png
    :alt: Create organization link
    :align: center
 
-.. figure:: images/create-organization-modal.png
+.. figure:: images/no-existing-organization-2.png
    :alt: Create organization modal
    :align: center

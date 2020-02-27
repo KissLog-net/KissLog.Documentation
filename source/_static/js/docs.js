@@ -1,6 +1,8 @@
 function init() {
     var $tocMenu = $(".toc-menu");
 
+    $tocMenu.addClass("page-ready");
+
     $tocMenu.find("ul").each(function() {
         var $parentLi = $(this).parent("li");
         if($parentLi.length) {

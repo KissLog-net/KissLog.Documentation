@@ -10,5 +10,5 @@ Table of Contents
    :includehidden:
 
    create-application/index
-   application-configuration/index
+   api-keys/index
    

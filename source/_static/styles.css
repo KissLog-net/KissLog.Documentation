@@ -40,6 +40,8 @@
 
 .toc-menu li.expanded  > a:not(.current) { background-color: #f5f5f5; }
 
+.toc-menu:not(.page-ready) { visibility: hidden; }
+
 /* Info boxes ================================= */
 div.admonition {
     padding: 1.25rem;
