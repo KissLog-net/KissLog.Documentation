@@ -1,14 +1,14 @@
 Can't see any logs
 ===================================
 
-If you can't see any logs on KissLog.net, please follow these troubleshooting steps:
+If you can't see any logs on kisslog.net, please follow these troubleshooting steps:
 
 Step 1: Double check the :doc:`install instructions <../install-instructions/index>`
 --------------------------------------------------------------------------------------
 
 Make sure that the install instructions have been applied correctly.
 
-Also, make sure that you register the :doc:`../saving-the-logs/KissLogApiListener` listener. This listener is saving the logs to KissLog.net.
+Make sure that you register the :doc:`KissLogApiListener <../saving-the-logs/KissLogApiListener>` listener.
 
 .. code-block:: c#
     :emphasize-lines: 3-5
@@ -20,39 +20,22 @@ Also, make sure that you register the :doc:`../saving-the-logs/KissLogApiListene
         ));
     }
 
-Step 2: Check the application keys
+Step 2: Check the Api Keys
 --------------------------------------------------------------------
 
 Make sure that you use the correct application keys.
 
-You can find them under the KissLog.net application configuration page.
+You can find **Api Keys** under the :ref:`application configuration <apiKeys>` page.
 
-.. figure:: images/application-apiKey.png
-   :alt: Application configuration Api Key
-   :align: center
-
-Make sure you register the ``KissLogApiListener`` listener:
-
-.. code-block:: c#
-    :emphasize-lines: 7-9
-
-    private void Application_Start()
-    {
-        string organizationId = "49c5da92-e827-47dd-8135-824cf6a6e75e";
-        string applicationId = "b1502e5f-1c4e-4dd9-83c6-668aef49ba7a";
-
-        // KissLog cloud listener
-        KissLogConfiguration.Listeners.Add(new KissLogApiListener(
-            new KissLog.Apis.v1.Auth.Application(organizationId, applicationId)
-        ));
-    }
-
-Step 3: Check the internal logs
+Step 3: Test the internet connection
 --------------------------------------------------------------------
 
-KissLog is sending the logs to KissLog.net by creating a REST request to ``POST https://api.kisslog.net``.
+Make sure that your computer (or the server hosting the application) can reach the https://api.kisslog.net endpoint.
 
-If, for some reason, the request was unsuccessful, the details will be available in the internal logs.
+Step 4: Check the internal logs
+--------------------------------------------------------------------
+
+Additional details can be found in the KissLog internal logs.
 
 .. code-block:: c#
     :emphasize-lines: 5
@@ -96,7 +79,7 @@ You notify the kisslog listeners using ``Logger.NotifyListeners(logger)``.
 
 .. code-block:: c#
     :linenos:
-    :emphasize-lines: 14
+    :emphasize-lines: 18
 
     static void Main(string[] args)
     {
@@ -108,42 +91,14 @@ You notify the kisslog listeners using ``Logger.NotifyListeners(logger)``.
         {
             logger.Info("Executing main");
         }
+        catch(Exception ex)
+        {
+            logger.Error(ex);
+            throw;
+        }
         finally
         {
-            // notify the listeners
             Logger.NotifyListeners(logger);
-        }
-    }
-
-When you register the ``KissLogApiListener``, specify the **UseAsync** property to **false**.
-
-.. code-block:: c#
-    :linenos:
-    :emphasize-lines: 21
-
-    namespace ConsoleApp_sample
-    {
-        class Program
-        {
-            static void Main(string[] args)
-            {
-                ConfigureKissLog();
-
-                // code removed for simplicity
-            }
-
-            static void ConfigureKissLog()
-            {
-                string organizationId = "49c5da92-e827-47dd-8135-824cf6a6e75e";
-                string applicationId = "b1502e5f-1c4e-4dd9-83c6-668aef49ba7a";
-
-                KissLogConfiguration.Listeners.Add(new KissLogApiListener(
-                    new KissLog.Apis.v1.Auth.Application(organizationId, applicationId)
-                )
-                {
-                    UseAsync = false
-                });
-            }
         }
     }
 

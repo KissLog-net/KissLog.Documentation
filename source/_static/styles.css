@@ -1,13 +1,25 @@
 /* Toc menu ================================= */
 .toc-menu ul { margin-bottom: 0; padding-left: 0; list-style: none; }
 .toc-menu ul a,
-.toc-menu ul span { display: block; padding: .5rem 1rem; text-decoration: none; }
+.toc-menu ul span { display: block; text-decoration: none; }
 
-.toc-menu ul ul > li > a,
-.toc-menu ul ul > li > span { padding: .5rem 1rem .5rem 2.5rem; }
+/* 1st level */
+.toc-menu > ul > li > a,
+.toc-menu > ul > li > span { padding: .5rem 2rem; }
 
-.toc-menu ul ul > li > ul > li > a,
-.toc-menu ul ul > li > ul > li > span { padding: .5rem 1rem .5rem 4rem; }
+.toc-menu > ul > li:not(.has-children) > a,
+.toc-menu > ul > li:not(.has-children) > span { padding-left: 1rem; }
+
+.toc-menu > ul > li > a,
+.toc-menu > ul > li > span { border-bottom: 1px solid #eaecef; }
+
+/* 2nd level */
+.toc-menu > ul > li > ul > li > a,
+.toc-menu > ul > li > ul > li > span { padding: .5rem 1rem .5rem 3rem; }
+
+/* 3nd level */
+.toc-menu > ul > li > ul > li > ul > li > a,
+.toc-menu > ul > li > ul > li > ul > li > span { padding: .5rem 1rem .5rem 4rem; }
 
 .toc-menu ul > ul > li > a,
 .toc-menu ul > ul > li > span { border-bottom: 1px solid #eaecef; }
@@ -19,6 +31,29 @@
 .toc-menu > ul > li > span { border-bottom: 1px solid  #eaecef; }
 
 .toc-menu > ul > li { margin-bottom: 16px; }
+
+.toc-menu li span.toctree-expand {
+	float: left;
+	margin-left: -32px;
+	font-size: 1em;
+	line-height: 1.7em;
+    color: rgba(0,0,0,.5);
+    padding: 0 10px;
+}
+
+.toc-menu li a:hover > span.toctree-expand { color: #333 }
+.toc-menu a.current > span.toctree-expand { color: #114e7e; }
+
+.toc-menu li > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+.toc-menu li.expanded > a span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+
+.toc-menu li > span span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+.toc-menu li.expanded > span span.toctree-expand::before { content: ""; display: inline-block; font-family: "FontAwesome" ; }
+
+.toc-menu li > ul { display: none; }
+.toc-menu li.expanded > ul { display: block; }
+
+.toc-menu li.expanded  > a:not(.current) { background-color: #f5f5f5; }
 
 /* Info boxes ================================= */
 div.admonition {

@@ -1,6 +1,104 @@
 Change log
 =======================================================
 
+KissLog 3.5.6
+--------------------------
+
+KissLog.AspNetCore 2.5.6 | KissLog.AspNet.Mvc 3.5.6 | KissLog.AspNet.WebApi 3.5.6 | KissLog.Apis.v1 2.5.6
+
+Release date: 03-03-2020
+
+Breaking changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``KissLogConfiguration.Options.AddRequestKeywords()`` has been deprecated.
+
+Use ``KissLogConfiguration.Options.GenerateKeywords()`` instead.
+
+.. code-block:: c#
+
+    protected void Application_Start()
+    {
+        // before
+        KissLogConfiguration.Options
+            .AddRequestKeywords((FlushLogArgs args) =>
+            {
+                return new List<string>();
+            });
+
+        // after
+        KissLogConfiguration.Options
+            .GenerateKeywords((FlushLogArgs args, IList<string> defaultKeywords) =>
+            {
+                return defaultKeywords;
+            });
+    }
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Implemented ``KissLogConfiguration.Options.GenerateKeywords()``.
+
+This handler allows developers to specify search keywords for a particular request.
+
+.. code-block:: c#
+    :emphasize-lines: 8
+
+    protected void Application_Start()
+    {
+        KissLogConfiguration.Options
+            .GenerateKeywords((FlushLogArgs args, IList<string> defaultKeywords) =>
+            {
+                List<string> keywords = new List<string>();
+
+                keywords.Add("CorrelationID:b001c6bf");
+
+                return keywords;
+            });
+    }
+
+.. figure:: /docs/examples/images/Options-GenerateKeywords.png
+   :alt: Options.GenerateKeywords
+   :align: center
+
+   Searching for the "CorrelationID:b001c6bf" keyword
+
+Implemented ``KissLogConfiguration.Options.ShouldLogRequestFormData()``.
+
+Using this handler, developers can prevent KissLog from reading the FormData parameters.
+
+In the example below, we instruct KissLog not to log the FormData parameters when ``Content-Type="multipart/*"``.
+
+.. code-block:: c#
+
+    protected void Application_Start()
+    {
+        KissLogConfiguration.Options
+            .ShouldLogRequestFormData((HttpRequest request) =>
+            {
+                string contentType = request.Properties.Headers.FirstOrDefault(p => string.Compare(p.Key, "Content-Type", true) == 0).Value;
+
+                if (!string.IsNullOrEmpty(contentType))
+                {
+                    if (contentType.ToLowerInvariant().StartsWith("multipart/"))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+    }
+
+KissLog 3.5.5
+--------------------------
+
+KissLog.AspNetCore 2.5.5 | KissLog.AspNet.Mvc 3.5.5 | KissLog.AspNet.WebApi 3.5.5
+
+Release date: 14-12-2019
+
+General improvements
+
 KissLog 3.5.2
 --------------------------
 

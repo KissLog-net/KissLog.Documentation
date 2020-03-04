@@ -15,11 +15,9 @@ These steps describe how to install and configure KissLog for a Console applicat
 
 2. Update **Program.cs**
 
-Register KissLog.net cloud listener.
+Register the :doc:`KissLogApiListener <../saving-the-logs/KissLogApiListener>` with **UseAsync = false**.
 
-Replace **OrganizationID** and **ApplicationID** with Api Key values from the application configuration page.
-
-Make sure you specify **UseAsync = false** (line 21).
+Get the **"KissLog.OrganizationId"** and the **"KissLog.ApplicationId"** values from the :doc:`Application Api Keys </user-interface/api-keys/index>` page.
 
 .. code-block:: c#
     :linenos:
@@ -40,8 +38,8 @@ Make sure you specify **UseAsync = false** (line 21).
             static void ConfigureKissLog()
             {
                 // replace the values
-                string organizationId = "OrganizationID";
-                string applicationId = "ApplicationID";
+                string organizationId = "KissLog.OrganizationId";
+                string applicationId = "KissLog.ApplicationId";
 
                 ILogListener listener = new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(organizationId, applicationId))
                 {
