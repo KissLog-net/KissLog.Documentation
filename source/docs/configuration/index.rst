@@ -131,6 +131,29 @@ ShouldLogRequestFormData
 Runtime handler used to determine if a request FormData should be logged or not. Default: ``true``
 
 .. code-block:: c#
+    :caption: Attaching to the entire HTTP request event. Will apply for all listeners.
+
+    protected void Application_Start()
+    {
+        KissLogConfiguration.Options
+            .ShouldLogRequestFormData((HttpRequest request) =>
+            {
+                string contentType = request.Properties.Headers.FirstOrDefault(p => string.Compare(p.Key, "Content-Type", true) == 0).Value;
+
+                if (!string.IsNullOrEmpty(contentType))
+                {
+                    if (contentType.ToLowerInvariant().StartsWith("multipart/"))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+    }
+
+.. code-block:: c#
+    :caption: Attaching to each listener in particular
 
     protected void Application_Start()
     {
