@@ -6,7 +6,6 @@ Licensing
    :titlesonly:
    :includehidden:
 
-   Trial-EULA
    Standard-EULA
    Enterprise-EULA
    Third-Party-Licenses
