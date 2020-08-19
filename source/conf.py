@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'KissLog.Documentation'
-copyright = '2019, Catalin Gavan'
+copyright = '2020, Catalin Gavan'
 author = 'Catalin Gavan'
 
 # The full version, including alpha/beta/rc tags
