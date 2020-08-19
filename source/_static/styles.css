@@ -88,3 +88,7 @@ div.admonition.warning p.admonition-title { color: #f0ad4e; }
 div.literal-block-wrapper { padding: 0; margin-bottom: 1em; }
 
 h1:first-child { margin-top: 0; }
+
+.markdown-body table { width: 100%; table-layout: fixed; display: table; }
+.markdown-body table th,
+.markdown-body table td { text-align: left; }

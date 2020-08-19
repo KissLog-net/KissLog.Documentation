@@ -92,7 +92,7 @@ NLog listener
 
 `NLogTargetListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.Adapters.NLog/NLogTargetListener.cs>`_ saves the logs created with ``KissLog`` to all the ``NLog`` targets defined in **NLog.config**.
 
-This is useful when you want to use save the logs to both ``kisslog.net`` and to ``NLog`` text-files.
+This is useful when you want to use save the logs to both ``kisslog.net`` and ``NLog`` text-files.
 
 .. figure:: images/nlog-output.png
    :alt: NLog output
