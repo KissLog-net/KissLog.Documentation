@@ -5,7 +5,7 @@ KissLog.Frontend represents an user-interface application where users (developer
 
 KissLog.Frontend displays the data by consuming KissLog.Backend REST services.
 
-KissLog.Frontend can be :doc:`configured <configuration>` by updating the ``Configuration\KissLog.json`` file.
+- :doc:`Configuration options <configuration>`
 
 .. topic:: KissLog.Frontend arhitecture
 

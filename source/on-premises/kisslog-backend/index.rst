@@ -7,7 +7,7 @@ KissLog.Backend exposes REST endpoints used for storing and querying the data.
 
 External .NET applications are using KissLog SDK to send the logs to KissLog.Backend.
 
-KissLog.Backend supports various :doc:`configuration options <configuration>` by updating the ``Configuration\KissLog.json`` file.
+- :doc:`Configuration options <configuration>`
 
 .. topic:: KissLog.Backend arhitecture
 
