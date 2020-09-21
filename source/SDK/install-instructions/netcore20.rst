@@ -27,11 +27,12 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-3,18-22,41-43,54,80
+    :emphasize-lines: 1-4,19-23,42-44,55,81
 
-    using KissLog.Apis.v1.Listeners;
+    using KissLog;
     using KissLog.AspNetCore;
-    using KissLog.Listeners;
+    using KissLog.CloudListeners.Auth;
+    using KissLog.CloudListeners.RequestLogsListener;
         
     namespace MyApp.NetCore20
     {
@@ -113,7 +114,7 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
                 // multiple listeners can be registered using options.Listeners.Add() method
 
                 // add KissLog.net cloud listener
-                options.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
+                options.Listeners.Add(new RequestLogsApiListener(new Application(
                     Configuration["KissLog.OrganizationId"],
                     Configuration["KissLog.ApplicationId"])
                 )

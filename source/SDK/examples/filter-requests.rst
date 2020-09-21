@@ -59,7 +59,7 @@ The custom ``CustomListenerParser`` will ignore all the ``/api/v1/healthcheck`` 
 
             private void RegisterKissLogListeners()
             {
-                KissLogConfiguration.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
+                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
                     ConfigurationManager.AppSettings["KissLog.OrganizationId"],
                     ConfigurationManager.AppSettings["KissLog.ApplicationId"])
                 )

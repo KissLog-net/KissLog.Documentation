@@ -29,11 +29,13 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-3,17,19,22-35,37,62,78,80-85
+    :emphasize-lines: 1-5,19,21,24-37,39,65,80,82-87
 
-    using KissLog.Apis.v1.Listeners;
+    using KissLog;
     using KissLog.AspNet.Mvc;
     using KissLog.AspNet.Web;
+    using KissLog.CloudListeners.Auth;
+    using KissLog.CloudListeners.RequestLogsListener;
     
     namespace MyApp.Mvc
     {
@@ -98,7 +100,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
                 // multiple listeners can be registered using KissLogConfiguration.Listeners.Add() method
 
                 // add KissLog.net cloud listener
-                KissLogConfiguration.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
+                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
                     ConfigurationManager.AppSettings["KissLog.OrganizationId"],
                     ConfigurationManager.AppSettings["KissLog.ApplicationId"])
                 )
