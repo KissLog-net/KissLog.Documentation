@@ -9,7 +9,7 @@ These steps describe how to install and configure KissLog for a Console applicat
     :caption: Package Manager Console
 
     PM> Install-Package KissLog
-    PM> Install-Package KissLog.Apis.v1
+    PM> Install-Package KissLog.CloudListeners
 
 2. Update **App.config**
 
@@ -29,10 +29,11 @@ These steps describe how to install and configure KissLog for a Console applicat
 .. code-block:: c#
     :caption: Program.cs
     :linenos:
-    :emphasize-lines: 1-2,10,15,41
+    :emphasize-lines: 1-3,11,16,42
 
     using KissLog;
-    using KissLog.Apis.v1.Listeners;
+    using KissLog.CloudListeners.Auth;
+    using KissLog.CloudListeners.RequestLogsListener;
 
     namespace MyApp.ConsoleApp
     {
@@ -76,7 +77,7 @@ These steps describe how to install and configure KissLog for a Console applicat
                 // multiple listeners can be registered using KissLogConfiguration.Listeners.Add() method
 
                 // add KissLog.net cloud listener
-                 KissLogConfiguration.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
+                 KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
                     ConfigurationManager.AppSettings["KissLog.OrganizationId"],
                     ConfigurationManager.AppSettings["KissLog.ApplicationId"])
                 )

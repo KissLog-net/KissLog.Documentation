@@ -11,22 +11,23 @@ Log listeners are registered at application startup using the ``KissLogConfigura
 KissLog.net listener
 ----------------------------------------------
 
-`KissLogApiListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.Apis.v1/Listeners/KissLogApiListener.cs>`_ saves the logs to kisslog.net (or KissLog on-premises).
+`RequestLogsApiListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.CloudListeners/RequestLogsListener/RequestLogsApiListener.cs>`_ saves the logs to kisslog.net (or KissLog on-premises).
 
-.. figure:: images/kisslogApiListener-output.png
-   :alt: KissLogApiListener
+.. figure:: images/RequestLogsApiListener-output.png
+   :alt: RequestLogsApiListener
    :align: center
 
-   KissLogApiListener output
+   RequestLogsApiListener output
 
 
 .. code-block:: c#
     :caption: Usage
     :linenos:
-    :emphasize-lines: 1-2,12-15,18
+    :emphasize-lines: 1-3,13-16,19
 
     using KissLog;
-    using KissLog.Apis.v1.Listeners;
+    using KissLog.CloudListeners.Auth;
+    using KissLog.CloudListeners.RequestLogsListener;
 
     namespace MyApplication
     {
@@ -36,7 +37,7 @@ KissLog.net listener
 
             private void RegisterKissLogListeners()
             {
-                ILogListener listener = new KissLogApiListener(new Application("_OrganizationId_", "_ApplicationId_"))
+                ILogListener listener = new RequestLogsApiListener(new Application("_OrganizationId_", "_ApplicationId_"))
                 {
                     ApiUrl = "https://api.kisslog.net"
                 };
@@ -125,7 +126,7 @@ This is useful when you want to use save the logs to both ``kisslog.net`` and ``
                 KissLogConfiguration.Listeners.Add(new NLogTargetListener());
 
                 // optionally, we register the KissLog.net cloud listener
-                KissLogConfiguration.Listeners.Add(new KissLogApiListener(new Application("_OrganizationId_", "_ApplicationId_"))
+                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application("_OrganizationId_", "_ApplicationId_"))
                 {
                     ApiUrl = "https://api.kisslog.net"
                 });

@@ -1,6 +1,72 @@
 Change log
 =======================================================
 
+KissLog 4.0.0
+--------------------------
+
+KissLog.AspNetCore 4.0.0 | KissLog.AspNet.Mvc 4.0.0 | KissLog.AspNet.WebApi 4.0.0 | KissLog.CloudListeners 4.0.0
+
+Release date: 19-09-2020
+
+Breaking changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``KissLog.Apis.v1`` NuGet package has been deprecated. Use ``KissLog.CloudListeners`` instead.
+
+``KissLogApiListener`` has been replaced with ``RequestLogsApiListener``.
+
+**Before** (KissLog <= 3.5.6)
+
+.. code-block:: c#
+    :emphasize-lines: 1-2, 10
+
+    using KissLog.Apis.v1.Listeners;
+    using KissLog.Apis.v1.Auth;
+
+    namespace MyApp.Mvc
+    {
+        public class MvcApplication : System.Web.HttpApplication
+        {
+            private void RegisterKissLogListeners()
+            {
+                KissLogConfiguration.Listeners.Add(new KissLogApiListener(new Application(
+                    ConfigurationManager.AppSettings["KissLog.OrganizationId"],
+                    ConfigurationManager.AppSettings["KissLog.ApplicationId"])
+                )
+                {
+                    ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"]
+                });
+            }
+        }
+    }
+
+**After** (KissLog >= 4.0.0)
+
+.. code-block:: c#
+    :emphasize-lines: 1-2, 10
+
+    using KissLog.CloudListeners.Auth;
+    using KissLog.CloudListeners.RequestLogsListener;
+
+    namespace MyApp.Mvc
+    {
+        public class MvcApplication : System.Web.HttpApplication
+        {
+            private void RegisterKissLogListeners()
+            {
+                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
+                    ConfigurationManager.AppSettings["KissLog.OrganizationId"],
+                    ConfigurationManager.AppSettings["KissLog.ApplicationId"])
+                )
+                {
+                    ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"]
+                });
+            }
+        }
+    }
+
+``ITextFormatter`` has been replaced with ``KissLog.Formatting.TextFormatter``.
+
 KissLog 3.5.6
 --------------------------
 

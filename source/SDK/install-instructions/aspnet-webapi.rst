@@ -29,10 +29,12 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 12,15-28,30,56,71,73-78
+    :emphasize-lines: 1-5,14,17-30,32,58,73,75-80
 
-    using KissLog.Apis.v1.Listeners;
+    using KissLog;
     using KissLog.AspNet.Web;
+    using KissLog.CloudListeners.Auth;
+    using KissLog.CloudListeners.RequestLogsListener;
     
     namespace MyApp.WebApi
     {
@@ -91,7 +93,7 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
                 // multiple listeners can be registered using KissLogConfiguration.Listeners.Add() method
 
                 // add KissLog.net cloud listener
-                KissLogConfiguration.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
+                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
                     ConfigurationManager.AppSettings["KissLog.OrganizationId"],
                     ConfigurationManager.AppSettings["KissLog.ApplicationId"])
                 )
