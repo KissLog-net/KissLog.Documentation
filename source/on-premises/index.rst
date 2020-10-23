@@ -10,12 +10,15 @@ Deployment packages
 
 Latest version of KissLog deployment package can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
 
+Table of Contents
+------------------
+
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :titlesonly:
    :includehidden:
 
+   installation-guide
    kisslog-frontend/index
    kisslog-backend/index
 
