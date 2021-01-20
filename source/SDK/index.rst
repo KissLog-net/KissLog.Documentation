@@ -15,9 +15,10 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
-   install-instructions/index
+   install-instructions/index 
    dependency-injection/index
    configuration/index
    logs-output/index
    examples/index
+   nlog/index
    change-log/index

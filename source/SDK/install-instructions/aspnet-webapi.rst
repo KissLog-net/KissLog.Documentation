@@ -29,7 +29,7 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-5,14,17-30,32,58,73,75-80
+    :emphasize-lines: 1-4,14,17-30,32,55,58,73,75-80
 
     using KissLog;
     using KissLog.AspNet.Web;
@@ -172,9 +172,23 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
             // GET api/values
             public IEnumerable<string> Get()
             {
-                _logger.Debug("Hello world from AspNet.WebApi!");
+                _logger.Info("Hello world from KissLog!");
+                _logger.Trace("Trace message");
+                _logger.Debug("Debug message");
+                _logger.Info("Info message");
+                _logger.Warn("Warning message");
+                _logger.Error("Error message");
+                _logger.Fatal("Fatal message");
 
                 return new string[] { "value1", "value2" };
             }
         }
     }
+
+.. figure:: images/KissLog-AspNet-WebApi.png
+   :alt: ASP.NET WebApi + KissLog
+   :align: center
+
+   ASP.NET WebApi + KissLog
+
+`View sample application <https://github.com/KissLog-net/KissLog.Samples/tree/master/src/KissLog-AspNet-WebApi>`_

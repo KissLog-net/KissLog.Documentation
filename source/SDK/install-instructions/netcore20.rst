@@ -27,7 +27,7 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-4,19-23,42-44,55,81
+    :emphasize-lines: 1-4,19-23,43-45,55,78,81
 
     using KissLog;
     using KissLog.AspNetCore;
@@ -147,9 +147,21 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
     
             public IActionResult Index()
             {
-                _logger.Debug("Hello world from .NET Core 2.x!");
-    
+                _logger.Info("Hello world from KissLog!");
+                _logger.Trace("Trace message");
+                _logger.Debug("Debug message");
+                _logger.Info("Info message");
+                _logger.Warn("Warning message");
+                _logger.Error("Error message");
+                _logger.Critical("Critical message");
+
                 return View();
             }
         }
     }
+
+.. figure:: images/KissLog-AspNetCore-20.png
+   :alt: AspNetCore 2.x
+   :align: center
+
+   AspNetCore 2.x

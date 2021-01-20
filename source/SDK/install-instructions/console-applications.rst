@@ -94,7 +94,7 @@ These steps describe how to install and configure KissLog for a Console applicat
 .. code-block:: c#
     :caption: Program.cs
     :linenos:
-    :emphasize-lines: 9,15,19,26,34
+    :emphasize-lines: 9,13,23
 
     namespace MyApp.ConsoleApp
     {
@@ -104,43 +104,32 @@ These steps describe how to install and configure KissLog for a Console applicat
             {
                 ConfigureKissLog();
     
-                Foo();
-            }
-    
-            private static void Foo()
-            {
-                // create the ILogger
-                ILogger logger = new Logger(url: "/Foo");
-    
+                ILogger logger = new Logger(url: "/Program/Main");
+
                 try
                 {
-                    logger.Info("Foo started");
-    
-                    // execute foo
-                }
-                catch (Exception ex)
-                {
-                    // capture and log exceptions
-                    logger.Error(ex);
-                    throw;
+                    logger.Info("Hello world from KissLog!");
+                    logger.Trace("Trace message");
+                    logger.Debug("Debug message");
+                    logger.Info("Info message");
+                    logger.Warn("Warning message");
+                    logger.Error("Error message");
+                    logger.Critical("Critical message");
                 }
                 finally
                 {
-                    logger.Info("Foo completed");
-    
-                    // notify the listeners
                     Logger.NotifyListeners(logger);
                 }
             }
-    
-            static void ConfigureKissLog()
-            {
-                // [...]
-            }
-
-            static void RegisterKissLogListeners()
-            {
-                // [...]
-            }
         }
     }
+
+.. figure:: images/KissLog-NetFramework-ConsoleApp.png
+   :alt: Console Application + KissLog
+   :align: center
+
+   Console Application + KissLog
+
+`AspNetCore ConsoleApp sample application <https://github.com/KissLog-net/KissLog.Samples/tree/master/src/KissLog-AspNetCore-ConsoleApp>`_
+
+`ASP.NET ConsoleApp sample application <https://github.com/KissLog-net/KissLog.Samples/tree/master/src/KissLog-NetFramework-ConsoleApp>`_
