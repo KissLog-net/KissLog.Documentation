@@ -1,7 +1,7 @@
-ASP.NET MVC
+NLog + ASP.NET MVC
 ====================
 
-These steps describe how to install and configure KissLog for an ASP.NET MVC application.
+If you have an ASP.NET MVC application which is already using NLog, you can configure it to save the logs to kisslog.net.
 
 1. Install NuGet Package
 
@@ -9,6 +9,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
     :caption: Package Manager Console
 
     PM> Install-Package KissLog.AspNet.Mvc
+    PM> Install-Package KissLog.Adapters.NLog
 
 
 2. Update **web.config**
@@ -24,36 +25,57 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
         </appSettings>
     </configuration>
 
-3. Update **Global.asax**
+3. Update **NLog.config**
+
+.. code-block:: xml
+    :caption: NLog.config
+    :emphasize-lines: 3-5,9,14
+
+    <?xml version="1.0" encoding="utf-8" ?>
+    <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <extensions>
+            <add assembly="KissLog.Adapters.NLog"/>
+        </extensions>
+ 
+        <targets>
+            <target name="logfile" xsi:type="File" fileName="${baseDir}/logs/nlog-${shortdate}.log" layout="${longdate} ${uppercase:${level}} ${message}" />
+            <target name="kisslog" xsi:type="KissLog" layout="${message}" />
+        </targets>
+ 
+        <rules>
+            <logger name="*" minlevel="Trace" writeTo="logfile" />
+            <logger name="*" minlevel="Trace" writeTo="kisslog" />
+        </rules>
+    </nlog>
+
+4. Update **Global.asax**
 
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-5,19,21,24-37,39,62,65,80,82-87
+    :emphasize-lines: 1-6,17,19,22-35,66,81,83-88
 
     using KissLog;
     using KissLog.AspNet.Mvc;
     using KissLog.AspNet.Web;
     using KissLog.CloudListeners.Auth;
     using KissLog.CloudListeners.RequestLogsListener;
-    
-    namespace MyApp.Mvc
+    using KissLog.FlushArgs;
+
+    namespace NLog_AspNet_MVC
     {
         public class MvcApplication : System.Web.HttpApplication
         {
             protected void Application_Start()
             {
                 AreaRegistration.RegisterAllAreas();
-                FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
-                BundleConfig.RegisterBundles(BundleTable.Bundles);
-    
-                // Add KissLog exception filter
+
                 GlobalFilters.Filters.Add(new KissLogWebMvcExceptionFilterAttribute());
-    
+
                 ConfigureKissLog();
             }
-    
+
             protected void Application_Error(object sender, EventArgs e)
             {
                 Exception exception = Server.GetLastError();
@@ -61,45 +83,49 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
                 {
                     var logger = Logger.Factory.Get();
                     logger.Error(exception);
-    
+
                     if (logger.AutoFlush() == false)
                     {
                         Logger.NotifyListeners(logger);
                     }
                 }
             }
-    
+
             private void ConfigureKissLog()
             {
                 // optional KissLog configuration
                 KissLogConfiguration.Options
+                    .ShouldLogResponseBody((ILogListener listener, FlushLogArgs args, bool defaultValue) =>
+                    {
+                        if (args.WebProperties.Request.Url.LocalPath == "/")
+                            return true;
+
+                        return defaultValue;
+                    })
                     .AppendExceptionDetails((Exception ex) =>
                     {
                         StringBuilder sb = new StringBuilder();
-    
+
                         if (ex is System.NullReferenceException nullRefException)
                         {
                             sb.AppendLine("Important: check for null references");
                         }
-    
+
                         return sb.ToString();
                     });
-    
+
                 // KissLog internal logs
                 KissLogConfiguration.InternalLog = (message) =>
                 {
                     Debug.WriteLine(message);
                 };
 
-                // register logs output
                 RegisterKissLogListeners();
             }
 
             private void RegisterKissLogListeners()
             {
-                // multiple listeners can be registered using KissLogConfiguration.Listeners.Add() method
-
-                // add KissLog.net cloud listener
+                // register KissLog.net cloud listener
                 KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
                     ConfigurationManager.AppSettings["KissLog.OrganizationId"],
                     ConfigurationManager.AppSettings["KissLog.ApplicationId"])
@@ -109,57 +135,56 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
                 });
             }
 
-            // Register HttpModule
             public static KissLogHttpModule KissLogHttpModule = new KissLogHttpModule();
-    
+
             public override void Init()
             {
                 base.Init();
-    
+
                 KissLogHttpModule.Init(this);
             }
         }
     }
 
-4. Write logs using **ILogger**
+
+5. Write logs using **NLog.ILogger**
 
 .. code-block:: c#
     :caption: HomeController.cs
     :linenos:
-    :emphasize-lines: 1,8,11,16
+    :emphasize-lines: 1,7,10,15
 
-    using KissLog;
-    using System.Web.Mvc;
+    using NLog;
 
-    namespace MyApp.Mvc.Controllers
+    namespace NLog_AspNet_MVC.Controllers
     {
         public class HomeController : Controller
         {
             private readonly ILogger _logger;
             public HomeController()
             {
-                _logger = Logger.Factory.Get();
+                _logger = LogManager.GetCurrentClassLogger();
             }
-    
+
             public ActionResult Index()
             {
-                _logger.Info("Hello world from KissLog!");
+                _logger.Info("Hello world from NLog!");
                 _logger.Trace("Trace message");
                 _logger.Debug("Debug message");
                 _logger.Info("Info message");
                 _logger.Warn("Warning message");
                 _logger.Error("Error message");
-                _logger.Critical("Critical message");
+                _logger.Fatal("Fatal message");
 
                 return View();
             }
         }
     }
 
-.. figure:: images/KissLog-AspNet-MVC.png
-   :alt: ASP.NET MVC + KissLog
+.. figure:: images/NLog-AspNet-MVC.png
+   :alt: ASP.NET MVC + NLog
    :align: center
 
-   ASP.NET MVC + KissLog
+   ASP.NET MVC + NLog
 
-`View sample application <https://github.com/KissLog-net/KissLog.Samples/tree/master/src/KissLog-AspNet-MVC>`_
+`View sample application <https://github.com/KissLog-net/KissLog.Samples/tree/master/src/NLog-AspNet-MVC>`_

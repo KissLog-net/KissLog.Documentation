@@ -82,7 +82,7 @@ div.admonition.warning p.admonition-title { color: #f0ad4e; }
 .markdown-body .highlighttable .code { padding: 0 0 0 0.5em; width: 100%; background-color: #f6f8fa; }
 .markdown-body .highlighttable .code .highlight { margin: 0; }
 .markdown-body .highlighttable .code .highlight > pre { padding-left: 0; }
-.markdown-body .highlighttable .linenos .linenodiv { margin-top: 16px; }
+.markdown-body .highlighttable .linenos .linenodiv { /*margin-top: 16px;*/ }
 .markdown-body code { color: inherit; }
 .breadcrumb .breadcrumb-item.ml-auto::before { content: none; }
 div.literal-block-wrapper { padding: 0; margin-bottom: 1em; }
