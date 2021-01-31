@@ -1,6 +1,73 @@
 Change log
 =======================================================
 
+KissLog 4.1.0
+--------------------------
+
+KissLog.AspNetCore 4.1.0 | KissLog.AspNet.Mvc 4.1.0 | KissLog.AspNet.WebApi 4.1.0 | KissLog.CloudListeners 4.1.0
+
+Release date: 31-01-2021
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Implemented AspNetCore logger provider.
+
+With this change, logs created with ``Microsoft.Extensions.Logging.ILogger`` will be saved to kisslog.net.
+
+.. code-block:: c#
+    :emphasize-lines: 1, 9-12
+    :caption: Startup.cs
+
+    using KissLog;
+
+    namespace MyApplication.AspNetCore
+    {
+        public class Startup
+        {
+            public void ConfigureServices(IServiceCollection services)
+            {
+                services.AddLogging(logging =>
+                {
+                    logging.AddKissLog(new KissLogAspNetCoreOptions());
+                });
+
+                services.AddControllersWithViews();
+            }
+        }
+    }
+
+.. code-block:: c#
+    :emphasize-lines: 1,7,15
+    :caption: HomeController.cs
+
+    using Microsoft.Extensions.Logging;
+
+    namespace MyApplication.AspNetCore.Controllers
+    {
+        public class HomeController : Controller
+        {
+            private readonly ILogger<HomeController> _logger;
+            public HomeController(ILogger<HomeController> logger)
+            {
+                _logger = logger;
+            }
+
+            public IActionResult Index()
+            {
+                _logger.LogInformation("Hello world from KissLog!");
+
+                return View();
+            }
+        }
+    }
+
+.. figure:: images/AspNetCore-LoggerProvider.png
+   :alt: Microsoft.Extensions.Logging.ILogger logs
+   :align: center
+
+   Microsoft.Extensions.Logging.ILogger logs
+
 KissLog 4.0.0
 --------------------------
 

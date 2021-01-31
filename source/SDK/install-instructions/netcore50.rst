@@ -1,7 +1,7 @@
-.NET Core 2.x
+.NET Core 5.x
 ====================
 
-These steps describe how to install and configure KissLog for a .NET Core 2.x application.
+These steps describe how to install and configure KissLog for a .NET Core 5.x application.
 
 1. Install NuGet Package
 
@@ -35,14 +35,14 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-4,19-23,25-28,50-52,85
+    :emphasize-lines: 1-4,19-23,25-28,51-53,86
 
     using KissLog;
     using KissLog.AspNetCore;
     using KissLog.CloudListeners.Auth;
     using KissLog.CloudListeners.RequestLogsListener;
         
-    namespace MyApp.NetCore20
+    namespace MyApp.NetCore50
     {
         public class Startup
         {
@@ -68,10 +68,10 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
 
                 services.AddSession();
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                services.AddControllersWithViews();
             }
 
-            public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             {
                 if (env.IsDevelopment())
                 {
@@ -83,18 +83,19 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
                 }
 
                 app.UseStaticFiles();
-                app.UseAuthentication()
-                app.UseSession()
+                app.UseRouting();
+                app.UseAuthorization();
+                app.UseSession();
 
                 app.UseKissLogMiddleware(options => {
                     ConfigureKissLog(options);
                 });
 
-                app.UseMvc(routes =>
+                app.UseEndpoints(endpoints =>
                 {
-                    routes.MapRoute(
+                    endpoints.MapControllerRoute(
                         name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}");
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
                 });
             }
 
@@ -151,7 +152,7 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
 
     using Microsoft.Extensions.Logging;
     
-    namespace MyApp.NetCore20.Controllers
+    namespace MyApp.NetCore50.Controllers
     {
         public class HomeController : Controller
         {
@@ -185,7 +186,7 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
 
     using KissLog;
     
-    namespace MyApp.NetCore20.Controllers
+    namespace MyApp.NetCore50.Controllers
     {
         public class HomeController : Controller
         {
@@ -210,8 +211,8 @@ These steps describe how to install and configure KissLog for a .NET Core 2.x ap
         }
     }
 
-.. figure:: images/KissLog-AspNetCore-20.png
-   :alt: AspNetCore 2.x
+.. figure:: images/KissLog-AspNetCore-50.png
+   :alt: AspNetCore 5.x
    :align: center
 
-   AspNetCore 2.x
+   AspNetCore 5.x

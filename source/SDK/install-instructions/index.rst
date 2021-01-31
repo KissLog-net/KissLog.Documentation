@@ -6,6 +6,7 @@ Install instructions
    
    netcore20
    netcore30
+   netcore50
    aspnet-mvc
    aspnet-webapi
    console-applications
