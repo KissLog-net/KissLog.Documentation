@@ -15,8 +15,16 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
 
 .. code-block:: javascript
     :caption: appsettings.json
+    :emphasize-lines: 9-11
 
     {
+        "Logging": {
+            "LogLevel": {
+                "Default": "Trace",
+                "Microsoft": "Information"
+            }
+        },
+
         "KissLog.OrganizationId": "_OrganizationId_",
         "KissLog.ApplicationId": "_ApplicationId_",
         "KissLog.ApiUrl": "https://api.kisslog.net"
@@ -27,7 +35,7 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-4,19-23,44-46,56,79,82
+    :emphasize-lines: 1-4,19-23,25-28,51-53,86
 
     using KissLog;
     using KissLog.AspNetCore;
@@ -52,6 +60,13 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
                 {
                     return Logger.Factory.Get();
                 });
+
+                services.AddLogging(logging =>
+                {
+                    logging.AddKissLog();
+                });
+
+                services.AddSession();
 
                 services.AddControllersWithViews();
             }
@@ -126,15 +141,50 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
         }
     }
 
-4. Write logs using **ILogger**
+4. Write logs:
+
+- using **ILogger<HomeController>**
 
 .. code-block:: c#
     :caption: HomeController.cs
     :linenos:
-    :emphasize-lines: 1,8,11,16
+    :emphasize-lines: 1,7,15
+
+    using Microsoft.Extensions.Logging;
+    
+    namespace MyApp.NetCore30.Controllers
+    {
+        public class HomeController : Controller
+        {
+            private readonly ILogger<HomeController> _logger;
+            public HomeController(ILogger<HomeController> logger)
+            {
+                _logger = logger;
+            }
+    
+            public IActionResult Index()
+            {
+                _logger.LogInformation("Hello world from KissLog!");
+                _logger.LogTrace("Trace message");
+                _logger.LogDebug("Debug message");
+                _logger.LogInformation("Info message");
+                _logger.LogWarning("Warning message");
+                _logger.LogError("Error message");
+                _logger.LogCritical("Critical message");
+
+                return View();
+            }
+        }
+    }
+
+- or using **KissLog.ILogger**
+
+.. code-block:: c#
+    :caption: HomeController.cs
+    :linenos:
+    :emphasize-lines: 1,7,15
 
     using KissLog;
-    using Microsoft.AspNetCore.Mvc;
     
     namespace MyApp.NetCore30.Controllers
     {
