@@ -5,25 +5,36 @@ KissLog saves the logs to multiple output locations by using log listeners.
 
 Log listeners are registered at application startup using the ``KissLogConfiguration.Listeners`` container.
 
+.. code-block:: c#
+    :emphasize-lines: 9-10
+
+    using KissLog;
+
+    namespace MyApplication
+    {
+        public class MvcApplication : System.Web.HttpApplication
+        {
+            private void RegisterKissLogListeners()
+            {
+                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener());
+                KissLogConfiguration.Listeners.Add(new LocalTextFileListener()));
+            }
+        }
+    }
+
 .. contents:: Log listeners
    :local:
 
-KissLog.net listener
+kisslog.net
 ----------------------------------------------
 
 `RequestLogsApiListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.CloudListeners/RequestLogsListener/RequestLogsApiListener.cs>`_ saves the logs to kisslog.net (or KissLog on-premises).
 
 .. figure:: images/RequestLogsApiListener-output.png
-   :alt: RequestLogsApiListener
+   :alt: kisslog.net output
    :align: center
 
-   RequestLogsApiListener output
-
-
 .. code-block:: c#
-    :caption: Usage
-    :linenos:
-    :emphasize-lines: 1-3,13-16,19
 
     using KissLog;
     using KissLog.CloudListeners.Auth;
@@ -37,34 +48,26 @@ KissLog.net listener
 
             private void RegisterKissLogListeners()
             {
-                ILogListener listener = new RequestLogsApiListener(new Application("_OrganizationId_", "_ApplicationId_"))
+                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application("0337cd29-a56e-42c1-a48a-e900f3116aa8", "35f66045-16df-4a3a-9cb4-b1762b464348"))
                 {
                     ApiUrl = "https://api.kisslog.net"
-                };
-
-                // register KissLog.net cloud listener
-                KissLogConfiguration.Listeners.Add(listener);
+                });
             }
         }
     }
 
 
     
-Text file listener
+Local text files
 ----------------------------------------------
 
 `LocalTextFileListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog/Listeners/LocalTextFileListener.cs>`_ saves the logs on local text files.
 
 .. figure:: images/localTextFileListener-output.png
-   :alt: LocalTextFileListener
+   :alt: Local text files output
    :align: center
 
-   LocalTextFileListener output
-
 .. code-block:: c#
-    :caption: Usage
-    :linenos:
-    :emphasize-lines: 1,11-14,17
 
     using KissLog;
 
@@ -76,41 +79,31 @@ Text file listener
 
             private void RegisterKissLogListeners()
             {
-                ILogListener listener = new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
+                KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
                 {
                     FlushTrigger = FlushTrigger.OnMessage
-                };
-
-                // register local text file listener
-                KissLogConfiguration.Listeners.Add(listener);
+                });
             }
         }
     }
 
 
-NLog listener
+NLog
 ----------------------------------------------
 
-`NLogTargetListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.Adapters.NLog/NLogTargetListener.cs>`_ saves the logs created with ``KissLog`` to all the ``NLog`` targets defined in **NLog.config**.
+`NLogTargetListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.Adapters.NLog/NLogTargetListener.cs>`_ saves the logs created with ``KissLog.ILogger`` to all the NLog targets defined in **NLog.config**.
 
-This is useful when you want to use save the logs to both ``kisslog.net`` and ``NLog`` text-files.
+This is useful when you want to use save the logs to both kisslog.net and NLog text-files.
 
 .. figure:: images/nlog-output.png
    :alt: NLog output
    :align: center
 
-   NLog output
-
 .. figure:: images/NLog.config.png
    :alt: NLog.config
    :align: center
 
-   NLog.config
-
 .. code-block:: c#
-    :caption: Registering NLog listener
-    :linenos:
-    :emphasize-lines: 1,12
 
     using KissLog;
 
@@ -122,14 +115,7 @@ This is useful when you want to use save the logs to both ``kisslog.net`` and ``
 
             private void RegisterKissLogListeners()
             {
-                // register NLog listener
                 KissLogConfiguration.Listeners.Add(new NLogTargetListener());
-
-                // optionally, we register the KissLog.net cloud listener
-                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application("_OrganizationId_", "_ApplicationId_"))
-                {
-                    ApiUrl = "https://api.kisslog.net"
-                });
             }
         }
     }
@@ -140,8 +126,7 @@ Custom listeners
 Custom log listeners can be created by implementing the ``ILogListener`` interface.
 
 .. code-block:: c#
-    :linenos:
-    :caption: Creating custom log listener:
+    :caption: DebugOutputListener.cs
     :emphasize-lines: 11,18,30
 
     public class DebugOutputListener : ILogListener
@@ -178,9 +163,6 @@ Custom log listeners can be created by implementing the ``ILogListener`` interfa
     }
 
 .. code-block:: c#
-    :caption: Registering the custom DebugOutputListener:
-    :linenos:
-    :emphasize-lines: 11
 
     using KissLog;
 
@@ -200,9 +182,6 @@ Custom log listeners can be created by implementing the ``ILogListener`` interfa
 .. figure:: images/debugOutputListener-output.png
    :alt: DebugOutputListener output
    :align: center
-
-   DebugOutputListener output
-
 
 Another custom log listener can be found on the :doc:`/SDK/examples/MongoDbListener` example.
 

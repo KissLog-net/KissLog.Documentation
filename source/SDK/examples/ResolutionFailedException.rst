@@ -1,7 +1,11 @@
 Unity ResolutionFailedException
 =======================================
 
-When Unity cannot resolve a dependency, it silently fails with a default exception message:
+**Problem**
+
+When a Controller fails to resolve a dependency, the request fails with a generic exception.
+
+The exception doesn't specify which service could not be resolved by Unity, making the troubleshooting process difficult.
 
 .. code-block:: none
 
@@ -12,11 +16,17 @@ When Unity cannot resolve a dependency, it silently fails with a default excepti
     An error occurred when trying to create a controller of type 'MyApp.Controllers.ProductsController'.
     Make sure that the controller has a parameterless public constructor.
 
-The exception message doesn't give any details about the missing service.
 
-To solve this, you can use KissLog to capture and log the Unity resolution failed exception.
+**Solution**
 
-**Example**
+We can configure KissLog to capture and log Unity exceptions, which contains details about the service which failed to be resolved.
+
+.. figure:: images/ResolutionFailedException/ResolutionFailedException.png
+   :alt: ResolutionFailedException
+   :align: center
+
+
+**Implementation**
 
 .. code-block:: c#
     :caption: UnityDependencyResolver.cs
@@ -102,12 +112,3 @@ To solve this, you can use KissLog to capture and log the Unity resolution faile
             }
         }
     }
-
-
-**Result**
-
-.. figure:: images/ResolutionFailedException/ResolutionFailedException.png
-   :alt: ResolutionFailedException
-   :align: center
-
-   ResolutionFailedException

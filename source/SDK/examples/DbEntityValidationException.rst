@@ -1,16 +1,32 @@
-Entity Framework validation exception
-=======================================
+Entity Framework DbEntityValidationException
+=====================================================
 
-DbEntityValidationException is the exception thrown by Entity Framework when the entity validation fails.
+**Problem**
+
+When Entity Framework attempts to save an entity and the validation fails, ``SaveChanges()`` will throw a generic ``DbEntityValidationException``.
+
+The exception doesn't specify the actual validation errors, making the troubleshooting process difficult.
 
 .. code-block:: none
 
     System.Data.Entity.Validation.DbEntityValidationException:
     Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
 
-You can use the :ref:`AppendExceptionDetails handler <appendexceptiondetails>` to capture the exception and log the validation errors.
+**Solution**
 
-**Example**
+We can configure KissLog to capture and log the Entity Framework validation errors.
+
+.. figure:: images/DbEntityValidationException/DbEntityValidationException-ValidationErrors.png
+   :alt: Appending ValidationErrors to the log message
+   :align: center
+
+.. code-block:: none
+
+    DbEntityValidationException:
+    Field: ProductCode, Error: The field ProductCode must be a string or array type with a maximum length of '8'.
+    Field: Description, Error: The Description field is required.
+
+**Implementation**
 
 .. code-block:: c#
     :caption: Global.asax
@@ -51,23 +67,3 @@ You can use the :ref:`AppendExceptionDetails handler <appendexceptiondetails>` t
             }
         }
     }
-
-**Result**
-
-.. figure:: images/DbEntityValidationException/DbEntityValidationException.png
-   :alt: DbEntityValidationException
-   :align: center
-
-   DbEntityValidationException
-
-.. figure:: images/DbEntityValidationException/DbEntityValidationException-ValidationErrors.png
-   :alt: Appending ValidationErrors to the log message
-   :align: center
-
-   Inspect the ValidationErrors (kisslog.net)
-
-.. figure:: images/DbEntityValidationException/DbEntityValidationException-ValidationErrors-textLog.png
-   :alt: Appending ValidationErrors to the log message
-   :align: center
-
-   Inspect the ValidationErrors (text logs)

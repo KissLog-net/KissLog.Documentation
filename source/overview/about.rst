@@ -11,7 +11,7 @@ Some of the main features of KissLog are:
 
 - Lightweight, configurable SDK
 
-- Centralized logging using `KissLog.net <https://kissLog.net/>`_ cloud or on-premises integration
+- Centralized logging using `kisslog.net <https://kissLog.net/>`_ or KissLog on-premises integration
 
 .. figure:: images/centralized-logging.png
    :alt: KissLog.net centralized logging

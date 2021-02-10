@@ -1,6 +1,8 @@
 body { font-size: 14px; }
 .markdown-body { font-size: 14px; }
 
+.breadcrumb { flex-wrap: nowrap; overflow: hidden; white-space: nowrap; }
+
 #container { padding: 30px 0; background-color: #fff; }
 #navbar .navbar-brand > a:hover { text-decoration: none; }
 #navbar .navbar-brand > a img { height: 32px; }

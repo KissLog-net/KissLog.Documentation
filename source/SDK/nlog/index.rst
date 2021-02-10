@@ -12,7 +12,7 @@ If you have a .NET application which is already using NLog, you can configure it
 .. code-block:: c#
     :caption: HomeController.cs + NLog
     :linenos:
-    :emphasize-lines: 1,7,10,15
+    :emphasize-lines: 1,10,15
 
     using NLog;
 
@@ -44,6 +44,3 @@ If you have a .NET application which is already using NLog, you can configure it
 .. figure:: ../install-instructions/images/NLog-AspNet-MVC.png
    :alt: ASP.NET MVC + NLog
    :align: center
-
-   ASP.NET MVC + NLog
-
