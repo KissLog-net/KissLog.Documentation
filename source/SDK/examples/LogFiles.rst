@@ -4,7 +4,7 @@ Log files
 KissLog can be used to log files. This is useful when you need to:
 
 * log large text messages which would normally be truncated
-* save files which have been generated / processed through the request
+* save files which have been generated / processed throughout the request
 * save response body
 
 .. code-block:: c#
