@@ -6,5 +6,6 @@ Examples
    
    DbEntityValidationException
    ResolutionFailedException
+   LogFiles
    filter-requests
    MongoDbListener
