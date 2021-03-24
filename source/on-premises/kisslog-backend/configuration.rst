@@ -71,6 +71,8 @@ Database
 | Required               | true when ``Database.Provider = "AzureCosmosDb"``           |
 +------------------------+-------------------------------------------------------------+
 
+.. _Backend_Configuration_MongoDb:
+
 MongoDb
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -87,7 +89,7 @@ Configuration used to connect to MongoDB server.
         }
     }
 
-
+.. _Backend_Configuration_AzureCosmosDb:
 
 AzureCosmosDb
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
