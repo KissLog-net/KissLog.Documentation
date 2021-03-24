@@ -19,6 +19,7 @@ Table of Contents
    :includehidden:
 
    installation-guide
+   update-guide
    kisslog-frontend/index
    kisslog-backend/index
 
