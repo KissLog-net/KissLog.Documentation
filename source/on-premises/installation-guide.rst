@@ -185,6 +185,8 @@ If the startup process went successful, you will see the home page.
 
     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGV2ZWxvcGVyIn0.DWgMpOWPCT-4idapOIeWtQ8On8wT0_RdkyOYcIq9DoE
 
+.. _InstallInstructions-Troubleshooting:
+
 Troubleshooting
 -------------------------------------------------------
 
