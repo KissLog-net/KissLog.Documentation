@@ -51,15 +51,6 @@ KissLog.Frontend represents the user-interface application where users (develope
 .. figure:: images/KissLog.Frontend-arhitecture.png
     :alt: KissLog.Frontend arhitecture
 
-Deployment packages
-------------------------
-
-- :doc:`KissLog.Frontend <kisslog-frontend/index>`
-
-- :doc:`KissLog.Backend <kisslog-backend/index>`
-
-Latest version of KissLog deployment package can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
-
 Table of Contents
 ------------------
 

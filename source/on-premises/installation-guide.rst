@@ -233,6 +233,13 @@ Make sure there is no firewall blocking the connection.
 
 Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then restart the application.
 
+**Important:**
+
+If no IIS logs are generated, make sure there is a folder ``\Logs`` under the application root path.
+
+``C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs``
+
+
 Need help?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
