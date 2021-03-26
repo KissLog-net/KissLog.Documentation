@@ -40,16 +40,13 @@ KissLog.Backend is the application responsible for saving the logs, exceptions a
 
 Consumer applications (the applications you develop) are sending the logs to KissLog.Backend using HTTP requests.
 
-.. figure:: images/KissLog.Backend-arhitecture.png
-    :alt: KissLog.Backend arhitecture
-
 KissLog Frontend
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 KissLog.Frontend represents the user-interface application where users (developers, business analysts, QA testers, application managers) can visualise the captured logs, exceptions and other metrics data.
 
-.. figure:: images/KissLog.Frontend-arhitecture.png
-    :alt: KissLog.Frontend arhitecture
+.. figure:: images/kissLog-architecture.png
+    :alt: KissLog arhitecture
 
 Table of Contents
 ------------------

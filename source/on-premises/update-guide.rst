@@ -27,12 +27,13 @@ Update steps
 Create backup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# 2) Create a backup of the existing IIS application folders
+# 2) Create a backup of the existing IIS application folders.
 
-.. topic:: IIS folders backup
+.. code-block:: none
 
-    .. image:: images/update-guide/folder-backups.png
-        :alt: IIS folders backup
+    /Backups
+    ├── KissLog.Frontend\
+    └── KissLog.Backend\
 
 Copy new files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
