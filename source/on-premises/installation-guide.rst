@@ -156,9 +156,9 @@ The initial startup  will bootstrap all the necessary components including Mongo
 
 Startup logs (including errors) will be generated under ``.\Logs`` folder:
 
-* C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
 
-* C:\\inetpub\\wwwroot\\KissLog.Frontend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\``
 
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -190,11 +190,11 @@ If the startup process went successful, you will see the home page.
 Troubleshooting
 -------------------------------------------------------
 
-Startup logs (including errors) will be available under ``root\Logs`` folder. Here should be the first place to check.
+Startup logs (including errors) will be available under ``.\Logs`` folder. Here should be the first place to check.
 
-* C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
 
-* C:\\inetpub\\wwwroot\\KissLog.Frontend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\``
 
 Quick checklist
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -235,9 +235,9 @@ Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then rest
 
 **Important:**
 
-If no IIS logs are generated, make sure there is a folder ``\Logs`` under the application root path.
+Create an empty ``\Logs`` folder if one does not already exist.
 
-``C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs``
+``C:\inetpub\wwwroot\KissLog.Backend\Logs``
 
 
 Need help?

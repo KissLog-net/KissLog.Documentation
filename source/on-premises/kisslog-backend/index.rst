@@ -6,5 +6,5 @@ KissLog Backend
    :titlesonly:
    :includehidden:
 
-   KissLog.json
+   kisslog
    
