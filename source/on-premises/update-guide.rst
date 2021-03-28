@@ -68,15 +68,15 @@ Choose **not to override** the existing files (keep the local files).
 Update configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# 6) Update **KissLog.Backend\\Configuration\\KissLog.json** file.
+# 6) Update ``KissLog.Backend\Configuration\KissLog.json`` file.
 
 Apply the configuration schema changes (if any).
 
-# 7) Update **KissLog.Frontend\\Configuration\\KissLog.json** file.
+# 7) Update ``KissLog.Frontend\Configuration\KissLog.json`` file.
 
 Apply the configuration schema changes (if any).
 
-# 8) Update **KissLog.Frontend\\appsettings.json** file.
+# 8) Update ``KissLog.Frontend\appsettings.json`` file.
 
 Change/increment the values for ``"AppVersion"`` and ``"HtmlMetaImagesVersion"`` settings.
 
