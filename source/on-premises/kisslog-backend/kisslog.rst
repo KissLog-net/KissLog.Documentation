@@ -1,4 +1,4 @@
-Configuration
+KissLog.json
 ===================================
 
 .. contents:: Configuration options
@@ -143,16 +143,54 @@ TokenizeUrl
     {
         "CreateRequestLog": {
             "TokenizeUrl": {
+                "ParameterCharacters": [ "%", " ", ":", ",", ";", "+", "%", "&", "#", "(", ")", "@", "=", "<", ">", "{", "}", "\"", "'" ],
+                "ParameterPatterns": [ "(?si)(?:\\D*\\d){3}" ],
                 "SkipPatterns": [ "(?si)^\/[0-9]+$" ]
             }
         }
     }
 
-+----------------------------------------------------------------------------------------------+
-| TokenizeUrl.SkipPatterns                                                                     |
-+==============================================================================================+
-| An array of Regex patterns for which the url tokenization will not be activated              |
-+----------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - TokenizeUrl.ParameterCharacters
+   * - If an url path contains any of the specified characters in this array, the path will be considered a parameter.
+
+       .. code-block:: none
+
+           Example: [ ":" ]
+           Because the url path "/D1:P7:00A" contains ":" character, it will be considered a parameter.
+
+           "/api/reports/generate/D1:P7:00A" ---> "/api/reports/generate/{0}"
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - TokenizeUrl.ParameterPatterns
+   * - An array of Regex patterns used to identify parameters inside url paths
+
+       .. code-block:: none
+
+           Example: [ "(?si)(?:\\D*\\d){3}" ]
+           Because the url path "/APP-002" is matched by the regex (contains 3 digits), it will be considered a parameter.
+
+           "/api/reports/generate/APP-002" ---> "/api/reports/generate/{0}"
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - TokenizeUrl.SkipPatterns
+   * - An array of Regex patterns for which the url tokenization will not be activated.
+
+       .. code-block:: none
+
+           Example: [ "(?si)^\/home\/error-(?:[0-9])+$" ]
+           Because the url "/Home/Error-404" is matched by the regex, url tokenization will not be activated.
+
+           "/Home/Error-404" ---> "/Home/Error-404"
+
 
 Obfuscate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -318,10 +356,10 @@ Configuration used for the alers service.
 +----------------------------------------------------------------------------------------------+
 | Alerts.CacheIntervalInSeconds                                                                |
 +==============================================================================================+
-| Specifies for how long the alert rules created in the KissLog.Frontend user interface        |
+| Specifies for how long the alerts created in the user interface                              |
 | should be saved into cache memory.                                                           |
 |                                                                                              |
-| Saving alert rules into cache memory reduces the database operations.                        |
+| Saving alerts into cache memory reduces the database operations.                             |
 +----------------------------------------------------------------------------------------------+
 
 Queue
@@ -540,9 +578,12 @@ RepositoryQueues
 | (recommended)     | inserted in database at regular intervals of time.                             |
 |                   |                                                                                |
 |                   | Having queue enabled significantly reduces                                     |
-|                   | the database INSERT operations.                                                |
+|                   | the database operations.                                                       |
 +-------------------+--------------------------------------------------------------------------------+
-| ``false``         | String logs of Error verbosity are not saved as exceptions (default)           |
+| ``false``         | Entities are inserted in database as soon as a request is saved.               |
+|                   |                                                                                |
+|                   | Setting the flag to ``false`` can have a negative impact for the MongoDB       |
+|                   | performance when dealing with large volumes of logs to be saved.               |
 +-------------------+--------------------------------------------------------------------------------+
 
 +----------------------------------------------------------------------------------------------------------------------+

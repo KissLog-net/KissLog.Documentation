@@ -156,9 +156,9 @@ The initial startup  will bootstrap all the necessary components including Mongo
 
 Startup logs (including errors) will be generated under ``.\Logs`` folder:
 
-* C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
 
-* C:\\inetpub\\wwwroot\\KissLog.Frontend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\``
 
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -185,14 +185,16 @@ If the startup process went successful, you will see the home page.
 
     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGV2ZWxvcGVyIn0.DWgMpOWPCT-4idapOIeWtQ8On8wT0_RdkyOYcIq9DoE
 
+.. _InstallInstructions-Troubleshooting:
+
 Troubleshooting
 -------------------------------------------------------
 
-Startup logs (including errors) will be available under ``root\Logs`` folder. Here should be the first place to check.
+Startup logs (including errors) will be available under ``.\Logs`` folder. Here should be the first place to check.
 
-* C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
 
-* C:\\inetpub\\wwwroot\\KissLog.Frontend\\Logs\\
+* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\``
 
 Quick checklist
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -230,6 +232,13 @@ Make sure there is no firewall blocking the connection.
 # 6) If the application fails to start and there are no log messages, **enable IIS logs**:
 
 Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then restart the application.
+
+**Important:**
+
+Create an empty ``\Logs`` folder if one does not already exist.
+
+``C:\inetpub\wwwroot\KissLog.Backend\Logs``
+
 
 Need help?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

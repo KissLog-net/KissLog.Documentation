@@ -1,4 +1,4 @@
-Configuration
+KissLog.json
 ===================================
 
 .. contents:: Configuration options
