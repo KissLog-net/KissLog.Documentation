@@ -16,7 +16,6 @@ Implemented ``KissLogConfiguration.Options.OnRequestLogsApiListenerException()``
 This handler is invoked when the REST request to KissLog server fails.
 
 .. code-block:: c#
-    :emphasize-lines: 8
 
     protected void Application_Start()
     {
@@ -24,25 +23,17 @@ This handler is invoked when the REST request to KissLog server fails.
             .OnRequestLogsApiListenerException((ExceptionArgs args) =>
             {
                 string url = args.FlushArgs.WebProperties.Request.Url.AbsoluteUri;
+                List<string> logs = args.FlushArgs.MessagesGroups.SelectMany(p => p.Messages).OrderBy(p => p.DateTime).Select(p => p.Message).ToList();
                 string payload = args.Payload;
 
-                // save the payload to another storage, such as text file or database
+                // KissLog server returned an error while saving the request
+                // we will save the logs to local text file instead
 
-                var localTextFileListener = new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "kissLogFailedLogs"))
+                var localTextFileListener = new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
                 {
-                    FlushTrigger = FlushTrigger.OnMessage
+                    FlushTrigger = FlushTrigger.OnFlush
                 };
-
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine(string.Format("Url: {0}", url));
-                sb.AppendLine(string.Format("Payload: {0}", payload));
-
-                localTextFileListener.OnMessage(new LogMessage
-                {
-                    Message = sb.ToString(),
-                    LogLevel = LogLevel.Trace,
-                    DateTime = DateTime.UtcNow
-                }, null);
+                localTextFileListener.OnFlush(args.FlushArgs, null);
             });
     }
 

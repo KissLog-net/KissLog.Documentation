@@ -110,6 +110,29 @@ This handler is used to customize the captured user display information.
 
    Customized user display information
 
+OnRequestLogsApiListenerException
+-------------------------------------------------------
+
+This handler is invoked when the REST request to KissLog server fails.
+
+.. code-block:: c#
+
+    private void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .OnRequestLogsApiListenerException((ExceptionArgs args) =>
+            {
+                // KissLog server returned an error while saving the request
+                // we will save the logs to local text file instead
+
+                var localTextFileListener = new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
+                {
+                    FlushTrigger = FlushTrigger.OnFlush
+                };
+                localTextFileListener.OnFlush(args.FlushArgs, null);
+            });
+    }
+
 ShouldLogRequestClaim
 -------------------------------------------------------
 
