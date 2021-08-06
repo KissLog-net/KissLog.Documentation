@@ -1,6 +1,51 @@
 Change log
 =======================================================
 
+KissLog.Cloud 4.2.0
+--------------------------
+
+KissLog.AspNetCore 4.2.0 | KissLog.AspNet.Mvc 4.2.0 | KissLog.AspNet.WebApi 4.2.0
+
+Release date: 06-08-2021
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Implemented ``KissLogConfiguration.Options.OnRequestLogsApiListenerException()``.
+
+This handler is invoked when the REST request to KissLog server fails.
+
+.. code-block:: c#
+    :emphasize-lines: 8
+
+    protected void Application_Start()
+    {
+        KissLogConfiguration.Options
+            .OnRequestLogsApiListenerException((ExceptionArgs args) =>
+            {
+                string url = args.FlushArgs.WebProperties.Request.Url.AbsoluteUri;
+                string payload = args.Payload;
+
+                // save the payload to another storage, such as text file or database
+
+                var localTextFileListener = new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "kissLogFailedLogs"))
+                {
+                    FlushTrigger = FlushTrigger.OnMessage
+                };
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(string.Format("Url: {0}", url));
+                sb.AppendLine(string.Format("Payload: {0}", payload));
+
+                localTextFileListener.OnMessage(new LogMessage
+                {
+                    Message = sb.ToString(),
+                    LogLevel = LogLevel.Trace,
+                    DateTime = DateTime.UtcNow
+                }, null);
+            });
+    }
+
 KissLog 4.1.0
 --------------------------
 
