@@ -1,6 +1,106 @@
 Change log
 =======================================================
 
+KissLog 5.0.0
+--------------------------
+
+KissLog.AspNetCore 5.0.0 | KissLog.AspNet.Mvc 5.0.0 | KissLog.AspNet.WebApi 5.0.0 | KissLog.CloudListeners 5.0.0
+
+Release date: 04-11-2021
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All the functionality has been rewritten from scratch. Introduced 600+ unit tests.
+
+Breaking changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **ILogger** has been renamed to **IKLogger**.
+
+This change has been made to avoid name conflicts between ``IKLogger`` and ``Microsoft.Extensions.Logging.ILogger``, and therefore, to fully implement AspNetCore.
+
+.. code-block:: c#
+    :caption: KissLog >= 5.0.0
+
+    public void Foo()
+    {
+        IKLogger logger = Logger.Factory.Get();
+    }
+
+* **ILoggerListener** (RequestLogsApiListener, LocalTextFileListener)
+
+Removed "Parser" property as it was unuseful.
+
+Removed "MinimumResponseHttpStatusCode". Can be replaced by using ``StatusCodeInterceptor``.
+
+Removed "MinimumLogMessageLevel". Can be replaced by using ``StatusCodeInterceptor``.
+
+Introduced the optional "Interceptor" property which can be used to toggle the listener functionality.
+
+.. code-block:: c#
+
+    private void RegisterKissLogListeners()
+    {
+        KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new CloudListeners.Auth.Application(
+            Configuration["KissLog.OrganizationId"],
+            Configuration["KissLog.ApplicationId"])
+        )
+        {
+            Interceptor = new StatusCodeInterceptor
+            {
+                MinimumLogMessageLevel = LogLevel.Information,
+                MinimumResponseHttpStatusCode = 400
+            }
+        });
+    }
+
+* **LocalTextFileListener** has been moved to "KissLog.Listeners.FileListener" namespace.
+
+.. code-block:: c#
+
+    using KissLog.Listeners.FileListener;
+
+    namespace MyApp
+    {
+        public class Startup
+        {
+            private void RegisterKissLogListeners()
+            {
+                KissLogConfiguration.Listeners.Add(new LocalTextFileListener("logs", FlushTrigger.OnMessage));
+            }
+        }
+    }
+
+* **GenerateKeywords** has been renamed to "GenerateSearchKeywords".
+
+.. code-block:: c#
+
+    private void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .GenerateSearchKeywords((FlushLogArgs args) =>
+            {
+                var service = new GenerateSearchKeywordsService();
+                IEnumerable<string> keywords = service.GenerateKeywords(args);
+
+                return keywords;
+            });
+    }
+
+* **GetUser** has been renamed to "CreateUserPayload".
+
+.. code-block:: c#
+
+    private void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .CreateUserPayload((HttpRequest httpRequest) =>
+            {
+                return new RestClient.Requests.CreateRequestLog.User();
+            });
+    }
+
 KissLog.Cloud 4.2.0
 --------------------------
 
