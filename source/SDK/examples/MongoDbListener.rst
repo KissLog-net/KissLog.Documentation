@@ -77,21 +77,19 @@ Finally, we create the ``MongoDbListener``, which will save the logs to MongoDB.
     {
         public class MongoDbListener : ILogListener
         {
-            public int MinimumResponseHttpStatusCode { get; set; } = 0;
-            public LogLevel MinimumLogMessageLevel { get; set; } = LogLevel.Trace;
-            public LogListenerParser Parser { get; set; } = new LogListenerParser();
+            public ILogListenerInterceptor Interceptor { get; set; }
 
-            public void OnBeginRequest(HttpRequest httpRequest, ILogger logger)
+            public void OnBeginRequest(HttpRequest httpRequest)
             {
                 // do nothing
             }
 
-            public void OnMessage(LogMessage message, ILogger logger)
+            public void OnMessage(LogMessage message)
             {
                 // do nothing
             }
 
-            public void OnFlush(FlushLogArgs args, ILogger logger)
+            public void OnFlush(FlushLogArgs args)
             {
                 var logMessages = args.MessagesGroups.SelectMany(p => p.Messages).OrderBy(p => p.DateTime).ToList();
 
