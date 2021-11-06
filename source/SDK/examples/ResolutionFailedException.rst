@@ -57,8 +57,8 @@ We can configure KissLog to capture and log Unity exceptions, which contains det
 
                         if (serviceType.FullName.StartsWith("System.") == false)
                         {
-                            // get the current http request ILogger
-                            ILogger logger = Logger.Factory.Get();
+                            // get the current http request IKLogger
+                            IKLogger logger = Logger.Factory.Get();
 
                             // log the Unity exception
                             logger.Error(unityEx);

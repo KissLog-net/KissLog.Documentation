@@ -89,7 +89,7 @@ These steps describe how to install and configure KissLog for a Console applicat
         }
     }
 
-4. Write logs using **ILogger**
+4. Write logs using **IKLogger**
 
 .. code-block:: c#
     :caption: Program.cs
@@ -104,22 +104,20 @@ These steps describe how to install and configure KissLog for a Console applicat
             {
                 ConfigureKissLog();
     
-                ILogger logger = new Logger(url: "/Program/Main");
+                Logger.SetFactory(new LoggerFactory(new Logger(url: "ConsoleApp/Main")));
 
-                try
-                {
-                    logger.Info("Hello world from KissLog!");
-                    logger.Trace("Trace message");
-                    logger.Debug("Debug message");
-                    logger.Info("Info message");
-                    logger.Warn("Warning message");
-                    logger.Error("Error message");
-                    logger.Critical("Critical message");
-                }
-                finally
-                {
-                    Logger.NotifyListeners(logger);
-                }
+                IKLogger logger = Logger.Factory.Get();
+
+                logger.Info("Hello world from KissLog!");
+                logger.Trace("Trace message");
+                logger.Debug("Debug message");
+                logger.Info("Info message");
+                logger.Warn("Warning message");
+                logger.Error("Error message");
+                logger.Critical("Critical message");
+
+                var loggers = Logger.Factory.GetAll();
+                Logger.NotifyListeners(loggers);
             }
         }
     }

@@ -17,7 +17,7 @@ KissLog can be used to log files. This is useful when you need to:
     {
         public class HomeController : Controller
         {
-            private readonly ILogger _logger;
+            private readonly IKLogger _logger;
             public HomeController()
             {
                 _logger = Logger.Factory.Get();

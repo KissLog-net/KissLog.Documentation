@@ -121,7 +121,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
         }
     }
 
-4. Write logs using **ILogger**
+4. Write logs using **IKLogger**
 
 .. code-block:: c#
     :caption: HomeController.cs
@@ -135,7 +135,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
     {
         public class HomeController : Controller
         {
-            private readonly ILogger _logger;
+            private readonly IKLogger _logger;
             public HomeController()
             {
                 _logger = Logger.Factory.Get();

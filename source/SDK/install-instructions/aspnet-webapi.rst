@@ -149,7 +149,7 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
         }
     }
 
-5. Write logs using **ILogger**
+5. Write logs using **IKLogger**
 
 .. code-block:: c#
     :caption: ValuesController.cs
@@ -163,7 +163,7 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
     {
         public class ValuesController : ApiController
         {
-            private readonly ILogger _logger;
+            private readonly IKLogger _logger;
             public ValuesController()
             {
                 _logger = Logger.Factory.Get();

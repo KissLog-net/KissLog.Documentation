@@ -79,43 +79,7 @@ Local text files
 
             private void RegisterKissLogListeners()
             {
-                KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
-                {
-                    FlushTrigger = FlushTrigger.OnMessage
-                });
-            }
-        }
-    }
-
-
-NLog
-----------------------------------------------
-
-`NLogTargetListener <https://github.com/KissLog-net/KissLog.Sdk/blob/master/src/KissLog.Adapters.NLog/NLogTargetListener.cs>`_ saves the logs created with ``KissLog.ILogger`` to all the NLog targets defined in **NLog.config**.
-
-This is useful when you want to use save the logs to both kisslog.net and NLog text-files.
-
-.. figure:: images/nlog-output.png
-   :alt: NLog output
-   :align: center
-
-.. figure:: images/NLog.config.png
-   :alt: NLog.config
-   :align: center
-
-.. code-block:: c#
-
-    using KissLog;
-
-    namespace MyApplication
-    {
-        public class MvcApplication : System.Web.HttpApplication
-        {
-            // [...]
-
-            private void RegisterKissLogListeners()
-            {
-                KissLogConfiguration.Listeners.Add(new NLogTargetListener());
+                KissLogConfiguration.Listeners.Add(new LocalTextFileListener("logs", FlushTrigger.OnMessage));
             }
         }
     }
@@ -131,28 +95,26 @@ Custom log listeners can be created by implementing the ``ILogListener`` interfa
 
     public class DebugOutputListener : ILogListener
     {
-        public int MinimumResponseHttpStatusCode { get; set; } = 0;
-        public LogLevel MinimumLogMessageLevel { get; set; } = LogLevel.Trace;
-        public LogListenerParser Parser { get; set; } = new LogListenerParser();
+        public ILogListenerInterceptor Interceptor { get; set; }
 
-        public void OnBeginRequest(HttpRequest httpRequest, ILogger logger)
+        public void OnBeginRequest(HttpRequest httpRequest)
         {
             string text = string.Format(">>>>>> {0} {1}", httpRequest.HttpMethod, httpRequest.Url.PathAndQuery);
 
             Debug.WriteLine(text);
         }
 
-        public void OnMessage(LogMessage message, ILogger logger)
+        public void OnMessage(LogMessage message)
         {
             string text = string.Format(">>>>>> {0} {1}", message.LogLevel, message.Message);
 
             Debug.WriteLine(text);
         }
 
-        public void OnFlush(FlushLogArgs args, ILogger logger)
+        public void OnFlush(FlushLogArgs args)
         {
-            HttpRequest request = args.WebProperties.Request;
-            HttpResponse response = args.WebProperties.Response;
+            HttpRequest request = args.HttpProperties.Request;
+            HttpResponse response = args.HttpProperties.Response;
 
             int httpStatusCode = (int)response.HttpStatusCode;
 
