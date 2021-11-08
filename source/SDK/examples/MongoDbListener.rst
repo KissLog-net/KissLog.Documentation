@@ -67,7 +67,7 @@ Next, we create the ``MongoDbContext``, which will help us query the MongoDB dat
 Finally, we create the ``MongoDbListener``, which will save the logs to MongoDB.
 
 .. code-block:: c#
-    :emphasize-lines: 32-33
+    :emphasize-lines: 30-31
 
     using MyApp.Models;
     using KissLog;
@@ -134,7 +134,6 @@ Finally, we create the ``MongoDbListener``, which will save the logs to MongoDB.
 Last step is to register the newly created MongoDbListener.
 
 .. code-block:: c#
-    :linenos:
     :emphasize-lines: 12
 
     using KissLog;

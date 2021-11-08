@@ -1,7 +1,7 @@
-.NET Core 3.x
+.NET Core Web App
 ====================
 
-These steps describe how to install and configure KissLog for a .NET Core 3.x application.
+These steps describe how to install and configure KissLog for a .NET Core Web Application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNetCore5>`_).
 
 1. Install NuGet Package
 
@@ -35,14 +35,15 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-4,19-23,25-28,51-53,86
+    :emphasize-lines: 1-5,20,24-35,57
 
     using KissLog;
     using KissLog.AspNetCore;
     using KissLog.CloudListeners.Auth;
     using KissLog.CloudListeners.RequestLogsListener;
-        
-    namespace MyApp.NetCore30
+    using KissLog.Formatters;
+
+    namespace AspNetCore_WebApp
     {
         public class Startup
         {
@@ -63,23 +64,15 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
                     {
                         options.Formatter = (FormatterArgs args) =>
                         {
-                            string message = args.DefaultValue;
-
                             if (args.Exception == null)
-                                return message;
+                                return args.DefaultValue;
 
                             string exceptionStr = new ExceptionFormatter().Format(args.Exception, args.Logger);
 
-                            StringBuilder sb = new StringBuilder();
-                            sb.AppendLine(message);
-                            sb.Append(exceptionStr);
-
-                            return sb.ToString();
+                            return string.Join(Environment.NewLine, new[] { args.DefaultValue, exceptionStr });
                         };
                     });
                 });
-
-                services.AddSession();
 
                 services.AddControllersWithViews();
             }
@@ -100,9 +93,7 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
                 app.UseAuthorization();
                 app.UseSession();
 
-                app.UseKissLogMiddleware(options => {
-                    ConfigureKissLog(options);
-                });
+                app.UseKissLogMiddleware(options => ConfigureKissLog(options));
 
                 app.UseEndpoints(endpoints =>
                 {
@@ -114,42 +105,11 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
 
             private void ConfigureKissLog(IOptionsBuilder options)
             {
-                // optional KissLog configuration
-                options.Options
-                    .AppendExceptionDetails((Exception ex) =>
+                KissLogConfiguration.Listeners
+                    .Add(new RequestLogsApiListener(new Application(configuration["KissLog.OrganizationId"], configuration["KissLog.ApplicationId"]))
                     {
-                        StringBuilder sb = new StringBuilder();
-
-                        if (ex is System.NullReferenceException nullRefException)
-                        {
-                            sb.AppendLine("Important: check for null references");
-                        }
-
-                        return sb.ToString();
+                        ApiUrl = configuration["KissLog.ApiUrl"]
                     });
-
-                // KissLog internal logs
-                options.InternalLog = (message) =>
-                {
-                    Debug.WriteLine(message);
-                };
-
-                // register logs output
-                RegisterKissLogListeners(options);
-            }
-
-            private void RegisterKissLogListeners(IOptionsBuilder options)
-            {
-                // multiple listeners can be registered using options.Listeners.Add() method
-
-                // add KissLog.net cloud listener
-                options.Listeners.Add(new RequestLogsApiListener(new Application(
-                    Configuration["KissLog.OrganizationId"],
-                    Configuration["KissLog.ApplicationId"])
-                )
-                {
-                    ApiUrl = Configuration["KissLog.ApiUrl"]
-                });
             }
         }
     }
@@ -159,11 +119,11 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
 .. code-block:: c#
     :caption: HomeController.cs
     :linenos:
-    :emphasize-lines: 1,7,15
+    :emphasize-lines: 7,15
 
     using Microsoft.Extensions.Logging;
     
-    namespace MyApp.NetCore30.Controllers
+    namespace AspNetCore_WebApp.Controllers
     {
         public class HomeController : Controller
         {
@@ -175,21 +135,15 @@ These steps describe how to install and configure KissLog for a .NET Core 3.x ap
     
             public IActionResult Index()
             {
-                _logger.LogInformation("Hello world from KissLog!");
-                _logger.LogTrace("Trace message");
-                _logger.LogDebug("Debug message");
-                _logger.LogInformation("Info message");
-                _logger.LogWarning("Warning message");
-                _logger.LogError("Error message");
-                _logger.LogCritical("Critical message");
+                _logger.LogTrace("Trace log");
+                _logger.LogDebug("Debug log");
+                _logger.LogInformation("Information log");
 
                 return View();
             }
         }
     }
 
-.. figure:: images/KissLog-AspNetCore-30.png
-   :alt: AspNetCore 3.x
+.. figure:: images/KissLog-AspNetCore-50.png
+   :alt: AspNetCore Web App
    :align: center
-
-   AspNetCore 3.x

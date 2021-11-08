@@ -1,8 +1,6 @@
 Unity ResolutionFailedException
 =======================================
 
-**Problem**
-
 When a Controller fails to resolve a dependency, the request fails with a generic exception.
 
 The exception doesn't specify which service could not be resolved by Unity, making the troubleshooting process difficult.

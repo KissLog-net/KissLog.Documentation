@@ -3,27 +3,29 @@ Log files
 
 KissLog can be used to log files. This is useful when you need to:
 
-* log large text messages which would normally be truncated
-* save files which have been generated / processed throughout the request
-* save response body
+- Log large text messages which would normally be truncated
+
+- Save files which have been generated / processed throughout the request
+
+- Save response body
 
 .. code-block:: c#
     :caption: HomeController.cs
-    :emphasize-lines: 15-17
+    :emphasize-lines: 1,15-17
 
-    using KissLog;
+    using KissLog.AspNetCore;
 
-    namespace MyApp.Mvc.Controllers
+    namespace AspNetCore5.Controllers
     {
         public class HomeController : Controller
         {
-            private readonly IKLogger _logger;
-            public HomeController()
+            private readonly ILogger<HomeController> _logger;
+            public HomeController(ILogger<HomeController> logger)
             {
-                _logger = Logger.Factory.Get();
+                _logger = logger;
             }
     
-            public ActionResult Index()
+            public IActionResult Index()
             {
                 _logger.LogAsFile("This content will be saved as a file", "File.txt");
                 _logger.LogFile(@"C:\\Users\\Downloads\\cyber-receipt-16117.pdf", "cyber-receipt.pdf");

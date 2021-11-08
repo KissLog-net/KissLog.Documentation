@@ -1,7 +1,7 @@
 ASP.NET WebApi
 ====================
 
-These steps describe how to install and configure KissLog for an ASP.NET WebApi application.
+These steps describe how to install and configure KissLog for an ASP.NET WebApi application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNet.WebApi>`_).
 
 1. Install NuGet Package
 
@@ -29,14 +29,14 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-4,14,17-30,32,55,58,73,75-80
+    :emphasize-lines: 1-4,14,19-29,32,55,58,73,75-80
 
     using KissLog;
     using KissLog.AspNet.Web;
     using KissLog.CloudListeners.Auth;
     using KissLog.CloudListeners.RequestLogsListener;
     
-    namespace MyApp.WebApi
+    namespace AspNet.WebApi
     {
         public class WebApiApplication : System.Web.HttpApplication
         {
@@ -64,42 +64,11 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
 
             private void ConfigureKissLog()
             {
-                // optional KissLog configuration
-                KissLogConfiguration.Options
-                    .AppendExceptionDetails((Exception ex) =>
+                KissLogConfiguration.Listeners
+                    .Add(new RequestLogsApiListener(new Application(ConfigurationManager.AppSettings["KissLog.OrganizationId"], ConfigurationManager.AppSettings["KissLog.ApplicationId"]))
                     {
-                        StringBuilder sb = new StringBuilder();
-    
-                        if (ex is System.NullReferenceException nullRefException)
-                        {
-                            sb.AppendLine("Important: check for null references");
-                        }
-    
-                        return sb.ToString();
+                        ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"]
                     });
-    
-                // KissLog internal logs
-                KissLogConfiguration.InternalLog = (message) =>
-                {
-                    Debug.WriteLine(message);
-                };
-
-                // register logs output
-                RegisterKissLogListeners();
-            }
-
-            private void RegisterKissLogListeners()
-            {
-                // multiple listeners can be registered using KissLogConfiguration.Listeners.Add() method
-
-                // add KissLog.net cloud listener
-                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
-                    ConfigurationManager.AppSettings["KissLog.OrganizationId"],
-                    ConfigurationManager.AppSettings["KissLog.ApplicationId"])
-                )
-                {
-                    ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"]
-                });
             }
 
             // Register HttpModule
@@ -125,7 +94,7 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
     using System.Web.Http;
     using System.Web.Http.ExceptionHandling;
     
-    namespace MyApp.WebApi
+    namespace AspNet.WebApi
     {
         public static class WebApiConfig
         {
@@ -159,7 +128,7 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
     using KissLog;
     using System.Web.Http;
 
-    namespace MyApp.WebApi.Controllers
+    namespace AspNet.WebApi.Controllers
     {
         public class ValuesController : ApiController
         {
@@ -172,13 +141,9 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
             // GET api/values
             public IEnumerable<string> Get()
             {
-                _logger.Info("Hello world from KissLog!");
                 _logger.Trace("Trace message");
                 _logger.Debug("Debug message");
                 _logger.Info("Info message");
-                _logger.Warn("Warning message");
-                _logger.Error("Error message");
-                _logger.Fatal("Fatal message");
 
                 return new string[] { "value1", "value2" };
             }
@@ -186,9 +151,5 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
     }
 
 .. figure:: images/KissLog-AspNet-WebApi.png
-   :alt: ASP.NET WebApi + KissLog
+   :alt: ASP.NET WebApi
    :align: center
-
-   ASP.NET WebApi + KissLog
-
-`View sample application <https://github.com/KissLog-net/KissLog.Samples/tree/master/src/KissLog-AspNet-WebApi>`_

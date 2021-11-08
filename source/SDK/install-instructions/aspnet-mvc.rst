@@ -1,7 +1,7 @@
 ASP.NET MVC
 ====================
 
-These steps describe how to install and configure KissLog for an ASP.NET MVC application.
+These steps describe how to install and configure KissLog for an ASP.NET MVC application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNet.Mvc>`_).
 
 1. Install NuGet Package
 
@@ -29,7 +29,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-5,19,21,24-37,39,62,65,80,82-87
+    :emphasize-lines: 1-5,19,21,26-36
 
     using KissLog;
     using KissLog.AspNet.Mvc;
@@ -37,7 +37,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
     using KissLog.CloudListeners.Auth;
     using KissLog.CloudListeners.RequestLogsListener;
     
-    namespace MyApp.Mvc
+    namespace AspNet.Mvc
     {
         public class MvcApplication : System.Web.HttpApplication
         {
@@ -71,42 +71,11 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
     
             private void ConfigureKissLog()
             {
-                // optional KissLog configuration
-                KissLogConfiguration.Options
-                    .AppendExceptionDetails((Exception ex) =>
+                KissLogConfiguration.Listeners
+                    .Add(new RequestLogsApiListener(new Application(ConfigurationManager.AppSettings["KissLog.OrganizationId"], ConfigurationManager.AppSettings["KissLog.ApplicationId"]))
                     {
-                        StringBuilder sb = new StringBuilder();
-    
-                        if (ex is System.NullReferenceException nullRefException)
-                        {
-                            sb.AppendLine("Important: check for null references");
-                        }
-    
-                        return sb.ToString();
+                        ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"]
                     });
-    
-                // KissLog internal logs
-                KissLogConfiguration.InternalLog = (message) =>
-                {
-                    Debug.WriteLine(message);
-                };
-
-                // register logs output
-                RegisterKissLogListeners();
-            }
-
-            private void RegisterKissLogListeners()
-            {
-                // multiple listeners can be registered using KissLogConfiguration.Listeners.Add() method
-
-                // add KissLog.net cloud listener
-                KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
-                    ConfigurationManager.AppSettings["KissLog.OrganizationId"],
-                    ConfigurationManager.AppSettings["KissLog.ApplicationId"])
-                )
-                {
-                    ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"]
-                });
             }
 
             // Register HttpModule
@@ -131,7 +100,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
     using KissLog;
     using System.Web.Mvc;
 
-    namespace MyApp.Mvc.Controllers
+    namespace AspNet.Mvc.Controllers
     {
         public class HomeController : Controller
         {
@@ -143,13 +112,9 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
     
             public ActionResult Index()
             {
-                _logger.Info("Hello world from KissLog!");
                 _logger.Trace("Trace message");
                 _logger.Debug("Debug message");
                 _logger.Info("Info message");
-                _logger.Warn("Warning message");
-                _logger.Error("Error message");
-                _logger.Critical("Critical message");
 
                 return View();
             }
@@ -157,9 +122,5 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
     }
 
 .. figure:: images/KissLog-AspNet-MVC.png
-   :alt: ASP.NET MVC + KissLog
+   :alt: ASP.NET MVC
    :align: center
-
-   ASP.NET MVC + KissLog
-
-`View sample application <https://github.com/KissLog-net/KissLog.Samples/tree/master/src/KissLog-AspNet-MVC>`_

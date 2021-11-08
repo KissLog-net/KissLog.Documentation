@@ -17,8 +17,6 @@ Introduced 630+ unit tests.
 
 Implemented a more simplified and adaptive logging framework.
 
-.NET Core 2.x is no longer supported.
-
 KissLog now fully supports .NET 5, both Web and Console applications.
 
 Migration guide

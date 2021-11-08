@@ -4,7 +4,9 @@ Examples
 .. toctree::
    :maxdepth: 1
    
-   DbEntityValidationException
-   ResolutionFailedException
-   LogFiles
+   custom-output-rules
+   log-files
    MongoDbListener
+   EFValidationException
+   ResolutionFailedException
+   
