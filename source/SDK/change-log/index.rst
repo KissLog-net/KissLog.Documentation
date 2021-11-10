@@ -22,6 +22,8 @@ KissLog now fully supports .NET 5, both Web and Console applications.
 Migration guide
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+A list of test applications using KissLog can found `on GitHub <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps>`_.
+
 1). **ILogger** has been renamed to **IKLogger**.
 
 .. code-block:: c#

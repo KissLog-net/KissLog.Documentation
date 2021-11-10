@@ -35,7 +35,7 @@ These steps describe how to install and configure KissLog for a .NET Core Web Ap
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-5,20,24-35,57
+    :emphasize-lines: 1-5,23,27-38,60
 
     using KissLog;
     using KissLog.AspNetCore;
@@ -57,6 +57,9 @@ These steps describe how to install and configure KissLog for a .NET Core Web Ap
             public void ConfigureServices(IServiceCollection services)
             {
                 services.AddHttpContextAccessor();
+
+                // Optional. Register IKLogger only if you use KissLog.IKLogger instead of Microsoft.Extensions.Logging.ILogger<>
+                services.AddScoped<IKLogger>((provider) => Logger.Factory.Get());
 
                 services.AddLogging(logging =>
                 {
