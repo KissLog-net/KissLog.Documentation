@@ -15,7 +15,8 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
-   install-instructions/index 
+   install-instructions/index
+   using-kisslog/index
    dependency-injection/index
    configuration/index
    logs-output/index
