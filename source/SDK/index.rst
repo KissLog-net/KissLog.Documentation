@@ -17,9 +17,5 @@ Table of Contents
 
    install-instructions/index
    using-kisslog/index
-   dependency-injection/index
-   configuration/index
-   logs-output/index
-   examples/index
-   nlog/index
+   advanced/index
    change-log/index
