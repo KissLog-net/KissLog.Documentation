@@ -67,7 +67,7 @@ Next, we create the ``MongoDbContext``, which will help us query the MongoDB dat
 Finally, we create the ``MongoDbListener``, which will save the logs to MongoDB.
 
 .. code-block:: c#
-    :emphasize-lines: 32-33
+    :emphasize-lines: 30-31
 
     using MyApp.Models;
     using KissLog;
@@ -77,21 +77,19 @@ Finally, we create the ``MongoDbListener``, which will save the logs to MongoDB.
     {
         public class MongoDbListener : ILogListener
         {
-            public int MinimumResponseHttpStatusCode { get; set; } = 0;
-            public LogLevel MinimumLogMessageLevel { get; set; } = LogLevel.Trace;
-            public LogListenerParser Parser { get; set; } = new LogListenerParser();
+            public ILogListenerInterceptor Interceptor { get; set; }
 
-            public void OnBeginRequest(HttpRequest httpRequest, ILogger logger)
+            public void OnBeginRequest(HttpRequest httpRequest)
             {
                 // do nothing
             }
 
-            public void OnMessage(LogMessage message, ILogger logger)
+            public void OnMessage(LogMessage message)
             {
                 // do nothing
             }
 
-            public void OnFlush(FlushLogArgs args, ILogger logger)
+            public void OnFlush(FlushLogArgs args)
             {
                 var logMessages = args.MessagesGroups.SelectMany(p => p.Messages).OrderBy(p => p.DateTime).ToList();
 
@@ -136,7 +134,6 @@ Finally, we create the ``MongoDbListener``, which will save the logs to MongoDB.
 Last step is to register the newly created MongoDbListener.
 
 .. code-block:: c#
-    :linenos:
     :emphasize-lines: 12
 
     using KissLog;

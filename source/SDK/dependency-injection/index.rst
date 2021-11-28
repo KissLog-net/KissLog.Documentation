@@ -8,13 +8,13 @@ Dependency injection
 Scoped lifetime
 ----------------------------------------------
 
-``ILogger`` has a scoped lifetime.
+``IKLogger`` has a scoped lifetime.
 
-A separate ``ILogger`` instance must be created for each main function, and must be passed troughout the call stack.
+A separate ``IKLogger`` instance must be created for each main function, and must be passed troughout the call stack.
 
 **Example**
 
-The ``SmtpService.Send()`` uses the same ``ILogger``  instance created on the main function ``SendResetPasswordLink()``.
+The ``SmtpService.Send()`` uses the same ``IKLogger``  instance created on the main function ``SendResetPasswordLink()``.
 
 .. code-block:: c#
     :caption: AccountController.cs
@@ -31,7 +31,7 @@ The ``SmtpService.Send()`` uses the same ``ILogger``  instance created on the ma
         public ActionResult SendResetPasswordLink(string emailAddress)
         {
             // create a local instance of ILogger which will be used troughout the entire method
-            ILogger logger = Logger.Factory.Get();
+            IKLogger logger = Logger.Factory.Get();
 
             logger.Debug("Send reset password requested for emailAddress: " + emailAddress);
 
@@ -51,7 +51,7 @@ The ``SmtpService.Send()`` uses the same ``ILogger``  instance created on the ma
         
     public class SmtpService
     {
-        public void Send(string subject, string body, string to, ILogger logger)
+        public void Send(string subject, string body, string to, IKLogger logger)
         {
             // we receive the logger as a parameter
 
@@ -78,12 +78,12 @@ The ``SmtpService.Send()`` uses the same ``ILogger``  instance created on the ma
         }
     }
 
-Pass the ILogger as a method parameter
+Pass the IKLogger as a method parameter
 -----------------------------------------------------
 
-It is recommended to pass the ``ILogger`` as a method parameter rather than passing it as a constructor parameter.
+It is recommended to pass the ``IKLogger`` as a method parameter rather than passing it as a constructor parameter.
 
-When injecting the ``ILogger`` as a constructor parameter, you can't always guarantee that the same instance will be used across all services.
+When injecting the ``IKLogger`` as a constructor parameter, you can't always guarantee that the same instance will be used across all services.
 
 .. code-block:: c#
     :caption: Recommended
@@ -91,8 +91,8 @@ When injecting the ``ILogger`` as a constructor parameter, you can't always guar
         
     public class SmtpService
     {
-        // Passing the ILogger as a method parameter
-        public void Send(string subject, string body, string to, ILogger logger)
+        // Passing the IKLogger as a method parameter
+        public void Send(string subject, string body, string to, IKLogger logger)
         {
             logger.Trace("Subject: " + subject);
             logger.Trace("Body: " + body);
@@ -106,10 +106,10 @@ When injecting the ``ILogger`` as a constructor parameter, you can't always guar
         
     public class SmtpService
     { 
-        private readonly ILogger _logger;
+        private readonly IKLogger _logger;
         
-        // Passing the ILogger as a constructor parameter
-        public SmtpService(ILogger logger)
+        // Passing the IKLogger as a constructor parameter
+        public SmtpService(IKLogger logger)
         {
             _logger = logger;
         }
@@ -125,19 +125,19 @@ When injecting the ``ILogger`` as a constructor parameter, you can't always guar
 Web applications
 ----------------------------------------------
 
-.. topic:: Create ILogger instance
+.. topic:: Create IKLogger instance
 
     .. code-block:: c#
 
-        ILogger logger = Logger.Factory.Get();
+        IKLogger logger = Logger.Factory.Get();
 
 
-For web applications, the ``ILogger`` is created, shared and flushed automatically for each http request (connection).
+For web applications, the ``IKLogger`` is created, shared and flushed automatically for each http request (connection).
 
-To retrieve the current http request ``ILogger``, use ``Logger.Factory.Get()`` factory method.
+To retrieve the current http request ``IKLogger``, use ``Logger.Factory.Get()`` factory method.
 
 .. code-block:: c#
-    :caption: Accessing ILogger in a web application
+    :caption: Accessing IKLogger in a web application
     :emphasize-lines: 11
 
     using KissLog;
@@ -147,7 +147,7 @@ To retrieve the current http request ``ILogger``, use ``Logger.Factory.Get()`` f
     {
         public class HomeController : Controller
         {
-            private readonly ILogger _logger;
+            private readonly IKLogger _logger;
             public HomeController()
             {
                 _logger = Logger.Factory.Get();
@@ -159,20 +159,20 @@ To retrieve the current http request ``ILogger``, use ``Logger.Factory.Get()`` f
 Non-web applications
 ----------------------------------------------
 
-.. topic:: Create ILogger instance
+.. topic:: Create IKLogger instance
 
     .. code-block:: c#
 
-        ILogger logger = new Logger("/Main");
+        Logger logger = new Logger("/Main");
 
         // [...]
 
         Logger.NotifyListeners(logger);
 
 
-For non-web applications (Console apps, Windows services), the ``ILogger`` must be created and flushed manually.
+For non-web applications (Console apps, Windows services), the ``IKLogger`` must be created and flushed manually.
 
-Each entry point must create a separate instance of the ``ILogger``.
+Each entry point should create a separate instance of the ``IKLogger``.
 
 .. code-block:: c#
     :caption: Program.cs
@@ -193,8 +193,8 @@ Each entry point must create a separate instance of the ``ILogger``.
     
             static void Foo()
             {
-                // new ILogger instance used only for Foo()
-                ILogger logger = new Logger(url: "/Foo");
+                // new IKLogger instance used only for Foo()
+                Logger logger = new Logger(url: "/Foo");
     
                 // execute foo
 
@@ -204,8 +204,8 @@ Each entry point must create a separate instance of the ``ILogger``.
 
             static void Bar()
             {
-                // new ILogger instance used only for Bar()
-                ILogger logger = new Logger(url: "/Bar");
+                // new IKLogger instance used only for Bar()
+                Logger logger = new Logger(url: "/Bar");
     
                 // execute bar
 
@@ -219,53 +219,13 @@ Each entry point must create a separate instance of the ``ILogger``.
 Dependency Injection frameworks
 ----------------------------------------------
 
-``ILogger`` should be configured with Dependency Injection frameworks **only for web-based applications**:
+``IKLogger`` should be configured with Dependency Injection frameworks **only for web-based applications**:
 
-- .NET Core
 - ASP.NET MVC
 - ASP.NET WebApi
 - WCF services
 
-When injecting the ``ILogger``, we resolve it **at runtime** using ``Logger.Factory.Get()`` factory method.
-
-.. code-block:: c#
-    :caption: Injecting ILogger into HomeController
-    :emphasize-lines: 9
-
-    using KissLog;
-    using Microsoft.AspNetCore.Mvc;
-    
-    namespace MyApp.NetCore30.Controllers
-    {
-        public class HomeController : Controller
-        {
-            private readonly ILogger _logger;
-            public HomeController(ILogger logger)
-            {
-                _logger = logger;
-            }
-        }
-    }
-
-.NET Core
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: c#
-    :emphasize-lines: 7-10
-        
-    namespace MyApplication
-    {
-        public class Startup
-        {
-            public void ConfigureServices(IServiceCollection services)
-            {
-                services.AddScoped<ILogger>((context) =>
-                {
-                    return Logger.Factory.Get();
-                });
-            }
-        }
-    }
+When injecting the ``IKLogger``, we resolve it **at runtime** using ``Logger.Factory.Get()`` factory method.
 
 Unity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -281,7 +241,7 @@ Unity
             {
                 var container = new UnityContainer();
 
-                container.RegisterType<ILogger>(
+                container.RegisterType<IKLogger>(
                     new InjectionFactory(u => Logger.Factory.Get())
                 );
             }
@@ -300,7 +260,7 @@ Ninject
         {
             private static void RegisterServices(IKernel kernel)
             {
-                kernel.Bind<ILogger>().ToMethod((context) =>
+                kernel.Bind<IKLogger>().ToMethod((context) =>
                 {
                     return Logger.Factory.Get();
                 });
@@ -324,7 +284,7 @@ Autofac
 
                 builder
                     .Register(p => Logger.Factory.Get())
-                    .As<ILogger>();
+                    .As<IKLogger>();
             }
         }
     }

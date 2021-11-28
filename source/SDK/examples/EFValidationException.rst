@@ -1,7 +1,5 @@
-Entity Framework DbEntityValidationException
+Entity Framework Validation Exception
 =====================================================
-
-**Problem**
 
 When Entity Framework attempts to save an entity and the validation fails, ``SaveChanges()`` will throw a generic ``DbEntityValidationException``.
 

@@ -38,7 +38,7 @@ Use this handler to intercept specific exceptions and append additional text to 
 
    AppendExceptionDetails
 
-GenerateKeywords
+GenerateSearchKeywords
 -------------------------------------------------------
 
 Using this handler you can assign search keywords for a specific http request.
@@ -49,19 +49,14 @@ Using this handler you can assign search keywords for a specific http request.
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .GenerateKeywords((FlushLogArgs args, IList<string> defaultKeywords) =>
+            .GenerateSearchKeywords((FlushLogArgs args) =>
             {
-                List<string> keywords = new List<string>();
-                bool includeDefaultKeywords = false;
+                var service = new GenerateSearchKeywordsService();
+                List<string> defaultKeywords = service.GenerateKeywords(args).ToList();
 
-                if (includeDefaultKeywords)
-                {
-                    keywords.AddRange(defaultKeywords);
-                }
+                defaultKeywords.Add("CorrelationID:b001c6bf");
 
-                keywords.Add("CorrelationID:b001c6bf");
-
-                return keywords;
+                return defaultKeywords;
             });
     }
 
@@ -77,7 +72,7 @@ Using this handler you can assign search keywords for a specific http request.
 
    Request log with "CorrelationID:b001c6bf" keyword
 
-GetUser
+CreateUserPayload
 -------------------------------------------------------
 
 This handler is used to customize the captured user display information.
@@ -87,19 +82,12 @@ This handler is used to customize the captured user display information.
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .GetUser((RequestProperties request) =>
+            .CreateUserPayload((KissLog.Http.HttpRequest httpRequest) =>
             {
-                // user name can be retrieved from the Request Claims
-                // string nameClaim = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
-                // string name = request.Claims.FirstOrDefault(p => p.Key == nameClaim).Value;
-
-                string name = "user@example.com";
-                string avatar = string.Format("https://eu.ui-avatars.com/api/?name={0}&size=256", name);
-
-                return new UserDetails
+                return new KissLog.RestClient.Requests.CreateRequestLog.User
                 {
-                    Name = name,
-                    Avatar = avatar
+                    Name = "user@example.com",
+                    Avatar = string.Format("https://eu.ui-avatars.com/api/?name={0}&size=256", "user@example.com")
                 };
             });
     }
@@ -110,30 +98,8 @@ This handler is used to customize the captured user display information.
 
    Customized user display information
 
-OnRequestLogsApiListenerException
--------------------------------------------------------
 
-This handler is invoked when the REST request to KissLog server fails.
-
-.. code-block:: c#
-
-    private void ConfigureKissLog()
-    {
-        KissLogConfiguration.Options
-            .OnRequestLogsApiListenerException((ExceptionArgs args) =>
-            {
-                // KissLog server returned an error while saving the request
-                // we will save the logs to local text file instead
-
-                var localTextFileListener = new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
-                {
-                    FlushTrigger = FlushTrigger.OnFlush
-                };
-                localTextFileListener.OnFlush(args.FlushArgs, null);
-            });
-    }
-
-ShouldLogRequestClaim
+ShouldLogClaim
 -------------------------------------------------------
 
 Runtime handler used to determine if a request claim should be logged or not. Default: ``true``
@@ -143,9 +109,9 @@ Runtime handler used to determine if a request claim should be logged or not. De
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogRequestClaim((ILogListener listener, FlushLogArgs args, string claimName) =>
+            .ShouldLogClaim((OptionsArgs.LogListenerClaimArgs args) =>
             {
-                if (claimName == "secret_claim")
+                if (args.ClaimType == "secret_claim")
                     return false;
 
                 return true;
@@ -162,16 +128,16 @@ Runtime handler used to determine if a request Cookie should be logged or not. D
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogRequestCookie((ILogListener listener, FlushLogArgs args, string cookieName) =>
+            .ShouldLogRequestCookie((OptionsArgs.LogListenerCookieArgs args) =>
             {
-                if (cookieName == ".AspNetCore.Cookies")
+                if (args.CookieName == ".AspNetCore.Cookies")
                     return false;
 
                 return true;
             });
     }
 
-ShouldLogRequestFormData
+ShouldLogFormData
 -------------------------------------------------------
 
 Runtime handler used to determine if a request FormData should be logged or not. Default: ``true``
@@ -181,9 +147,9 @@ Runtime handler used to determine if a request FormData should be logged or not.
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogRequestFormData((ILogListener listener, FlushLogArgs args, string name) =>
+            .ShouldLogFormData((OptionsArgs.LogListenerFormDataArgs args) =>
             {
-                if (name == "PinNumber")
+                if (args.FormDataName == "PinNumber")
                     return false;
 
                 return true;
@@ -200,16 +166,16 @@ Runtime handler used to determine if a request Header should be logged or not. D
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogRequestHeader((ILogListener listener, FlushLogArgs args, string headerName) =>
+            .ShouldLogRequestHeader((OptionsArgs.LogListenerHeaderArgs args) =>
             {
-                if (headerName == "X-JWT-Token")
+                if (args.HeaderName == "X-JWT-Token")
                     return false;
 
                 return true;
             });
     }
 
-ShouldLogRequestInputStream
+ShouldLogInputStream
 -------------------------------------------------------
 
 Runtime handler used to determine if a request InputStream should be logged or not. Default: ``true``
@@ -219,16 +185,16 @@ Runtime handler used to determine if a request InputStream should be logged or n
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogRequestInputStream((ILogListener listener, FlushLogArgs args) =>
+            .ShouldLogInputStream((KissLog.Http.HttpRequest httpRequest) =>
             {
-                if ((int)args.WebProperties.Response.HttpStatusCode >= 400)
+                if (httpRequest.Url.LocalPath == "/api/users/create")
                     return true;
 
                 return false;
             });
     }
 
-ShouldLogRequestServerVariable
+ShouldLogServerVariable
 -------------------------------------------------------
 
 Runtime handler used to determine if a request ServerVariable should be logged or not. Default: ``true``
@@ -238,9 +204,9 @@ Runtime handler used to determine if a request ServerVariable should be logged o
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogRequestServerVariable((ILogListener listener, FlushLogArgs args, string name) =>
+            .ShouldLogServerVariable((OptionsArgs.LogListenerServerVariableArgs args) =>
             {
-                if (name == "SERVER_NAME")
+                if (args.ServerVariableName == "SERVER_NAME")
                     return true;
 
                 return false;
@@ -260,15 +226,15 @@ Runtime handler used to determine if the response body should be logged or not.
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogResponseBody((ILogListener listener, FlushLogArgs args, bool defaultValue) =>
+            .ShouldLogResponseBody((KissLog.Http.HttpProperties httpProperties) =>
             {
-                string url = args.WebProperties.Request.Url.LocalPath;
+                string url = httpProperties.Request.Url.LocalPath;
 
                 // always log the "/Home/Index" response body
                 if(string.Compare(url, "/Home/Index", true) == 0)
                     return true;
 
-                return defaultValue;
+                return false;
             });
     }
 
@@ -294,37 +260,13 @@ Runtime handler used to determine if a response Header should be logged or not. 
     private void ConfigureKissLog()
     {
         KissLogConfiguration.Options
-            .ShouldLogResponseHeader((ILogListener listener, FlushLogArgs args, string headerName) =>
+            .ShouldLogResponseHeader((OptionsArgs.LogListenerHeaderArgs args) =>
             {
-                if (headerName == "X-Auth-Token")
+                if (args.HeaderName == "X-Auth-Token")
                     return false;
 
                 return true;
             });
     }
 
-
-ToggleListener
--------------------------------------------------------
-
-Runtime handler used to enable/disable a registered log listener for a particular request.
-
-.. code-block:: c#
-
-    private void ConfigureKissLog()
-    {
-        KissLogConfiguration.Options
-            .ToggleListener((ILogListener listener, FlushLogArgs args) =>
-            {
-                if(listener.GetType() == typeof(SqlLogListener))
-                {
-                    if ((int)args.WebProperties.Response.HttpStatusCode >= 400)
-                        return true;
-
-                    return false;
-                }
-
-                return true;
-            });
-    }
 

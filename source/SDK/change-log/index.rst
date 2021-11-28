@@ -1,6 +1,202 @@
 Change log
 =======================================================
 
+KissLog 5.0.0
+--------------------------
+
+KissLog.AspNetCore 5.0.0 | KissLog.AspNet.Mvc 5.0.0 | KissLog.AspNet.WebApi 5.0.0 | KissLog.CloudListeners 5.0.0
+
+Release date: 06-11-2021
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All the functionality has been rewritten from the ground up.
+
+Introduced 630+ unit tests.
+
+Implemented a more simplified and adaptive logging framework.
+
+KissLog now fully supports .NET 5, both Web and Console applications.
+
+Migration guide
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A list of test applications using KissLog can found `on GitHub <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps>`_.
+
+1). **ILogger** has been renamed to **IKLogger**.
+
+.. code-block:: c#
+
+    // KissLog <= 4.1.0
+    public void Foo()
+    {
+        ILogger logger = Logger.Factory.Get();
+    }
+
+    // KissLog >= 5.0.0
+    public void Foo()
+    {
+        IKLogger logger = Logger.Factory.Get();
+    }
+
+2). ``MinimumResponseHttpStatusCode`` and ``MinimumLogMessageLevel`` have been removed from log listeners and replaced with the optional ``Interceptor`` property.
+
+A custom ``StatusCodeInterceptor`` has been created to replace the previous functionality.
+
+.. code-block:: c#
+
+    // KissLog <= 4.1.0
+    public void RegisterKissLogListeners()
+    {
+        KissLogConfiguration.Listeners
+            .Add(new RequestLogsApiListener(new Application(ConfigurationManager.AppSettings["KissLog.OrganizationId"], ConfigurationManager.AppSettings["KissLog.ApplicationId"]))
+            {
+                ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"],
+                MinimumResponseHttpStatusCode = 400,
+                MinimumLogMessageLevel = LogLevel.Trace
+            });
+    }
+
+    // KissLog >= 5.0.0
+    public void RegisterKissLogListeners()
+    {
+        // without specifying an interceptor
+        KissLogConfiguration.Listeners
+            .Add(new RequestLogsApiListener(new Application(ConfigurationManager.AppSettings["KissLog.OrganizationId"], ConfigurationManager.AppSettings["KissLog.ApplicationId"]))
+            {
+                ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"]
+            });
+
+        // using the custom "StatusCodeInterceptor" interceptor
+        KissLogConfiguration.Listeners
+            .Add(new RequestLogsApiListener(new Application(ConfigurationManager.AppSettings["KissLog.OrganizationId"], ConfigurationManager.AppSettings["KissLog.ApplicationId"]))
+            {
+                ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"],
+                Interceptor = new StatusCodeInterceptor
+                {
+                    MinimumLogMessageLevel = LogLevel.Trace,
+                    MinimumResponseHttpStatusCode = 400
+                }
+            })
+    }
+
+3). ``LocalTextFileListener`` has been moved to ``KissLog.Listeners.FileListener`` namespace.
+
+.. code-block:: c#
+
+    // KissLog <= 4.1.0
+    public void RegisterKissLogListeners()
+    {
+        KissLogConfiguration.Listeners
+            .Add(new KissLog.Listeners.LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs"))
+            {
+                FlushTrigger = FlushTrigger.OnMessage
+            });
+    }
+
+    // KissLog >= 5.0.0
+    public void RegisterKissLogListeners()
+    {
+        KissLogConfiguration.Listeners
+            .Add(new KissLog.Listeners.FileListener.LocalTextFileListener("logs", FlushTrigger.OnMessage));
+    }
+
+4). ``Options.GenerateKeywords`` has been renamed to ``GenerateSearchKeywords``.
+
+.. code-block:: c#
+
+    // KissLog <= 4.1.0
+    public void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .GenerateKeywords((FlushLogArgs args, IList<string> defaultKeywords) =>
+            {
+                defaultKeywords.Add("CorrelationID:b001c6bf");
+                return defaultKeywords;
+            });
+    }
+
+    // KissLog >= 5.0.0
+    public void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .GenerateSearchKeywords((FlushLogArgs args) =>
+            {
+                var service = new GenerateSearchKeywordsService();
+                List<string> defaultKeywords = service.GenerateKeywords(args).ToList();
+
+                defaultKeywords.Add("CorrelationID:b001c6bf");
+                return defaultKeywords;
+            });
+    }
+
+5). ``Options.GetUser`` has been renamed to ``CreateUserPayload``.
+
+.. code-block:: c#
+
+    // KissLog <= 4.1.0
+    public void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .GetUser((RequestProperties request) =>
+            {
+                return new UserDetails
+                {
+                    Name = "user@example.com",
+                    Avatar = string.Format("https://eu.ui-avatars.com/api/?name={0}&size=256", "user@example.com")
+                };
+            });
+    }
+
+    // KissLog >= 5.0.0
+    public void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .CreateUserPayload((KissLog.Http.HttpRequest httpRequest) =>
+            {
+                return new KissLog.RestClient.Requests.CreateRequestLog.User
+                {
+                    Name = "user@example.com",
+                    Avatar = string.Format("https://eu.ui-avatars.com/api/?name={0}&size=256", "user@example.com")
+                };
+            });
+    }
+
+6). ``Options.OnRequestLogsApiListenerException`` has been replaced with ``RequestLogsApiListener.OnException`` property.
+
+.. code-block:: c#
+
+    // KissLog <= 4.1.0
+    public void ConfigureKissLog()
+    {
+        KissLogConfiguration.Options
+            .OnRequestLogsApiListenerException((ExceptionArgs args) =>
+            {
+                var listener = new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs"))
+                {
+                    FlushTrigger = FlushTrigger.OnFlush
+                };
+                listener.OnFlush(args.FlushArgs, null);
+            });
+    }
+
+    // KissLog >= 5.0.0
+    public void RegisterKissLogListeners()
+    {
+        KissLogConfiguration.Listeners
+            .Add(new RequestLogsApiListener(new Application(ConfigurationManager.AppSettings["KissLog.OrganizationId"], ConfigurationManager.AppSettings["KissLog.ApplicationId"]))
+            {
+                ApiUrl = ConfigurationManager.AppSettings["KissLog.ApiUrl"],
+                OnException = (ExceptionArgs args) =>
+                {
+                    var listener = new LocalTextFileListener("logs", FlushTrigger.OnFlush);
+                    listener.OnFlush(args.FlushArgs);
+                }
+            });
+    }
+
+
 KissLog.Cloud 4.2.0
 --------------------------
 
