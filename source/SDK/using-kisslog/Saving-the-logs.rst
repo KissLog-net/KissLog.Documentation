@@ -7,36 +7,39 @@ Log listeners are services implementing ``ILogListener`` interface and they are 
 
 Log listeners are registered at application startup using the ``KissLogConfiguration.Listeners`` configuration object.
 
-```csharp
-static void Main(string[] args)
-{
-    KissLogConfiguration.Listeners
-        .Add(new MongoDbLogListener("mongodb://localhost:27017"))
-        .Add(new LocalTextFileListener("logs", FlushTrigger.OnFlush));
+.. code-block:: c#
 
-    var logger = new Logger();
-    logger.Info("Hey!");
+    static void Main(string[] args)
+    {
+        KissLogConfiguration.Listeners
+            .Add(new MongoDbLogListener("mongodb://localhost:27017"))
+            .Add(new LocalTextFileListener("logs", FlushTrigger.OnFlush));
 
-    Logger.NotifyListeners(logger);
-}
-```
+        var logger = new Logger();
+        logger.Info("Hey!");
 
-## Using ``ILogListener``
+        Logger.NotifyListeners(logger);
+    }
+
+
+Using ``ILogListener``
+---------------------------------------
 
 ``ILogListener`` interface exposes three methods which are invoked automatically on different stages of the Logger usage.
 
 By implementing this interface you can create any custom persistence logic.
 
-```csharp
-public interface ILogListener
-{
-    ILogListenerInterceptor Interceptor { get; }
+.. code-block:: c#
 
-    void OnBeginRequest(HttpRequest httpRequest);
-    void OnMessage(LogMessage message);
-    void OnFlush(FlushLogArgs args);
-}
-```
+    public interface ILogListener
+    {
+        ILogListenerInterceptor Interceptor { get; }
+
+        void OnBeginRequest(HttpRequest httpRequest);
+        void OnMessage(LogMessage message);
+        void OnFlush(FlushLogArgs args);
+    }
+
 
 *OnBeginRequest()* is executed when a Logger with ``url`` parameter is initialized.
 
@@ -44,15 +47,16 @@ public interface ILogListener
 
 *OnFlush()* is executed when ``Logger.NotifyListeners`` is invoked.
 
-```csharp
-static void Main(string[] args)
-{
-    var logger = new Logger(url: "Program/Main"); // <--- ILogListener.OnBeginRequest()
+.. code-block:: c#
 
-    logger.Debug("Hello to you");   // <--- ILogListener.OnMessage()
+    static void Main(string[] args)
+    {
+        var logger = new Logger(url: "Program/Main"); // <--- ILogListener.OnBeginRequest()
 
-    Logger.NotifyListeners(logger); // <--- ILogListener.OnFlush()
-}
-```
+        logger.Debug("Hello to you");   // <--- ILogListener.OnMessage()
+
+        Logger.NotifyListeners(logger); // <--- ILogListener.OnFlush()
+    }
+
 
 
