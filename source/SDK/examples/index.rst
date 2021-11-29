@@ -4,9 +4,8 @@ Examples
 .. toctree::
    :maxdepth: 1
    
-   custom-output-rules
+   Prevent-logging-repetitive-requests
+   MongoDB-listener
+   Entity-Framework-validation
    log-files
-   MongoDbListener
-   EFValidationException
-   ResolutionFailedException
    

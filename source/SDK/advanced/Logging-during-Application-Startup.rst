@@ -7,103 +7,105 @@ This can be achieved by invoking a listener programmatically.
 
 In the example below you will save **Startup.cs** events to a local text file using ``LocalTextFileListener``.
 
-```csharp
-using KissLog;
-using KissLog.Listeners.FileListener;
-using System;
+.. code-block:: c#
 
-namespace AspNetCore_WebApp
-{
-    public class Startup
+    using KissLog;
+    using KissLog.Listeners.FileListener;
+    using System;
+
+    namespace AspNetCore_WebApp
     {
-        public Startup(IConfiguration configuration)
+        public class Startup
         {
-            Configuration = configuration;
-
-            Logger logger = new Logger(url: "Startup");
-            try
+            public Startup(IConfiguration configuration)
             {
-                logger.Debug("Executing an important startup code");
+                Configuration = configuration;
 
-                string message = null;
-                int length = message.Length;    // will throw NullReferenceException
+                Logger logger = new Logger(url: "Startup");
+                try
+                {
+                    logger.Debug("Executing an important startup code");
+
+                    string message = null;
+                    int length = message.Length;    // will throw NullReferenceException
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                    throw;
+                }
+                finally
+                {
+                    FlushLogArgs flushLogArgs = FlushLogArgsFactory.Create(new[] { logger });
+                    
+                    // programmatically invoke LocalTextFileListener
+                    var listener = new LocalTextFileListener("logs", FlushTrigger.OnFlush);
+                    listener.OnFlush(flushLogArgs);
+                }
             }
-            catch (Exception ex)
+
+            public IConfiguration Configuration { get; }
+
+            public void ConfigureServices(IServiceCollection services)
             {
-                logger.Error(ex);
-                throw;
+                // [ ... ]
             }
-            finally
+
+            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             {
-                FlushLogArgs flushLogArgs = FlushLogArgsFactory.Create(new[] { logger });
-                
-                // programmatically invoke LocalTextFileListener
-                var listener = new LocalTextFileListener("logs", FlushTrigger.OnFlush);
-                listener.OnFlush(flushLogArgs);
+                // [ ... ]
             }
-        }
-
-        public IConfiguration Configuration { get; }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // [ ... ]
-        }
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            // [ ... ]
         }
     }
-}
-```
 
-![Application Startup logs](images/Application-Startup-logs.png)
+.. figure:: images/Application-Startup-logs.png
+   :alt: Application Startup logs
 
 The same concept can be followed for other scenarios.
 
 In the example below you will save **Global.asax** events to a local text file using ``LocalTextFileListener``.
 
-```csharp
-using KissLog;
-using KissLog.Listeners.FileListener;
-using System;
+.. code-block:: c#
 
-namespace AspNet.Mvc
-{
-    public class MvcApplication : System.Web.HttpApplication
+    using KissLog;
+    using KissLog.Listeners.FileListener;
+    using System;
+
+    namespace AspNet.Mvc
     {
-        protected void Application_Start()
+        public class MvcApplication : System.Web.HttpApplication
         {
-            AreaRegistration.RegisterAllAreas();
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            Logger logger = new Logger(url: "Application_Start");
-            try
+            protected void Application_Start()
             {
-                logger.Debug("Executing an important startup code");
+                AreaRegistration.RegisterAllAreas();
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-                int value = 0;
-                int result = 100 / value;    // will throw DivideByZeroException
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                throw;
-            }
-            finally
-            {
-                FlushLogArgs flushLogArgs = FlushLogArgsFactory.Create(new[] { logger });
+                Logger logger = new Logger(url: "Application_Start");
+                try
+                {
+                    logger.Debug("Executing an important startup code");
 
-                // programmatically invoke LocalTextFileListener
-                var listener = new LocalTextFileListener("logs", FlushTrigger.OnFlush);
-                listener.OnFlush(flushLogArgs);
+                    int value = 0;
+                    int result = 100 / value;    // will throw DivideByZeroException
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                    throw;
+                }
+                finally
+                {
+                    FlushLogArgs flushLogArgs = FlushLogArgsFactory.Create(new[] { logger });
+
+                    // programmatically invoke LocalTextFileListener
+                    var listener = new LocalTextFileListener("logs", FlushTrigger.OnFlush);
+                    listener.OnFlush(flushLogArgs);
+                }
             }
+
+            // [ ... ]
         }
-
-        // [ ... ]
     }
-}
-```
 
-![ASP.NET MVC Startup logs](images/AspNetMvc-Startup-logs.png)
+.. figure:: images/AspNetMvc-Startup-logs.png
+   :alt: ASP.NET MVC Startup logs

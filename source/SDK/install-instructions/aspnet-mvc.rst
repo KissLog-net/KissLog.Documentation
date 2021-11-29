@@ -40,7 +40,7 @@ Instructions
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-5,19,21,26-36
+    :emphasize-lines: 1-5,19,21,26-36,49,51-56
 
     using KissLog;
     using KissLog.AspNet.Mvc;
@@ -132,6 +132,6 @@ Instructions
         }
     }
 
-.. figure:: images/KissLog-AspNet-MVC.png
+.. figure:: images/AspNet-MVC.png
    :alt: ASP.NET MVC
    :align: center

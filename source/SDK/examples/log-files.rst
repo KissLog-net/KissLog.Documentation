@@ -11,7 +11,6 @@ KissLog can be used to log files. This is useful when you need to:
 
 .. code-block:: c#
     :caption: HomeController.cs
-    :emphasize-lines: 1,15-17
 
     using KissLog.AspNetCore;
 

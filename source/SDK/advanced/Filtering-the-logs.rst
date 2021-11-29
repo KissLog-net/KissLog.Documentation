@@ -7,7 +7,8 @@ It is just before the persistence step where KissLog filters the events, at the 
 
 Different listeners can apply different filtering rules before saving the logs.
 
-## Using ``ILogListener.Interceptor``
+Using ``ILogListener.Interceptor``
+-----------------------------------------
 
 The nullable ``ILogListener.Interceptor`` property can be used to control the output condition of a log listener.
 
@@ -15,44 +16,46 @@ If not null, the interceptor is invoked before executing the log listener events
 
 An example of a custom interceptor which filters the log messages by the specified verbosity level:
 
-```csharp
-static void Main(string[] args)
-{
-    KissLogConfiguration.Listeners
-        .Add(new LocalTextFileListener("logs", FlushTrigger.OnFlush)
+.. code-block:: c#
+
+    static void Main(string[] args)
+    {
+        KissLogConfiguration.Listeners
+            .Add(new LocalTextFileListener("logs", FlushTrigger.OnFlush)
+            {
+                Interceptor = new LogLevelInterceptor(LogLevel.Warning)
+            });
+    }
+
+
+.. code-block:: c#
+
+    public class LogLevelInterceptor : ILogListenerInterceptor
+    {
+        private readonly LogLevel _minLogLevel;
+        public LogLevelInterceptor(LogLevel minLogLevel)
         {
-            Interceptor = new LogLevelInterceptor(LogLevel.Warning)
-        });
-}
-```
+            _minLogLevel = minLogLevel;
+        }
 
-```csharp
-public class LogLevelInterceptor : ILogListenerInterceptor
-{
-    private readonly LogLevel _minLogLevel;
-    public LogLevelInterceptor(LogLevel minLogLevel)
-    {
-        _minLogLevel = minLogLevel;
+        public bool ShouldLog(LogMessage message, ILogListener listener)
+        {
+            if (message.LogLevel < _minLogLevel)
+                return false;
+
+            return true;
+        }
+
+        public bool ShouldLog(HttpRequest httpRequest, ILogListener listener)
+        {
+            return true;
+        }
+
+        public bool ShouldLog(FlushLogArgs args, ILogListener listener)
+        {
+            return true;
+        }
     }
 
-    public bool ShouldLog(LogMessage message, ILogListener listener)
-    {
-        if (message.LogLevel < _minLogLevel)
-            return false;
 
-        return true;
-    }
-
-    public bool ShouldLog(HttpRequest httpRequest, ILogListener listener)
-    {
-        return true;
-    }
-
-    public bool ShouldLog(FlushLogArgs args, ILogListener listener)
-    {
-        return true;
-    }
-}
-```
-
-_Another custom interceptor example can be found [here](Prevent-logging-repetitive-requests)._
+*Another custom interceptor example can be found :doc:`here </SDK/examples/Prevent-logging-repetitive-requests>`.*

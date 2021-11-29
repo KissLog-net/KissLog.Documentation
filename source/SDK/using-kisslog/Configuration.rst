@@ -18,7 +18,7 @@ KissLog supports various configuration options using the ``KissLogConfiguration.
 .. figure:: images/AppendExceptionDetails.png
    :alt: AppendExceptionDetails
 
-An example of using "AppendExceptionDetails" to log Entity Framework validation exceptions can be found  :doc:`here </SDK/examples/EFValidationException>`.
+An example of using "AppendExceptionDetails" to log Entity Framework validation exceptions can be found  :doc:`here </SDK/examples/Entity-Framework-validation>`.
 
 .. contents:: Configuration options
    :local:

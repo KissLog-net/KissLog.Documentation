@@ -40,7 +40,7 @@ Instructions
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-4,14,19-29,32,55,58,73,75-80
+    :emphasize-lines: 1-4,14,19-29,42,44-49
 
     using KissLog;
     using KissLog.AspNet.Web;
@@ -161,6 +161,6 @@ Instructions
         }
     }
 
-.. figure:: images/KissLog-AspNet-WebApi.png
+.. figure:: images/AspNet-WebApi.png
    :alt: ASP.NET WebApi
    :align: center

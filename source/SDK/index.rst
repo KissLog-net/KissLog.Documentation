@@ -18,4 +18,5 @@ Table of Contents
    install-instructions/index
    using-kisslog/index
    advanced/index
+   examples/index
    change-log/index

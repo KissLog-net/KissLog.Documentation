@@ -120,6 +120,6 @@ Instructions
         }
     }
 
-.. figure:: images/KissLog-AspNetCore-ConsoleApp.png
+.. figure:: images/ConsoleApp-NetCore.png
    :alt: Console App (.NET Core)
    :align: center

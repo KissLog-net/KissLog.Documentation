@@ -83,6 +83,6 @@ Instructions
         }
     }
 
-.. figure:: images/KissLog-NetFramework-ConsoleApp.png
+.. figure:: images/ConsoleApp-NetFramework.png
    :alt: Console App (.NET Framework)
    :align: center

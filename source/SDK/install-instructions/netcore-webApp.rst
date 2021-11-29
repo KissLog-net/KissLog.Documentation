@@ -47,7 +47,7 @@ Instructions
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-5,23,27-38,60
+    :emphasize-lines: 1-5,20,23,27-38,60
 
     using KissLog;
     using KissLog.AspNetCore;
@@ -159,6 +159,6 @@ Instructions
         }
     }
 
-.. figure:: images/KissLog-AspNetCore-50.png
+.. figure:: images/NetCore-WebApp.png
    :alt: AspNetCore Web App
    :align: center
