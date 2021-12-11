@@ -60,4 +60,5 @@ Table of Contents
    update-guide
    kisslog-frontend/index
    kisslog-backend/index
+   change-log/index
 
