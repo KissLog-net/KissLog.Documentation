@@ -1,7 +1,19 @@
 .NET Core Web App
 ====================
 
-These steps describe how to install and configure KissLog for a .NET Core Web Application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNetCore5>`_).
+These steps describe how to install and configure KissLog for a .NET Core Web Application.
+
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNetCore5>`_.
+
+By following the install instructions, you will will:
+
+- register KissLog as ``Microsoft.Extensions.Logging.ILogger<>`` adapter
+- configure KissLog to capture and log all the unhandled exceptions
+- configure KissLog to capture all the HTTP properties (User-Agent, FormData, Headers, StatusCode, etc.)
+- register ``RequestLogsApiListener`` listener which will save the captured data to `kisslog.net <https://kisslog.net>`_
+
+Instructions
+----------------------------------------------
 
 1. Install NuGet Package
 
@@ -35,7 +47,7 @@ These steps describe how to install and configure KissLog for a .NET Core Web Ap
 .. code-block:: c#
     :caption: Startup.cs
     :linenos:
-    :emphasize-lines: 1-5,23,27-38,60
+    :emphasize-lines: 1-5,20,23,27-38,60
 
     using KissLog;
     using KissLog.AspNetCore;
@@ -58,7 +70,7 @@ These steps describe how to install and configure KissLog for a .NET Core Web Ap
             {
                 services.AddHttpContextAccessor();
 
-                // Optional. Register IKLogger only if you use KissLog.IKLogger instead of Microsoft.Extensions.Logging.ILogger<>
+                // Optional. Register IKLogger if you use KissLog.IKLogger instead of Microsoft.Extensions.Logging.ILogger<>
                 services.AddScoped<IKLogger>((provider) => Logger.Factory.Get());
 
                 services.AddLogging(logging =>
@@ -147,6 +159,6 @@ These steps describe how to install and configure KissLog for a .NET Core Web Ap
         }
     }
 
-.. figure:: images/KissLog-AspNetCore-50.png
+.. figure:: images/NetCore-WebApp.png
    :alt: AspNetCore Web App
    :align: center

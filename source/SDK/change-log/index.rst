@@ -422,12 +422,6 @@ This handler allows developers to specify search keywords for a particular reque
             });
     }
 
-.. figure:: /SDK/configuration/images/generateKeywords-searchResult.png
-   :alt: Options.GenerateKeywords
-   :align: center
-
-   Searching for the "CorrelationID:b001c6bf" keyword
-
 Implemented ``KissLogConfiguration.Options.ShouldLogRequestFormData()``.
 
 Using this handler, developers can prevent KissLog from reading the FormData parameters.

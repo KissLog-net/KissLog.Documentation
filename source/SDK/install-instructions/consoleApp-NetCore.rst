@@ -1,7 +1,18 @@
 Console App (.NET Core)
 ==============================
 
-These steps describe how to install and configure KissLog for a .NET Core Console Application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/ConsoleApp_NetCore>`_).
+These steps describe how to install and configure KissLog for a .NET Core Console application.
+
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/ConsoleApp_NetCore>`_.
+
+By following the install instructions, you will:
+
+- create a "main" logger instance and use it throughout the ``Main(string[] args)`` method execution
+- register KissLog as ``Microsoft.Extensions.Logging.ILogger<>`` adapter
+- register ``RequestLogsApiListener`` listener which will save the captured data to `kisslog.net <https://kisslog.net>`_
+
+Instructions
+----------------------------------------------
 
 1. Install NuGet Packages
 
@@ -109,6 +120,6 @@ These steps describe how to install and configure KissLog for a .NET Core Consol
         }
     }
 
-.. figure:: images/KissLog-AspNetCore-ConsoleApp.png
+.. figure:: images/ConsoleApp-NetCore.png
    :alt: Console App (.NET Core)
    :align: center

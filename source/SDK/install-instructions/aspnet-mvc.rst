@@ -1,7 +1,18 @@
 ASP.NET MVC
 ====================
 
-These steps describe how to install and configure KissLog for an ASP.NET MVC application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNet.Mvc>`_).
+These steps describe how to install and configure KissLog for a ASP.NET MVC application.
+
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNet.Mvc>`_.
+
+By following the install instructions, you will will:
+
+- configure KissLog to capture and log all the unhandled exceptions
+- configure KissLog to capture all the HTTP properties (User-Agent, FormData, Headers, StatusCode, etc.)
+- register ``RequestLogsApiListener`` listener which will save the captured data to `kisslog.net <https://kisslog.net>`_
+
+Instructions
+----------------------------------------------
 
 1. Install NuGet Package
 
@@ -29,7 +40,7 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-5,19,21,26-36
+    :emphasize-lines: 1-5,19,21,26-36,49,51-56
 
     using KissLog;
     using KissLog.AspNet.Mvc;
@@ -121,6 +132,6 @@ These steps describe how to install and configure KissLog for an ASP.NET MVC app
         }
     }
 
-.. figure:: images/KissLog-AspNet-MVC.png
+.. figure:: images/AspNet-MVC.png
    :alt: ASP.NET MVC
    :align: center

@@ -1,7 +1,18 @@
 ASP.NET WebApi
 ====================
 
-These steps describe how to install and configure KissLog for an ASP.NET WebApi application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNet.WebApi>`_).
+These steps describe how to install and configure KissLog for a ASP.NET WebApi application.
+
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNet.WebApi>`_.
+
+By following the install instructions, you will will:
+
+- configure KissLog to capture and log all the unhandled exceptions
+- configure KissLog to capture all the HTTP properties (User-Agent, FormData, Headers, StatusCode, etc.)
+- register ``RequestLogsApiListener`` listener which will save the captured data to `kisslog.net <https://kisslog.net>`_
+
+Instructions
+----------------------------------------------
 
 1. Install NuGet Package
 
@@ -29,7 +40,7 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
 .. code-block:: c#
     :caption: Global.asax
     :linenos:
-    :emphasize-lines: 1-4,14,19-29,32,55,58,73,75-80
+    :emphasize-lines: 1-4,14,19-29,42,44-49
 
     using KissLog;
     using KissLog.AspNet.Web;
@@ -150,6 +161,6 @@ These steps describe how to install and configure KissLog for an ASP.NET WebApi 
         }
     }
 
-.. figure:: images/KissLog-AspNet-WebApi.png
+.. figure:: images/AspNet-WebApi.png
    :alt: ASP.NET WebApi
    :align: center

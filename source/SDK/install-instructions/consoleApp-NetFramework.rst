@@ -1,7 +1,17 @@
 Console App (.NET Framework)
 ==============================
 
-These steps describe how to install and configure KissLog for a .NET Framework Console Application (`sample app <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/ConsoleApp_NetFramework>`_).
+These steps describe how to install and configure KissLog for a .NET Framework Console application.
+
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/ConsoleApp_NetFramework>`_.
+
+By following the install instructions, you will:
+
+- create a "main" logger instance and use it throughout the ``Main(string[] args)`` method execution
+- register ``RequestLogsApiListener`` listener which will save the captured data to `kisslog.net <https://kisslog.net>`_
+
+Instructions
+----------------------------------------------
 
 1. Install NuGet Packages
 
@@ -73,6 +83,6 @@ These steps describe how to install and configure KissLog for a .NET Framework C
         }
     }
 
-.. figure:: images/KissLog-NetFramework-ConsoleApp.png
+.. figure:: images/ConsoleApp-NetFramework.png
    :alt: Console App (.NET Framework)
    :align: center
