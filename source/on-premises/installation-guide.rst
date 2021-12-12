@@ -184,7 +184,7 @@ To login, you must create a JWT token signed with the secret provided under ``Au
     :alt: Generating Login Token
 
 .. code-block:: none
-    :caption: Login JWT Token
+    :caption: Login Token
 
     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGV2ZWxvcGVyIn0.DF98byyHSWMhsPAarLEwJpFzgrt7CojlleRZAbOlqp4
 
@@ -196,7 +196,7 @@ To login, you must create a JWT token signed with the secret provided under ``Au
 Troubleshooting
 -------------------------------------------------------
 
-Startup logs (including errors) will be available under ``.\Logs`` folder. Here should be the first place to check.
+Startup logs (including errors) will be available under ``\Logs`` folder. Here should be the first place to check.
 
 * ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
 
@@ -205,11 +205,11 @@ Startup logs (including errors) will be available under ``.\Logs`` folder. Here 
 Quick checklist
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# 1) Make sure you deploy and run KissLog.Backend first
+1). Make sure you deploy and run KissLog.Backend first
 
-# 2) If there are any confiuguration errors, you should see them under the ``\Logs`` folder.
+2). If there are any confiuguration errors, you should see them under the ``\Logs`` folder.
 
-# 3) KissLog.Backend will try to connect to MongoDB. If the MongoDB server is not reachable, you should see an error:
+3). KissLog.Backend will try to connect to MongoDB. If the MongoDB server is not reachable, you should see an error:
 
 .. code-block:: none
     :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\21-03-2021.log
@@ -219,7 +219,7 @@ Quick checklist
     Exception: A timeout occured after 30000ms selecting a server using CompositeServerSelector{ Selectors = MongoDB.Driver.MongoClient+AreSessionsSupportedServerSelector, LatencyLimitingServerSelector{ AllowedLatencyRange = 00:00:00.0150000 } }. Client view of cluster state is { ClusterId : "1", ConnectionMode : "Automatic", Type : "Unknown", State : "Disconnected", Servers : [{ ServerId: "{ ClusterId : 1, EndPoint : "Unspecified/localhost3:27017" }", EndPoint: "Unspecified/localhost:27017", ReasonChanged: "Heartbeat", State: "Disconnected", ServerVersion: , TopologyVersion: , Type: "Unknown", HeartbeatException: "MongoDB.Driver.MongoConnectionException: An exception occurred while opening a connection to the server.
     ---> System.Net.Sockets.SocketException (11001): No such host is known.
 
-# 4) KissLog.Frontend will try to connect to MS-SQL / MySql server.
+4). KissLog.Frontend will try to connect to MS-SQL / MySql server.
 
 On the first run, KissLog.Frontend will also create the database (if not already exists).
 
@@ -231,20 +231,33 @@ If the SQL user does not have permissions to create the database, you will have 
 
 The database generation script will be created under: ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\CreateDatabaseScript.txt``
 
-# 5) KissLog applications (KissLog.Frontend and KissLog.Backend) connect to each other using HTTP requests.
+5). KissLog applications (KissLog.Frontend and KissLog.Backend) connect to each other using HTTP requests.
 
 Make sure there is no firewall blocking the connection.
 
-# 6) If the application fails to start and there are no log messages, **enable IIS logs**:
+6). If the application fails to start and there are no log messages, **enable IIS logs**:
 
 Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then restart the application.
 
+.. code-block:: xml
+    :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\web.config
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <configuration>
+        <location path="." inheritInChildApplications="false">
+            <system.webServer>
+                <handlers>
+                    <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified" />
+                </handlers>
+                <aspNetCore processPath="dotnet" arguments=".\KissLog.Backend.AspNetCore.dll" stdoutLogEnabled="true" stdoutLogFile=".\logs\stdout" hostingModel="inprocess" />
+            </system.webServer>
+        </location>
+    </configuration>
+    <!--ProjectGuid: 4EC40754-6618-4D7D-B45E-C7FE1D6B8EF6-->
+
 **Important:**
 
-Create an empty ``\Logs`` folder if one does not already exist.
-
-``C:\inetpub\wwwroot\KissLog.Backend\Logs``
-
+Create an empty ``Logs`` folder if one does not already exist.
 
 Need help?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
