@@ -74,16 +74,15 @@ Configuration
 
 After the initial deployment, you need to update the mandatory configuration options.
 
-The configuration file for each application is located under ``.\Configuration\KissLog.json``.
+The configuration file for each application is located under ``Configuration\KissLog.json``.
 
 KissLog.Backend 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-C:\\inetpub\\wwwroot\\KissLog.Backend\\Configuration\\KissLog.json
-
 Replace the following mandatory properties with corresponding values:
 
 .. code-block:: json
+    :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\Configuration\\KissLog.json
 
     {
         "KissLogBackendUrl": "http://my.kisslog-backend.com",
@@ -105,9 +104,9 @@ Replace the following mandatory properties with corresponding values:
 +----------------------------------------------+-------------------------------------------------------------+
 | Description                                                                                                |
 +==============================================+=============================================================+
-| KissLogBackendUrl                            | Root url pointing to KissLog.Backend application            |
+| KissLogBackendUrl                            | Url pointing to KissLog.Backend application                 |
 +----------------------------------------------+-------------------------------------------------------------+
-| KissLogFrontendUrl                           | Root url pointing to KissLog.Frontend application           |
+| KissLogFrontendUrl                           | Url pointing to KissLog.Frontend application                |
 +----------------------------------------------+-------------------------------------------------------------+
 | Database.Provider                            | Possible values: **MongoDb**, **AzureCosmosDb**             |
 +----------------------------------------------+-------------------------------------------------------------+
@@ -119,11 +118,10 @@ Replace the following mandatory properties with corresponding values:
 KissLog.Frontend 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-C:\\inetpub\\wwwroot\\KissLog.Frontend\\Configuration\\KissLog.json
-
 Replace the following mandatory properties with corresponding values:
 
 .. code-block:: json
+    :caption: C:\\inetpub\\wwwroot\\KissLog.Frontend\\Configuration\\KissLog.json
 
     {
         "KissLogBackendUrl": "http://my.kisslog-backend.com",
@@ -137,13 +135,13 @@ Replace the following mandatory properties with corresponding values:
 +----------------------------------------------+-------------------------------------------------------------+
 | Description                                                                                                |
 +==============================================+=============================================================+
-| KissLogBackendUrl                            | Root url pointing to KissLog.Backend application            |
+| KissLogBackendUrl                            | Url pointing to KissLog.Backend application                 |
 +----------------------------------------------+-------------------------------------------------------------+
-| KissLogFrontendUrl                           | Root url pointing to KissLog.Frontend application           |
+| KissLogFrontendUrl                           | Url pointing to KissLog.Frontend application                |
 +----------------------------------------------+-------------------------------------------------------------+
 | Database.Provider                            | Possible values: **SqlServer**, **MySql**                   |
 +----------------------------------------------+-------------------------------------------------------------+
-| Database.KissLogDbContext                    | Database (entity framework) connection string               |
+| Database.KissLogDbContext                    | Database connection string                                  |
 +----------------------------------------------+-------------------------------------------------------------+
 
 
@@ -154,7 +152,7 @@ After updating the configuration files, you can run the applications.
 
 The initial startup  will bootstrap all the necessary components including MongoDB and SQL databases.
 
-Startup logs (including errors) will be generated under ``.\Logs`` folder:
+Startup logs (including errors) will be generated under ``\Logs`` folder:
 
 * ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
 
@@ -163,27 +161,35 @@ Startup logs (including errors) will be generated under ``.\Logs`` folder:
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# 1) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.myapp.com")
+1). Make a single request to KissLog.Backend root URL ("http://kisslog-backend.myapp.com")
 
 If the startup process went successful, a ``200 OK "Running"`` response will be returned.
 
 .. figure:: images/installation-guide/KissLogBackend-Startup.png
     :alt: KissLog.Backend Startup
 
-# 2) Make a single request to the KissLog.Frontend root URL ("http://kisslog.myapp.com").
+2). Make a single request to the KissLog.Frontend root URL ("http://kisslog.myapp.com").
 
 If the startup process went successful, you will see the home page.
 
 .. figure:: images/installation-guide/KissLogFrontend-Startup.png
     :alt: KissLog.Frontend Startup
 
-.. figure:: images/installation-guide/KissLogFrontend-Login.png
-    :alt: KissLog.Frontend Login
+Login
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To login, you must create a JWT token signed with the secret provided under ``Authorization\HS256Secret`` property from ``KissLog.Frontend\Configuration\KissLog.json`` file.
+
+.. figure:: images/installation-guide/KissLogFrontend-generate-Login-Token.png
+    :alt: Generating Login Token
 
 .. code-block:: none
     :caption: Login JWT Token
 
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGV2ZWxvcGVyIn0.DWgMpOWPCT-4idapOIeWtQ8On8wT0_RdkyOYcIq9DoE
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGV2ZWxvcGVyIn0.DF98byyHSWMhsPAarLEwJpFzgrt7CojlleRZAbOlqp4
+
+.. figure:: images/installation-guide/KissLogFrontend-Login.png
+    :alt: KissLog.Frontend Login
 
 .. _InstallInstructions-Troubleshooting:
 

@@ -4,17 +4,17 @@ Change log
 KissLog_Package 3.0.0
 --------------------------
 
+This update simplifies the KissLog on-premises configuration options.
+
+All the configuration options from ``appsettings.json`` have been either moved to ``Configuration\KissLog.json`` or removed altogether.
+
 KissLog.Frontend configuration changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
-   :widths: 40 60
    :header-rows: 1
 
    * - appsettings.json
-     - 
-
-   * - **Property**
      - 
 
    * - "KissLog.License"
@@ -29,6 +29,9 @@ KissLog.Frontend configuration changes
    * - "LocalTextFileListener.DirectoryPath"
      - has moved to KissLog.json "InternalLogs.DirectoryPath"
 
+   * - "LocalTextFileListener.MinimumResponseHttpStatusCode"
+     - has moved to KissLog.json "InternalLogs.MinimumStatusCode"
+
    * - "KissLogBackend.BasicAuth.Password"
      - has moved to KissLog.json "KissLogBackend.BasicAuth.Password"
 
@@ -42,13 +45,9 @@ KissLog.Frontend configuration changes
      - has been removed
 
 .. list-table::
-   :widths: 40 60
    :header-rows: 1
 
-   * - KissLog.json
-     - 
-
-   * - **Property**
+   * - Configuration\\KissLog.json
      - 
 
    * - "KissLogOrganizationId"
@@ -57,8 +56,11 @@ KissLog.Frontend configuration changes
    * - "KissLogApplicationId"
      - has been removed
 
-   * - "AnonymousAccess.HS256Secret"
+   * - "AnonymousAccess\\HS256Secret"
      - has been removed
+
+   * - "AnonymousAccess"
+     - has moved to "UserInterface\\CreatePermalinkWithAnonymousAccess"
 
    * - "Notifications"
      - has been removed
@@ -68,3 +70,24 @@ KissLog.Frontend configuration changes
 
    * - "Applications"
      - has moved to "UserInterface\\Applications"
+
+KissLog.Backend configuration changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - appsettings.json
+     - 
+
+   * - "LocalTextFileListener.DirectoryPath"
+     - has moved to KissLog.json "InternalLogs.DirectoryPath"
+
+   * - "LocalTextFileListener.MinimumResponseHttpStatusCode"
+     - has moved to KissLog.json "InternalLogs.MinimumStatusCode"
+
+   * - "LocalTextFileListener.MinimumLogMessageLevel"
+     - has been removed
+
+   * - "KissLogBackend.BasicAuth.Password"
+     - has moved to KissLog.json "KissLogBackend.BasicAuth.Password"
