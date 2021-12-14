@@ -58,7 +58,7 @@ Table of Contents
 
    installation-guide
    update-guide
-   kisslog-frontend/index
+   kisslog-frontend
    kisslog-backend/index
    change-log/index
 
