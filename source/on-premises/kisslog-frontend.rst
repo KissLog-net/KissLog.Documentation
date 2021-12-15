@@ -12,7 +12,7 @@ KissLog.Frontend configuration is achieved by updating the ``KissLog.Frontend\Co
 ApplicationName
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Display name of the KissLog instance - used when generating HTML titles.
+Display name of the on-premises KissLog application - used when generating HTML titles.
 
 .. code-block:: json
     
@@ -23,7 +23,9 @@ Display name of the KissLog instance - used when generating HTML titles.
 AppVersion
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ToDo
+Property used as query string parameter when loading static resources (css/javascript).
+
+This property should be changed after an application update in order to invalidate the static files cache.
 
 .. code-block:: json
     
@@ -34,7 +36,7 @@ ToDo
 InternalLogs.DirectoryPath
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ToDo
+Specifies the location of the internal logs folder. Path can be either relative or absolute.
 
 .. code-block:: json
     
@@ -45,7 +47,7 @@ ToDo
 InternalLogs.MinimumStatusCode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ToDo
+Specifies the minimum http status code for the requests which should be saved to internal logs.
 
 .. code-block:: json
     
@@ -56,7 +58,9 @@ ToDo
 KissLogBackend.BasicAuth.Password
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ToDo
+The Basic HTTP authentication scheme password used to connect to KissLog.Backend application.
+
+This property should have the same value as the same property from ``KissLog.Backend\Configuration\KissLog.json``.
 
 .. code-block:: json
     
@@ -67,7 +71,7 @@ ToDo
 KissLog.License
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ToDo
+The KissLog on-premises license key. Can be null.
 
 .. code-block:: json
     
@@ -78,6 +82,8 @@ ToDo
 KissLogBackendUrl
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Root url pointing to KissLog.Backend application.
+
 .. code-block:: json
     
     {
@@ -86,6 +92,8 @@ KissLogBackendUrl
 
 KissLogFrontendUrl
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Root url pointing to KissLog.Frontend application.
 
 .. code-block:: json
     
@@ -96,7 +104,7 @@ KissLogFrontendUrl
 MediaDirectoryPath
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ToDo
+Specifies the location of the media files uploaded within the application. Path can be either relative or absolute.
 
 .. code-block:: json
     
@@ -119,8 +127,6 @@ Database
 +------------------------+-------------------------------------------------------------+
 | Database.Provider                                                                    |
 +========================+=============================================================+
-| **Values**                                                                           |
-+------------------------+-------------------------------------------------------------+
 | ``"SqlServer"``        | Sets the database provider to MS-SQL                        |
 +------------------------+-------------------------------------------------------------+
 | ``"MySql"``            | Sets the database provider to MySql                         |
@@ -169,10 +175,6 @@ Authorization
 |                                                                                                               |
 | The authentication JWT can be created programmatically or online using https://jwt.io/.                       |
 +---------------------------------------------------------------------------------------------------------------+
-| **Authentication JWT example**                                                                                |
-+---------------------------------------------------------------------------------------------------------------+
-| ``eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGFyY3kifQ.ZXPw1NjoNFrJ1DrBljTOsZcjYRFQ4qMsS15i2TuIgFM``   |
-+---------------------------------------------------------------------------------------------------------------+
 
 SessionCookie
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -190,9 +192,7 @@ SessionCookie
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | SessionCookie.IsPersistentFixedValue                                                                                                                            |
-+=================================================================================================================================================================+
-| **Values**                                                                                                                                                      |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
++===================+=============================================================================================================================================+
 | ``null``          | Allows the user to specify, at login page, if he/she wants to create a persistent cookie or not.                                            |
 +-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
 | ``true``          | Authentication will create a peristent cookie.                                                                                              |
