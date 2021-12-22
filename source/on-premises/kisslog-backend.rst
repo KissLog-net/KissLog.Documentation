@@ -1,13 +1,18 @@
-KissLog.json
-===================================
+KissLog.Backend
+=================================
+
+Configuration
+--------------------
+
+KissLog.Backend configuration is achieved by updating the ``KissLog.Backend\Configuration\KissLog.json``.
 
 .. contents:: Configuration options
    :local:
 
 IsReadOnlyMode
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If ``true``, sets the application in read-only mode, and no incoming logs will be saved in database.
+If ``true``, sets the application in read-only mode and no incoming logs will be saved in database.
 
 .. code-block:: json
     
@@ -15,8 +20,45 @@ If ``true``, sets the application in read-only mode, and no incoming logs will b
         "IsReadOnlyMode": false
     }
 
+InternalLogs.DirectoryPath
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Specifies the location of the internal logs folder. Path can be either relative or absolute.
+
+.. code-block:: json
+    
+    {
+        "InternalLogs.DirectoryPath": "Logs"
+    }
+
+InternalLogs.MinimumStatusCode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Specifies the minimum http status code for the requests which should be saved to internal logs.
+
+.. code-block:: json
+    
+    {
+        "InternalLogs.MinimumStatusCode": "400"
+    }
+
+KissLogBackend.BasicAuth.Password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Basic HTTP authentication scheme password used to connect to KissLog.Backend application.
+
+This property should have the same value as the same property from ``KissLog.Frontend\Configuration\KissLog.json``.
+
+.. code-block:: json
+    
+    {
+        "KissLogBackend.BasicAuth.Password": "_This_Password_Should_Be_Replaced_"
+    }
+
 KissLogBackendUrl
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Root url pointing to KissLog.Backend application.
 
 .. code-block:: json
     
@@ -25,7 +67,9 @@ KissLogBackendUrl
     }
 
 KissLogFrontendUrl
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Root url pointing to KissLog.Frontend application.
 
 .. code-block:: json
     
@@ -34,7 +78,7 @@ KissLogFrontendUrl
     }
 
 Database
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     
@@ -49,15 +93,10 @@ Database
 +------------------------+-------------------------------------------------------------+
 | Database.Provider                                                                    |
 +========================+=============================================================+
-| Required               | true                                                        |
-+------------------------+-------------------------------------------------------------+
-| **Values**                                                                           |
-+------------------------+-------------------------------------------------------------+
 | ``"MongoDb"``          | Sets the database provider to MongoDB                       |
 +------------------------+-------------------------------------------------------------+
 | ``"AzureCosmosDb"``    | Sets the database provider to Azure CosmosDB                |
 +------------------------+-------------------------------------------------------------+
-
 
 +------------------------+-------------------------------------------------------------+
 | Database.MongoDb                                                                     |
@@ -74,7 +113,7 @@ Database
 .. _Backend_Configuration_MongoDb:
 
 MongoDb
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to MongoDB server.
 
@@ -92,7 +131,7 @@ Configuration used to connect to MongoDB server.
 .. _Backend_Configuration_AzureCosmosDb:
 
 AzureCosmosDb
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to Azure CosmosDB service.
 
@@ -109,10 +148,8 @@ Configuration used to connect to Azure CosmosDB service.
     }
 
 
-
-
 CreateRequestLog
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     
@@ -136,7 +173,7 @@ CreateRequestLog
 +----------------------------------------------------------------------------------------------+
 
 TokenizeUrl
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
@@ -192,8 +229,65 @@ TokenizeUrl
            "/Home/Error-404" ---> "/Home/Error-404"
 
 
+Throttle
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+    
+    {
+        "CreateRequestLog": {
+            "Throttle": {
+                "Rules": [
+                    {
+                        "IsEnabled": false,
+                        "ApplicationId": "",
+                        "RemoteIpAddress": "",
+                        "Limits": [
+                            {
+                                "RequestLimit": 1,
+                                "IntervalInSeconds": 5,
+                                "LessThanStatusCode": 400
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Throttle.Rules[]                                                                                                                                                |
++=================================================================================================================================================================+
+|  A list of throttle rules to be applied when receiving a request log.                                                                                           |
+|                                                                                                                                                                 |
+|  If none of ``ApplicationId`` or ``RemoteIpAddress`` are specified, the rule will apply for all the request logs.                                               |
++---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| ``IsEnabled``                         | Specifies if the rule is enabled                                                                                        |
++---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| ``ApplicationId``                     | If has value, the throttle rule will apply only for the request logs belonging to the specified ApplicationId.          |
++---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| ``RemoteIpAddress``                   | If has value, the throttle rule will apply only for the request logs generated from the specified IP addresses.         |
++---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| ``Limits[]``                          | A list of throttle limits to be applied for the rule.                                                                   |
++---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+
+.. list-table::
+   :header-rows: 1
+
+   * - Throttle.Rules[].Limits[]
+     -
+
+   * - ``RequestLimit``
+     - Specifies how many requests should be accepted in the specified interval of time.
+    
+   * - ``IntervalInSeconds``
+     - Specifies the interval of time, in seconds, when the request limit is calculated.
+
+   * - ``LessThanStatusCode``
+     - Specifies the "< Status Code" for which the request limit is applied.
+
 Obfuscate
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
@@ -228,7 +322,7 @@ Obfuscate
 +-----------------------------------------------------------------------------------------------------+
 
 Truncate
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to truncate request log payloads.
 
@@ -265,7 +359,7 @@ Before saving to database, the request log will be truncated using the limits pr
     }
 
 UploadRequestLogFiles
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     
@@ -316,7 +410,7 @@ UploadRequestLogFiles
 
 
 AzureBlobStorage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to Azure Storage account.
 
@@ -331,7 +425,7 @@ Configuration used to connect to Azure Storage account.
     }
 
 Alerts
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Configuration used for the alers service.
 
@@ -363,7 +457,7 @@ Configuration used for the alers service.
 +----------------------------------------------------------------------------------------------+
 
 Queue
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
@@ -383,7 +477,7 @@ Queue
 +----------------------------------------------------------------------------------------------+
 
 Exceptions
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     
@@ -411,7 +505,7 @@ Exceptions
 +----------------------------------------------------------------------------------------------+
 
 Endpoints
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     
@@ -436,7 +530,7 @@ Endpoints
 
 
 RequestLogs
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     
@@ -447,7 +541,7 @@ RequestLogs
     }
 
 Search
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used by the Request logs "search for keywords" engine.
 
@@ -478,7 +572,7 @@ Configuration used by the Request logs "search for keywords" engine.
 +----------------------------+----------------------------------------------------------------------------------+
 
 TimeToLive
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Specifies for how long the captured logs and data aggregates should be kept in database.
 
@@ -511,7 +605,7 @@ Specifies for how long the captured logs and data aggregates should be kept in d
     }
 
 Jobs
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Configuration used for the automatic background jobs.
 
@@ -524,7 +618,7 @@ Configuration used for the automatic background jobs.
     }
 
 DeleteApplicationData
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Delete application data job configuration.
 
@@ -546,7 +640,7 @@ Delete application data job configuration.
 
 
 RepositoryQueues
--------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     

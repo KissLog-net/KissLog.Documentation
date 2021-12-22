@@ -160,19 +160,19 @@ Startup logs (including errors) will be generated under ``Logs`` folder:
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1). Make a single request to KissLog.Backend root URL ("http://kisslog-backend.myapp.com")
+1) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.myapp.com")
 
-If the startup process went successful, a ``200 OK "Running"`` response will be returned.
+   If the startup process went successful, a ``200 OK "Running"`` response will be returned.
 
-.. figure:: images/installation-guide/KissLogBackend-Startup.png
-    :alt: KissLog.Backend Startup
+   .. figure:: images/installation-guide/KissLogBackend-Startup.png
+       :alt: KissLog.Backend Startup
 
-2). Make a single request to the KissLog.Frontend root URL ("http://kisslog.myapp.com").
+2) Make a single request to the KissLog.Frontend root URL ("http://kisslog.myapp.com").
 
-If the startup process went successful, you will see the home page.
+   If the startup process went successful, you will see the home page.
 
-.. figure:: images/installation-guide/KissLogFrontend-Startup.png
-    :alt: KissLog.Frontend Startup
+   .. figure:: images/installation-guide/KissLogFrontend-Startup.png
+       :alt: KissLog.Frontend Startup
 
 Login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
