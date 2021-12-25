@@ -65,8 +65,11 @@ KissLog.Frontend configuration changes
    * - "Notifications"
      - has been removed
 
+   * - "UserInterface\\ReferringSites\\ShowReferringSites"
+     - has moved to "UserInterface\\Dashboard\\ShowReferringSites"
+
    * - "UserInterface\\ReferringSites"
-     - has moved to "UserInterface\\Dashboard\\ReferringSites"
+     - has been removed
 
    * - "Applications"
      - has moved to "UserInterface\\Applications"
