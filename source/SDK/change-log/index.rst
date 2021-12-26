@@ -1,12 +1,28 @@
 Change log
 =======================================================
 
+KissLog 5.1.0
+--------------------------
+
+KissLog.AspNetCore 5.1.0 | KissLog.AspNet.Mvc 5.1.0 | KissLog.AspNet.WebApi 5.1.0 | KissLog.CloudListeners 5.1.0
+
+Release date: 26-12-2021
+
+https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.1.0
+
+Fixes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- ``MirrorStreamDecorator: Cannot access a closed Stream`` (https://github.com/KissLog-net/KissLog.Sdk/issues/54)
+
 KissLog 5.0.0
 --------------------------
 
 KissLog.AspNetCore 5.0.0 | KissLog.AspNet.Mvc 5.0.0 | KissLog.AspNet.WebApi 5.0.0 | KissLog.CloudListeners 5.0.0
 
 Release date: 06-11-2021
+
+https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.0.0
 
 Improvements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -235,6 +251,8 @@ This handler is invoked when the REST request to KissLog server fails.
 
 KissLog 4.1.0
 --------------------------
+
+https://github.com/KissLog-net/KissLog.Sdk/releases/tag/4.1.0
 
 KissLog.AspNetCore 4.1.0 | KissLog.AspNet.Mvc 4.1.0 | KissLog.AspNet.WebApi 4.1.0 | KissLog.CloudListeners 4.1.0
 
