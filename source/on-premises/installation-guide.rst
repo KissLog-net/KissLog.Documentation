@@ -1,5 +1,5 @@
 Installation guide
-======================
+=============================
 
 .. contents:: Table of contents
    :local:
@@ -41,49 +41,47 @@ We will not cover the installation guide for these services. There is a high pos
 IIS web applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* On the machine hosting the IIS server, install `.NET Core 3.1 Runtime <https://dotnet.microsoft.com/download/dotnet-core/3.1>`_
+1) On the machine hosting the IIS server, install `.NET Core 3.1 Runtime <https://dotnet.microsoft.com/download/dotnet-core/3.1>`_
 
-* Create two IIS applications:
+2) Create two IIS applications:
 
-  * KissLog.Backend
+   * KissLog.Backend
+   * KissLog.Frontend
 
-  * KissLog.Frontend
+3) Update the Application Pool settings for both of the applications to the following:
 
-* Update the Application Pool settings for both of the applications to the following:
+   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+   | KissLogFrontend                                                              | KissLog.Backend                                                             |
+   +==============================================================================+=============================================================================+
+   | .. image:: images/installation-guide/KissLogFrontend-ApplicationPool.png     | .. image:: images/installation-guide/KissLogBackend-ApplicationPool.png     |
+   |   :alt: KissLog.Frontend Application Pool                                    |   :alt: KissLog.Backend Application Pool                                    |
+   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
 
-+------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
-| KissLogFrontend                                                              | KissLog.Backend                                                             |
-+==============================================================================+=============================================================================+
-| .. image:: images/installation-guide/KissLogFrontend-ApplicationPool.png     | .. image:: images/installation-guide/KissLogBackend-ApplicationPool.png     |
-|   :alt: KissLog.Frontend Application Pool                                    |   :alt: KissLog.Backend Application Pool                                    |
-+------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+4) Copy into each IIS application folder the corresponding deploy package
 
-* Copy into each IIS application folder the corresponding deploy package
-
-+------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
-| KissLogFrontend                                                              | KissLog.Backend                                                             |
-+==============================================================================+=============================================================================+
-| Example: C:\\inetpub\\wwwroot\\KissLog.Frontend                              | Example: C:\\inetpub\\wwwroot\\KissLog.Backend                              |
-|                                                                              |                                                                             |
-| .. image:: images/installation-guide/KissLogFrontend-Folder.png              | .. image:: images/installation-guide/KissLogBackend-Folder.png              |
-|   :alt: KissLog.Frontend Application Pool                                    |   :alt: KissLog.Backend Application Pool                                    |
-+------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+   | KissLogFrontend                                                              | KissLog.Backend                                                             |
+   +==============================================================================+=============================================================================+
+   | Example: C:\\inetpub\\wwwroot\\KissLog.Frontend                              | Example: C:\\inetpub\\wwwroot\\KissLog.Backend                              |
+   |                                                                              |                                                                             |
+   | .. image:: images/installation-guide/KissLogFrontend-Folder.png              | .. image:: images/installation-guide/KissLogBackend-Folder.png              |
+   |   :alt: KissLog.Frontend Application Pool                                    |   :alt: KissLog.Backend Application Pool                                    |
+   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
 
 Configuration
 -------------------------------------------------------
 
-After the initial deployment, you need to update the mandatory configuration options.
+On the first deployment you need to update the required configuration options.
 
-The configuration file for each application is located under ``.\Configuration\KissLog.json``.
+The configuration file for each application (KissLog.Frontend and KissLog.Backend) is located under ``Configuration\KissLog.json``.
 
 KissLog.Backend 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-C:\\inetpub\\wwwroot\\KissLog.Backend\\Configuration\\KissLog.json
-
 Replace the following mandatory properties with corresponding values:
 
 .. code-block:: json
+    :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\Configuration\\KissLog.json
 
     {
         "KissLogBackendUrl": "http://my.kisslog-backend.com",
@@ -105,9 +103,9 @@ Replace the following mandatory properties with corresponding values:
 +----------------------------------------------+-------------------------------------------------------------+
 | Description                                                                                                |
 +==============================================+=============================================================+
-| KissLogBackendUrl                            | Root url pointing to KissLog.Backend application            |
+| KissLogBackendUrl                            | Url pointing to KissLog.Backend application                 |
 +----------------------------------------------+-------------------------------------------------------------+
-| KissLogFrontendUrl                           | Root url pointing to KissLog.Frontend application           |
+| KissLogFrontendUrl                           | Url pointing to KissLog.Frontend application                |
 +----------------------------------------------+-------------------------------------------------------------+
 | Database.Provider                            | Possible values: **MongoDb**, **AzureCosmosDb**             |
 +----------------------------------------------+-------------------------------------------------------------+
@@ -119,11 +117,10 @@ Replace the following mandatory properties with corresponding values:
 KissLog.Frontend 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-C:\\inetpub\\wwwroot\\KissLog.Frontend\\Configuration\\KissLog.json
-
 Replace the following mandatory properties with corresponding values:
 
 .. code-block:: json
+    :caption: C:\\inetpub\\wwwroot\\KissLog.Frontend\\Configuration\\KissLog.json
 
     {
         "KissLogBackendUrl": "http://my.kisslog-backend.com",
@@ -137,108 +134,125 @@ Replace the following mandatory properties with corresponding values:
 +----------------------------------------------+-------------------------------------------------------------+
 | Description                                                                                                |
 +==============================================+=============================================================+
-| KissLogBackendUrl                            | Root url pointing to KissLog.Backend application            |
+| KissLogBackendUrl                            | Url pointing to KissLog.Backend application                 |
 +----------------------------------------------+-------------------------------------------------------------+
-| KissLogFrontendUrl                           | Root url pointing to KissLog.Frontend application           |
+| KissLogFrontendUrl                           | Url pointing to KissLog.Frontend application                |
 +----------------------------------------------+-------------------------------------------------------------+
 | Database.Provider                            | Possible values: **SqlServer**, **MySql**                   |
 +----------------------------------------------+-------------------------------------------------------------+
-| Database.KissLogDbContext                    | Database (entity framework) connection string               |
+| Database.KissLogDbContext                    | Database connection string                                  |
 +----------------------------------------------+-------------------------------------------------------------+
 
 
 Initial startup
 -------------------------------------------------------
 
-After updating the configuration files, you can run the applications.
+After the configuration files have been updated, you can run the applications.
 
 The initial startup  will bootstrap all the necessary components including MongoDB and SQL databases.
 
-Startup logs (including errors) will be generated under ``.\Logs`` folder:
+Startup logs (including errors) will be generated under ``Logs`` folder:
 
-* ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
+* ``C:\inetpub\wwwroot\KissLog.Backend\Logs``
 
-* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\``
+* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs``
 
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# 1) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.myapp.com")
+1) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.myapp.com")
 
-If the startup process went successful, a ``200 OK "Running"`` response will be returned.
+   If the startup process went successful, a ``200 OK "Running"`` response will be returned.
 
-.. figure:: images/installation-guide/KissLogBackend-Startup.png
-    :alt: KissLog.Backend Startup
+   .. figure:: images/installation-guide/KissLogBackend-Startup.png
+       :alt: KissLog.Backend Startup
 
-# 2) Make a single request to the KissLog.Frontend root URL ("http://kisslog.myapp.com").
+2) Make a single request to the KissLog.Frontend root URL ("http://kisslog.myapp.com").
 
-If the startup process went successful, you will see the home page.
+   If the startup process went successful, you will see the home page.
 
-.. figure:: images/installation-guide/KissLogFrontend-Startup.png
-    :alt: KissLog.Frontend Startup
+   .. figure:: images/installation-guide/KissLogFrontend-Startup.png
+       :alt: KissLog.Frontend Startup
+
+Login
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To login, you must create a JWT token signed with the secret provided under ``Authorization\HS256Secret`` property from ``KissLog.Frontend\Configuration\KissLog.json`` file.
+
+.. figure:: images/installation-guide/KissLogFrontend-generate-Login-Token.png
+    :alt: Generating Login Token
 
 .. figure:: images/installation-guide/KissLogFrontend-Login.png
     :alt: KissLog.Frontend Login
 
-.. code-block:: none
-    :caption: Login JWT Token
-
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGV2ZWxvcGVyIn0.DWgMpOWPCT-4idapOIeWtQ8On8wT0_RdkyOYcIq9DoE
-
 .. _InstallInstructions-Troubleshooting:
+
+.. code-block:: none
+    :caption: Login Token
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGV2ZWxvcGVyIn0.DF98byyHSWMhsPAarLEwJpFzgrt7CojlleRZAbOlqp4
 
 Troubleshooting
 -------------------------------------------------------
 
-Startup logs (including errors) will be available under ``.\Logs`` folder. Here should be the first place to check.
+Startup logs (including errors) will be available under ``\Logs`` folder. Here should be the first place to check.
 
-* ``C:\inetpub\wwwroot\KissLog.Backend\Logs\``
+* ``C:\inetpub\wwwroot\KissLog.Backend\Logs``
 
-* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\``
+* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs``
 
 Quick checklist
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# 1) Make sure you deploy and run KissLog.Backend first
+1) Make sure you deploy and run KissLog.Backend first
 
-# 2) If there are any confiuguration errors, you should see them under the ``\Logs`` folder.
+2) If there are any confiuguration errors, you should see them under the ``\Logs`` folder.
 
-# 3) KissLog.Backend will try to connect to MongoDB. If the MongoDB server is not reachable, you should see an error:
+3) KissLog.Backend will try to connect to MongoDB. If the MongoDB server is not reachable, you should see an error:
 
-.. code-block:: none
-    :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\21-03-2021.log
+   .. code-block:: none
+       :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\21-03-2021.log
 
-    KissLog.Backend startup failed
-    DatabaseName: KissLogBackend
-    Exception: A timeout occured after 30000ms selecting a server using CompositeServerSelector{ Selectors = MongoDB.Driver.MongoClient+AreSessionsSupportedServerSelector, LatencyLimitingServerSelector{ AllowedLatencyRange = 00:00:00.0150000 } }. Client view of cluster state is { ClusterId : "1", ConnectionMode : "Automatic", Type : "Unknown", State : "Disconnected", Servers : [{ ServerId: "{ ClusterId : 1, EndPoint : "Unspecified/localhost3:27017" }", EndPoint: "Unspecified/localhost:27017", ReasonChanged: "Heartbeat", State: "Disconnected", ServerVersion: , TopologyVersion: , Type: "Unknown", HeartbeatException: "MongoDB.Driver.MongoConnectionException: An exception occurred while opening a connection to the server.
-    ---> System.Net.Sockets.SocketException (11001): No such host is known.
+       KissLog.Backend startup failed
+       DatabaseName: KissLogBackend
+       Exception: A timeout occured after 30000ms selecting a server using CompositeServerSelector{ Selectors = MongoDB.Driver.MongoClient+AreSessionsSupportedServerSelector, LatencyLimitingServerSelector{ AllowedLatencyRange = 00:00:00.0150000 } }. Client view of cluster state is { ClusterId : "1", ConnectionMode : "Automatic", Type : "Unknown", State : "Disconnected", Servers : [{ ServerId: "{ ClusterId : 1, EndPoint : "Unspecified/localhost3:27017" }", EndPoint: "Unspecified/localhost:27017", ReasonChanged: "Heartbeat", State: "Disconnected", ServerVersion: , TopologyVersion: , Type: "Unknown", HeartbeatException: "MongoDB.Driver.MongoConnectionException: An exception occurred while opening a connection to the server.
+       ---> System.Net.Sockets.SocketException (11001): No such host is known.
 
-# 4) KissLog.Frontend will try to connect to MS-SQL / MySql server.
 
-On the first run, KissLog.Frontend will also create the database (if not already exists).
+4) | KissLog.Frontend will try to connect to MS-SQL / MySql server.
+   | On the first run, KissLog.Frontend will also create the database (if not already exists).
+   | Any database errors, such as connection errors or database permissions, will be saved under the ``\Logs`` folder.
+ 
+   **Important:**
 
-Any database errors, such as connection errors or database permissions, will be saved under the ``\Logs`` folder.
+   | If the SQL user does not have permissions to create the database, you will have to create it manually.
+   | The database generation script will be generated under ``KissLog.Frontend\Logs\CreateDatabaseScript.txt``.
 
-**Important:**
+5) | KissLog applications (KissLog.Frontend and KissLog.Backend) connect to each other using HTTP requests.
+   | Make sure there is no firewall blocking the connection.
 
-If the SQL user does not have permissions to create the database, you will have to create it manually.
+6) | If the application fails to start and there are no log messages, **enable IIS logs**:
+   | Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then restart the application.
 
-The database generation script will be created under: ``C:\inetpub\wwwroot\KissLog.Frontend\Logs\CreateDatabaseScript.txt``
+   .. code-block:: xml
+       :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\web.config
 
-# 5) KissLog applications (KissLog.Frontend and KissLog.Backend) connect to each other using HTTP requests.
+       <?xml version="1.0" encoding="utf-8"?>
+       <configuration>
+           <location path="." inheritInChildApplications="false">
+               <system.webServer>
+                   <handlers>
+                       <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified" />
+                   </handlers>
+                   <aspNetCore processPath="dotnet" arguments=".\KissLog.Backend.AspNetCore.dll" stdoutLogEnabled="true" stdoutLogFile=".\logs\stdout" hostingModel="inprocess" />
+               </system.webServer>
+           </location>
+       </configuration>
+       <!--ProjectGuid: 4EC40754-6618-4D7D-B45E-C7FE1D6B8EF6-->
 
-Make sure there is no firewall blocking the connection.
+   **Important:**
 
-# 6) If the application fails to start and there are no log messages, **enable IIS logs**:
-
-Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then restart the application.
-
-**Important:**
-
-Create an empty ``\Logs`` folder if one does not already exist.
-
-``C:\inetpub\wwwroot\KissLog.Backend\Logs``
-
+   Create an empty ``Logs`` folder if one does not already exist.
 
 Need help?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
