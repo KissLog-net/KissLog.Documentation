@@ -1,6 +1,20 @@
 Change log
 =======================================================
 
+KissLog 5.1.1
+--------------------------
+
+KissLog.AspNetCore 5.1.1 | KissLog.AspNet.Mvc 5.1.1 | KissLog.AspNet.WebApi 5.1.1 | KissLog.CloudListeners 5.1.1
+
+Release date: 27-12-2021
+
+https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.1.1
+
+Fixes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- ``MachineName is null for ConsoleApps`` (https://github.com/KissLog-net/KissLog.Sdk/issues/56)
+
 KissLog 5.1.0
 --------------------------
 
