@@ -4,6 +4,8 @@ Change log
 KissLog_Package 3.0.0
 --------------------------
 
+Release date: 27-12-2021
+
 This update simplifies the KissLog on-premises configuration options.
 
 All the configuration options from ``appsettings.json`` have been either moved to ``Configuration\KissLog.json`` or removed altogether.
@@ -94,3 +96,27 @@ KissLog.Backend configuration changes
 
    * - "KissLogBackend.BasicAuth.Password"
      - has moved to KissLog.json "KissLogBackend.BasicAuth.Password"
+
+KissLog_Package 3.1.1
+--------------------------
+
+Release date: 10-03-2022
+
+Implemented Azure ActiveDirectory OAuth configuration.
+
+KissLog.Frontend configuration changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: json
+    
+    {
+        "Authorization": {
+            "ExternalIdentityProviders": {
+                "AzureActiveDirectory": {
+                    "ClientId": "eb042044-cb75-49a3-a73d-493250cf0017",
+                    "ClientSecret": "sM95AEDVJwh28qYRJWkyWCvFUYHAnPYHmC",
+                    "Authority": "https://login.microsoftonline.com/299de8ce-0c07-49d3-bea7-3b8b8bd3d2c9/v2.0/"
+                }
+            }
+        }
+    }

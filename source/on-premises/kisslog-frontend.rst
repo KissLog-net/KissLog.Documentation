@@ -153,7 +153,8 @@ Authorization
         "Authorization": {
             "DefaultEmailDomain": "myapp.com",
             "HS256Secret": "J6UVNS3EKG46O1S1OVJ59OZ8DH3KEP",
-            "SessionCookie": { }
+            "SessionCookie": { },
+            "ExternalIdentityProviders": { }
         }
     }
 
@@ -210,6 +211,39 @@ SessionCookie
 | Specifies the persistent cookie expiration time.                                             |
 +----------------------------------------------------------------------------------------------+
 
+ExternalIdentityProviders
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Configuration for external identity providers authentication.
+
+.. code-block:: json
+    
+    {
+        "Authorization": {
+            "ExternalIdentityProviders": {
+                "AzureActiveDirectory": { }
+            }
+        }
+    }
+
+AzureActiveDirectory
+""""""""""""""""""""""""""""""""""""
+
+Configuration options for Azure ActiveDirectory authentication option.
+
+.. code-block:: json
+    
+    {
+        "Authorization": {
+            "ExternalIdentityProviders": {
+                "AzureActiveDirectory": {
+                    "ClientId": "eb042044-cb75-49a3-a73d-493250cf0017",
+                    "ClientSecret": "sM95AEDVJwh28qYRJWkyWCvFUYHAnPYHmC",
+                    "Authority": "https://login.microsoftonline.com/299de8ce-0c07-49d3-bea7-3b8b8bd3d2c9/v2.0/"
+                }
+            }
+        }
+    }
 
 Smtp
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
