@@ -58,6 +58,7 @@ Table of Contents
 
    installation-guide
    update-guide
+   Docker
    kisslog-frontend
    kisslog-backend
    change-log/index
