@@ -26,6 +26,8 @@ To get started running KissLog as a Docker application, create the following fil
 
 Full working example of the files above can also be download from `here <https://kisslog.net/Overview/OnPremises>`_.
 
+**Files details:**
+
 - ``docker-compose.yml`` configures the KissLog services
 - ``backend.appsettings.json`` overrides the default ``KissLog.Backend\appsettings.json`` file
 - ``backend.KissLog.json`` overrides the default ``KissLog.Backend\Configuration\KissLog.json`` file
