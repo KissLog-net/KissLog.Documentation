@@ -17,18 +17,19 @@ Prerequisites
 ------------------------
 
 .. list-table::
-   :widths: 50 50
    :header-rows: 1
 
    * - Server hosting
      - Azure hosting
+     - Run as Docker container
    * - * IIS Web server with `NET Core 3.1 Runtime <https://dotnet.microsoft.com/download/dotnet-core/3.1>`_ installed
        * `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 4.2.x)
        * `MS-SQL Server <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>`_ or `MySQL Community Server <https://dev.mysql.com/downloads/mysql/>`_
      - * 2x App Service
        * 1x Azure Cosmos DB database
        * 1x SQL database
-
+     - `Docker Engine <https://docs.docker.com/engine/>`_
+   
 
 Arhitecture
 ------------------------

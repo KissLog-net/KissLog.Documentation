@@ -15,6 +15,8 @@ Configuration
 
 To get started running KissLog as a Docker application, create the following files:
 
+You can also download the files from `here <https://kisslog.net/Overview/OnPremises>`_.
+
 .. code-block:: none
 
     /KissLog_Docker
@@ -174,15 +176,15 @@ Build
 
 This command will spawn all KissLog prerequisites as well as both KissLog.Backend and KissLog.Frontend applications.
 
-KissLog.Backend is exposed on ``http://localhost:44088/``.
+- KissLog.Frontend is exposed on ``http://localhost:44080/``
 
-KissLog.Frontend is exposed on ``http://localhost:44080/``.
+- KissLog.Backend is exposed on ``http://localhost:44088/``
 
 +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
 | ``http://localhost:44080/``                                                  | ``http://localhost:44088/``                                                 |
 +==============================================================================+=============================================================================+
 | .. image:: images/Docker/KissLog.Frontend.localhost.png                      | .. image:: images/Docker/KissLog.Backend.localhost.png                      |
-|   :alt: KissLog.Frontend Application Pool                                    |   :alt: KissLog.Backend Application Pool                                    |
+|   :alt: KissLog.Frontend                                                     |   :alt: KissLog.Backend                                                     |
 +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
 
 Destroy
