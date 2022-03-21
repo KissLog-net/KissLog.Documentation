@@ -1,7 +1,7 @@
 Docker
 =============================
 
-KissLog can be run as a Docker application.
+KissLog can be run as a Docker application, thanks to `Marcio <https://github.com/zimbres>`_ valuable contribution.
 
 The official KissLog Docker repositories are the following:
 
@@ -9,8 +9,12 @@ The official KissLog Docker repositories are the following:
 
 - https://hub.docker.com/r/catalingavan/kisslog.frontend
 
+Running KissLog as a Docker application will automatically install all the necessary prerequisites.
 
-Configuration
+.. contents:: Table of contents
+   :local:
+
+Docker files
 -------------------------------------------------------
 
 To get started running KissLog as a Docker application, create the following files:
@@ -24,15 +28,14 @@ To get started running KissLog as a Docker application, create the following fil
     ├── frontend.appsettings.json
     └── frontend.KissLog.json
 
-Full working example of the files above can also be download from `here <https://kisslog.net/Overview/OnPremises>`_.
+.. admonition:: Download Docker files
+   :class: note
 
-**Files details:**
+   Full working example of the files above can also be download from `here <https://kisslog.net/Overview/OnPremises>`_.
 
-- ``docker-compose.yml`` configures the KissLog services
-- ``backend.appsettings.json`` overrides the default ``KissLog.Backend\appsettings.json`` file
-- ``backend.KissLog.json`` overrides the default ``KissLog.Backend\Configuration\KissLog.json`` file
-- ``frontend.appsettings.json`` overrides the default ``KissLog.Frontend\appsettings.json`` file
-- ``frontend.KissLog.json`` overrides the default ``KissLog.Frontend\Configuration\KissLog.json`` file
+KissLog.Frontend will read the configuration options from ``KissLog_Docker\frontend.KissLog.json``.
+
+KissLog.Backend will read the configuration options from ``KissLog_Docker\backend.KissLog.json``.
 
 .. code-block:: none
     :caption: docker-compose.yml
@@ -127,7 +130,9 @@ Full working example of the files above can also be download from `here <https:/
         "Database": {
             "Provider": "MySql",
             "KissLogDbContext": "server=kisslog.mariadb.dev;port=3306;database=KissLog_Frontend_Dev;uid=root;password=pass;Charset=utf8;"
-        }
+        },
+
+        "/* Other configuration options */": ""
     }
 
 .. code-block:: json
@@ -164,26 +169,28 @@ Full working example of the files above can also be download from `here <https:/
                 "ConnectionString": "mongodb://kisslog.mongodb.dev:27017",
                 "DatabaseName": "KissLogDev"
             }
-        }
+        },
+
+        "/* Other configuration options */": ""
     }
 
 Build
 -------------------------------------------------------
 
+To spawn KissLog and all the necessary prerequisites, use ``docker-compose up`` command.
+
 .. code-block:: none
 
     C:\KissLog_Docker> docker-compose up
 
+KissLog.Frontend will be exposed to ``http://localhost:44080/``.
+
+KissLog.Backend will be exposed to ``http://localhost:44088/``.
+
 .. figure:: images/Docker/docker-compose-up.png
 
-This command will spawn all KissLog prerequisites as well as both KissLog.Backend and KissLog.Frontend applications.
-
-- KissLog.Frontend is exposed on ``http://localhost:44080/``
-
-- KissLog.Backend is exposed on ``http://localhost:44088/``
-
 +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
-| ``http://localhost:44080/``                                                  | ``http://localhost:44088/``                                                 |
+| KissLog.Frontend                                                             | KissLog.Backend                                                             |
 +==============================================================================+=============================================================================+
 | .. image:: images/Docker/KissLog.Frontend.localhost.png                      | .. image:: images/Docker/KissLog.Backend.localhost.png                      |
 |   :alt: KissLog.Frontend                                                     |   :alt: KissLog.Backend                                                     |
