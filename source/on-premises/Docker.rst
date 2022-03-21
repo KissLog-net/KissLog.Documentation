@@ -188,6 +188,7 @@ KissLog.Frontend will be exposed to ``http://localhost:44080/``.
 KissLog.Backend will be exposed to ``http://localhost:44088/``.
 
 .. figure:: images/Docker/docker-compose-up.png
+   :align: left
 
 +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
 | KissLog.Frontend                                                             | KissLog.Backend                                                             |
