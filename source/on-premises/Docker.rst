@@ -205,3 +205,5 @@ Destroy
     C:\KissLog_Docker> docker-compose down
 
 .. figure:: images/Docker/docker-compose-down.png
+   :align: left
+
