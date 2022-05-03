@@ -1,6 +1,20 @@
 Change log
 =======================================================
 
+KissLog 5.1.2
+--------------------------
+
+KissLog.AspNetCore 5.1.2 | KissLog.AspNet.Mvc 5.1.2 | KissLog.AspNet.WebApi 5.1.2 | KissLog.CloudListeners 5.1.2
+
+Release date: 02-05-2022
+
+https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.1.2
+
+Fixes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- ``Logging same InnerException throws an error`` (https://github.com/KissLog-net/KissLog.Sdk/issues/60)
+
 KissLog 5.1.1
 --------------------------
 
