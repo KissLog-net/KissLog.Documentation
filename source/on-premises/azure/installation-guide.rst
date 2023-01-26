@@ -29,7 +29,7 @@ Installation
 Azure SQL Database
 ~~~~~~~~~~~~~~~~~~~~~
 
-KissLog server does not use SQL intensively. To start with, the Standard tier or even the Basic tier should be enough. If necessary, you can always upgrade it later.
+KissLog server does not use SQL intensively. The Basic or Standard tier should be enough to start with. If necessary, you can always upgrade it later.
 
 If you already have an SQL server, you can skip this step.
 
