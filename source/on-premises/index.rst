@@ -57,6 +57,7 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
+   azure/index
    installation-guide
    update-guide
    Docker
