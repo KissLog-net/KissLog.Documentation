@@ -8,7 +8,7 @@ Prerequisites
 -------------------------------------------------------
 
 Artifacts
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 - KissLog.Backend.AspNetCore.zip
 - KissLog.Frontend.AspNetCore.zip
@@ -16,7 +16,7 @@ Artifacts
 Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
 
 Services
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 - 1x Azure SQL Database
 - 1x Azure Cosmos DB
@@ -27,7 +27,7 @@ Installation
 -------------------------------------------------------
 
 Azure SQL Database
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 KissLog server does not use SQL intensively. The Basic or Standard tiers should be enough to start with. If necessary, you can always upgrade it later.
 
@@ -96,10 +96,7 @@ The cost of the Azure Cosmos DB service is influenced by the throughtput (RU/s) 
 
 To get started, we will use a single-region `Azure Cosmos DB free tier account <https://learn.microsoft.com/en-us/azure/cosmos-db/free-tier>`_ which covers for free a maximum of 1000 RU/s.
 
-1. Create an Azure Cosmos DB account
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Select **Azure Cosmos DB for NoSQL**.
+Create an Azure Cosmos DB account. Select **Azure Cosmos DB for NoSQL**.
 
 .. list-table::
    :header-rows: 1
@@ -156,8 +153,85 @@ Select **Azure Cosmos DB for NoSQL**.
 .. figure:: images/installation-guide/cosmos-db-ReviewAndCreate.png
     :alt: Create SQL Database
 
-2. Create new Database
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-KissLog server creates all the tables automatically. However, the Azure Cosmos DB Database must be manually created.
+Azure Storage account
+~~~~~~~~~~~~~~~~~~~~~~~
 
+Create a storage account.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Basics
+     - 
+   * - Storage account Name
+     - kisslogstorage *(or any value)*
+   * - Region
+     - (Europe) West Europe *<or any appropriate value>*
+   * - Performance
+     - Standard
+   * - Redundancy
+     - Locally-redundant storage (LRS)
+
+.. list-table::
+   :header-rows: 1
+
+   * - Advanced
+     - 
+   * - Require secure transfer for REST API operations
+     - Yes
+   * - Allow enabling public access on containers
+     - No
+   * - Enable storage account key access
+     - Yes
+   * - Default to Azure Active Directory authorization in the Azure portal
+     - No
+   * - Minimum TLS version
+     - Version 1.2
+   * - Access tier
+     - Hot
+
+.. list-table::
+   :header-rows: 1
+
+   * - Networking
+     - 
+   * - Network access
+     - Enable public access from all networks
+   * - Routing preference
+     - Microsoft network routing
+
+.. list-table::
+   :header-rows: 1
+
+   * - Data protection
+     - 
+   * - Enable point-in-time restore for containers
+     - No
+   * - Enable soft delete for blobs
+     - No
+   * - Enable soft delete for containers
+     - No
+   * - Enable soft delete for file shares
+     - No
+   * - Enable versioning for blobs
+     - No
+   * - Enable blob change feed
+     - No
+   * - Enable version-level immutability support
+     - No
+
+.. list-table::
+   :header-rows: 1
+
+   * - Encryption
+     - 
+   * - Encryption type
+     - Microsoft-managed keys (MMK)
+   * - Enable support for customer-managed keys
+     - Blobs and files only
+   * - Enable infrastructure encryption
+     - No
+
+.. figure:: images/installation-guide/storage-account-ReviewAndCreate.png
+    :alt: Create Storage account
