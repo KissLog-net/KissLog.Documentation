@@ -18,9 +18,9 @@ Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>
 Services
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- 1x SQL Database
-- 1x Azure Cosmos DB
-- 1x Storage account
+- SQL Database
+- Azure Cosmos DB
+- Storage account
 - 2x App Services
 
 Installation
@@ -353,3 +353,31 @@ We will create two App Services, both with the same configurations:
 
 .. figure:: images/installation-guide/app-service-ReviewAndCreate.png
     :alt: Create App Service
+
+Initial deployment
+-------------------------------------------------------
+
+1. Prepare the artifacts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Download the KissLog server package from `here <https://kisslog.net/Overview/OnPremises>`_.
+
+Extract the archive in a folder. Then, extract both of the archives in two separate folders: `KissLog.Backend` and `KissLog.Frontend`.
+
+In the `KissLog.Backend` folder, open the configuration file located under ``Configuration\KissLog.json`` and update the following properties:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Property
+     - 
+   * - KissLogBackendUrl
+     - https://kisslog-backend-code.azurewebsites.net *<get the value from the App Service>*
+   * - KissLogFrontendUrl
+     - https://kisslog-frontend-code.azurewebsites.net *<get the value from the App Service>*
+   * - Database.Provider
+     - AzureCosmosDb
+   * - Database.AzureCosmosDb.ApplicationRegion
+     - West Europe *<get the value from the Azure Cosmos DB account>*
+   * - Database.AzureCosmosDb.ConnectionString
+     - AccountEndpoint=xxx;AccountKey=xxx; *<get the value from the Azure Cosmos DB account>*
