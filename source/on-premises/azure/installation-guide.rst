@@ -358,7 +358,7 @@ Initial deployment
 -------------------------------------------------------
 
 1. Prepare the artifacts
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Download the KissLog server package from `here <https://kisslog.net/Overview/OnPremises>`_.
 
@@ -370,14 +370,20 @@ In the `KissLog.Backend` folder, open the configuration file located under ``Con
    :header-rows: 1
 
    * - Property
-     - 
+     - Value
+     - Notes
    * - KissLogBackendUrl
-     - https://kisslog-backend-code.azurewebsites.net *<get the value from the App Service>*
+     - https://kisslog-backend-code.azurewebsites.net
+     - Get the value from the App Service
    * - KissLogFrontendUrl
-     - https://kisslog-frontend-code.azurewebsites.net *<get the value from the App Service>*
+     - https://kisslog-frontend-code.azurewebsites.net
+     - Get the value from the App Service
    * - Database.Provider
      - AzureCosmosDb
+     - 
    * - Database.AzureCosmosDb.ApplicationRegion
-     - West Europe *<get the value from the Azure Cosmos DB account>*
+     - West Europe
+     - Get the value from the Azure Cosmos DB account
    * - Database.AzureCosmosDb.ConnectionString
-     - AccountEndpoint=xxx;AccountKey=xxx; *<get the value from the Azure Cosmos DB account>*
+     - AccountEndpoint=xxx;AccountKey=xxx;
+     - Get the value from the Azure Cosmos DB account
