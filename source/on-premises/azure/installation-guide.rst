@@ -151,7 +151,7 @@ Create an Azure Cosmos DB account. Select **Azure Cosmos DB for NoSQL**.
      - Service-managed key
 
 .. figure:: images/installation-guide/cosmos-db-ReviewAndCreate.png
-    :alt: Create SQL Database
+    :alt: Create Azure Cosmos DB
 
 
 Storage account
@@ -253,3 +253,60 @@ However, for a reliable performance and user-experience, you should scale up the
    Hotizontal scaling is not currently supported by KissLog server.
 
    Both KissLog.Backend and KissLog.Frontend applications must each be deployed to a single instace.
+
+Create App Services
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We will create two App Services, both with the same configurations:
+
+* kisslog-backend-code
+* kisslog-frontend-code
+
+.. list-table::
+   :header-rows: 1
+
+   * - Basics
+     - 
+   * - Name
+     - kisslog-backend-code *(or any value)*
+   * - Publish
+     - Code
+   * - Runtime stack
+     - .NET 6 (LTS)
+   * - Operating System
+     - Linux
+   * - Region
+     - (Europe) West Europe *<or any appropriate value>*
+   * - Pricing Plan
+     - Free F1 (Shared infrastructure)
+   * - Zone redundancy
+     - Disabled
+
+.. list-table::
+   :header-rows: 1
+
+   * - Deployment
+     - 
+   * - Continuous deployment
+     - Disable
+
+.. list-table::
+   :header-rows: 1
+
+   * - Networking
+     - 
+   * - Enable public access
+     - On
+   * - Enable network injection
+     - Off
+
+.. list-table::
+   :header-rows: 1
+
+   * - Monitoring
+     - 
+   * - Enable Application Insights
+     - No
+
+.. figure:: images/installation-guide/app-service-ReviewAndCreate.png
+    :alt: Create App Service
