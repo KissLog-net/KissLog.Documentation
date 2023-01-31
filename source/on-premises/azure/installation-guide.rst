@@ -157,7 +157,7 @@ Create an Azure Cosmos DB account. Select **Azure Cosmos DB for NoSQL**.
 Azure Storage account
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Create a storage account.
+KissLog server uses Azure storage account for saving blob files and for reducing the workload of Azure Cosmos DB.
 
 .. list-table::
    :header-rows: 1
