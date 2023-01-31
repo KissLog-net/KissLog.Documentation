@@ -159,6 +159,9 @@ Storage account
 
 KissLog server uses Azure storage account for saving blob files and for reducing the workload of Azure Cosmos DB.
 
+1. Create Storage account
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. list-table::
    :header-rows: 1
 
@@ -235,6 +238,46 @@ KissLog server uses Azure storage account for saving blob files and for reducing
 
 .. figure:: images/installation-guide/storage-account-ReviewAndCreate.png
     :alt: Create Storage account
+
+2. Update Lifecycle management
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After the Storage account has been created, we need to setup a policy to automatically delete old blobs.
+
+On the newly created Storage account dashboard, select the "Lifecycle management" menu from the left, then add a new rule with the following properties:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Details
+     - 
+   * - Rule name
+     - deleteAfterExpiryDate
+   * - Rule scope
+     - Apply rule to all blobs in your storage account
+   * - Blob type
+     - Block blobs
+   * - Blob subtype
+     - Base blobs
+
+.. list-table::
+   :header-rows: 1
+
+   * - Base blobs
+     - 
+   * - [If] Base blobs were
+     - Created
+   * - More than (days ago)
+     - 31 *<see the note below>*
+   * - Blob type
+     - Block blobs
+   * - Blob subtype
+     - Base blobs
+   * - [Then]
+     - Delete the blob
+
+.. note::
+   The value for **Created more than (days ago)** should be equal to (or slightly bigger) than the maximum TimeToLive property for Request logs.
 
 App Services
 ~~~~~~~~~~~~~~~~~~~~~
