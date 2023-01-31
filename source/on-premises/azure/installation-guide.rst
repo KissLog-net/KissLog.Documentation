@@ -18,15 +18,15 @@ Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>
 Services
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- 1x Azure SQL Database
+- 1x SQL Database
 - 1x Azure Cosmos DB
-- 1x Azure Storage account
-- 2x Azure App Services
+- 1x Storage account
+- 2x App Services
 
 Installation
 -------------------------------------------------------
 
-Azure SQL Database
+SQL Database
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 KissLog server does not use SQL intensively. The Basic or Standard tiers should be enough to start with. If necessary, you can always upgrade it later.
@@ -154,7 +154,7 @@ Create an Azure Cosmos DB account. Select **Azure Cosmos DB for NoSQL**.
     :alt: Create SQL Database
 
 
-Azure Storage account
+Storage account
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 KissLog server uses Azure storage account for saving blob files and for reducing the workload of Azure Cosmos DB.
@@ -235,3 +235,21 @@ KissLog server uses Azure storage account for saving blob files and for reducing
 
 .. figure:: images/installation-guide/storage-account-ReviewAndCreate.png
     :alt: Create Storage account
+
+App Services
+~~~~~~~~~~~~~~~~~~~~~
+
+KissLog server uses 2 App Services, one for KissLog.Backend application and the second for KissLog.Frontend application.
+
+KissLog.Backend application is responsible for processing and saving all the logs to Azure Cosmos DB.
+This application is CPU intensive (used for serializing/deserialzing the Azure Cosmos DB records), and uses the RAM memory for the internal queuing system.
+
+KissLog.Frontend application is lightweight and is only responsible for displaying the user-interface.
+
+In this tutorial we will use for both of the App Services the Free pricing plan.
+However, for a reliable performance and user-experience, you should scale up the App Service plans matching your usage needs. 
+
+.. note::
+   Hotizontal scaling is not currently supported by KissLog server.
+
+   Both KissLog.Backend and KissLog.Frontend applications must each be deployed to a single instace.
