@@ -1,7 +1,7 @@
-Azure
+Microsoft Azure
 ============================
 
-KissLog can be hosted on Azure.
+KissLog server can be hosted on Microsoft Azure.
 
 .. toctree::
    :maxdepth: 2
