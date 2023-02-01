@@ -460,3 +460,8 @@ The artifact can also be deployed with Postman.
 
 .. figure:: images/installation-guide/postman-zipdeploy-response.png
     :alt: KissLog Backend artifact
+
+3. Run KissLog.Backend App Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After KissLog.Backend has been updated, start the App Service, then browse.
