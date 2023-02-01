@@ -474,11 +474,11 @@ After KissLog.Backend App Service has been updated, start the App Service then b
 If everything went successful, you will see the KissLog.Backend home page.
 
 .. note::
-   | During the initial startup, KissLog.Backend will create the Azure Cosmos DB database and the containers.
-   | This process is time consuming, therefore it is ok for the page to load slow in the begining.
+   | The initial startup is time consuming and can take up to a few minutes.
+   | During the initial startup, KissLog.Backend will also create the Azure Cosmos DB database and the containers.
 
 .. figure:: images/installation-guide/kisslog-backend-running.png
-    :alt: KissLog Backend artifact
+    :alt: KissLog Backend home page
 
 4. Run the KissLog.Frontend App Service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -486,3 +486,10 @@ If everything went successful, you will see the KissLog.Backend home page.
 After KissLog.Frontend App Service has been updated, start the App Service then browse to the application URL.
 
 If everything went successful, you will see the KissLog.Frontend home page.
+
+.. note::
+   | The initial startup is time consuming and can take up to a few minutes.
+   | During the initial startup, KissLog.Frontend will also create the SQL database.
+
+.. figure:: images/installation-guide/kisslog-frontend-running.png
+    :alt: KissLog Frontend home page
