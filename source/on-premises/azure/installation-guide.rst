@@ -421,6 +421,42 @@ In the `KissLog.Frontend` folder, open the configuration file located under ``Co
      - Server=xxx,1433;Initial Catalog=xxx;Persist Security Info=False;User ID={your_user};Password={your_password};
      - "ADO.NET (SQL authentication)" from the SQL Database, "Connection strings" section
 
-2. Upload the artifacts
+2. Update the App Services
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. note::
+   Repeat the steps below for both of the App Services.
+
+Prepare the artifacts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Create a ``zip`` archive with the contents of `KissLog.Backend` folder.
+
+.. figure:: images/installation-guide/kisslog-backend-artifact.png
+    :alt: KissLog Backend artifact
+
+Upload the artifacts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Navigate to KissLog.Backend App Service. Make sure the App Service is stopped. On top right, click on "Download publish profile" button. Open the downloaded file and copy the ``userName`` and the ``userPWD``.
+
+.. figure:: images/installation-guide/publish-profile.png
+    :alt: KissLog Backend artifact
+
+| To deploy, send a POST request to https://<app_name>.scm.azurewebsites.net/api/zipdeploy.
+| The POST request must contain the .zip file in the message body.
+| Set the Basic Authentication header with the Username and Password values copied from the PublishProfile.
+
+.. code-block:: none
+
+   curl -X POST -u $kisslog-backend-code:{password} --data-binary @"<zip_file_path>" https://kisslog-backend-code.scm.azurewebsites.net/api/zipdeploy
+
+If the update was successful, you will receive a ``200 OK`` response status code.
+
+The artifact can also be deployed with Postman.
+
+.. figure:: images/installation-guide/postman-zipdeploy-authorization.png
+    :alt: KissLog Backend artifact
+
+.. figure:: images/installation-guide/postman-zipdeploy-response.png
+    :alt: KissLog Backend artifact

@@ -95,3 +95,4 @@ h1:first-child { margin-top: 0; }
 
 .markdown-body figure.align-default { text-align: left; }
 
+.markdown-body img { border: 1px solid #B4B4B4; }
