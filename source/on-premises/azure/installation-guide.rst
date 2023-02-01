@@ -443,7 +443,7 @@ Navigate to KissLog.Backend App Service. Make sure the App Service is stopped. O
 .. figure:: images/installation-guide/publish-profile.png
     :alt: KissLog Backend artifact
 
-| To deploy, send a POST request to https://<app_name>.scm.azurewebsites.net/api/zipdeploy.
+| To deploy the application, send a POST request to https://<app_name>.scm.azurewebsites.net/api/zipdeploy.
 | The POST request must contain the .zip file in the message body.
 | Set the Basic Authentication header with the Username and Password values copied from the PublishProfile.
 
