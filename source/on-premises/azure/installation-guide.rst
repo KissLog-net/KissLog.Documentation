@@ -435,15 +435,20 @@ Create a ``zip`` archive with the contents of `KissLog.Backend` folder.
 .. figure:: images/installation-guide/kisslog-backend-artifact.png
     :alt: KissLog Backend artifact
 
+Stop the App Service
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Make sure the App Service is stopped before uploading the new code.
+
 Upload the artifacts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Navigate to KissLog.Backend App Service. Make sure the App Service is stopped. On top right, click on "Download publish profile" button. Open the downloaded file and copy the ``userName`` and the ``userPWD``.
+Navigate to KissLog.Backend App Service. On top right, click on "Download publish profile" button. Open the downloaded file and copy the ``userName`` and the ``userPWD``.
 
 .. figure:: images/installation-guide/publish-profile.png
     :alt: KissLog Backend artifact
 
-| To deploy the application, send a POST request to https://<app_name>.scm.azurewebsites.net/api/zipdeploy.
+| To deploy the application, send a POST request to :samp:`https://<app_name>.scm.azurewebsites.net/api/zipdeploy`.
 | The POST request must contain the .zip file in the message body.
 | Set the Basic Authentication header with the Username and Password values copied from the PublishProfile.
 
@@ -456,12 +461,28 @@ If the update was successful, you will receive a ``200 OK`` response status code
 The artifact can also be deployed with Postman.
 
 .. figure:: images/installation-guide/postman-zipdeploy-authorization.png
-    :alt: KissLog Backend artifact
+    :alt: Postman Authorization
 
 .. figure:: images/installation-guide/postman-zipdeploy-response.png
+    :alt: Uploading KissLog.Backend code
+
+3. Run the KissLog.Backend App Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After KissLog.Backend App Service has been updated, start the App Service then browse to the application URL.
+
+If everything went successful, you will see the KissLog.Backend home page.
+
+.. note::
+   | During the initial startup, KissLog.Backend will create the Azure Cosmos DB database and the containers.
+   | This process is time consuming, therefore it is ok for the page to load slow in the begining.
+
+.. figure:: images/installation-guide/kisslog-backend-running.png
     :alt: KissLog Backend artifact
 
-3. Run KissLog.Backend App Service
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4. Run the KissLog.Frontend App Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After KissLog.Backend has been updated, start the App Service, then browse.
+After KissLog.Frontend App Service has been updated, start the App Service then browse to the application URL.
+
+If everything went successful, you will see the KissLog.Frontend home page.
