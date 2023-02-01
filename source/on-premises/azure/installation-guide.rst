@@ -29,7 +29,7 @@ Installation
 SQL Database
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-KissLog server does not use SQL intensively. The Basic or Standard tiers should be enough to start with. If necessary, you can always upgrade it later.
+KissLog server does not use SQL intensively. The Basic or Standard tier should be enough to start with. If necessary, you can always upgrade it later.
 
 If you already have an SQL server, you can skip this step.
 
@@ -362,7 +362,10 @@ Initial deployment
 
 Download the KissLog server package from `here <https://kisslog.net/Overview/OnPremises>`_.
 
-Extract the archive in a folder. Then, extract both of the archives in two separate folders: `KissLog.Backend` and `KissLog.Frontend`.
+Extract the archive in a folder. Then, extract both of the resulting archives in two separate folders: `KissLog.Backend` and `KissLog.Frontend`.
+
+Update KissLog.Backend configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the `KissLog.Backend` folder, open the configuration file located under ``Configuration\KissLog.json`` and update the following properties:
 
@@ -374,16 +377,50 @@ In the `KissLog.Backend` folder, open the configuration file located under ``Con
      - Notes
    * - KissLogBackendUrl
      - https://kisslog-backend-code.azurewebsites.net
-     - Get the value from the App Service
+     - "URL" from the `kisslog-backend-code` App Service
    * - KissLogFrontendUrl
      - https://kisslog-frontend-code.azurewebsites.net
-     - Get the value from the App Service
+     - "URL" from the `kisslog-frontend-code` App Service
    * - Database.Provider
      - AzureCosmosDb
      - 
    * - Database.AzureCosmosDb.ApplicationRegion
      - West Europe
-     - Get the value from the Azure Cosmos DB account
+     - "Write Locations" from the Azure Cosmos DB
    * - Database.AzureCosmosDb.ConnectionString
      - AccountEndpoint=xxx;AccountKey=xxx;
-     - Get the value from the Azure Cosmos DB account
+     - "PRIMARY CONNECTION STRING" from the Azure Cosmos DB, "Keys" section
+   * - Files.Provider
+     - Azure
+     -
+   * - Files.Azure.ConnectionString
+     - DefaultEndpointsProtocol=https;AccountName=xxx;AccountKey=xxx;EndpointSuffix=core.windows.net
+     - "Connection string" from the Storage account, "Access keys" section
+
+Update KissLog.Frontend configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the `KissLog.Frontend` folder, open the configuration file located under ``Configuration\KissLog.json`` and update the following properties:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Property
+     - Value
+     - Notes
+   * - KissLogBackendUrl
+     - https://kisslog-backend-code.azurewebsites.net
+     - "URL" from the `kisslog-backend-code` App Service
+   * - KissLogFrontendUrl
+     - https://kisslog-frontend-code.azurewebsites.net
+     - "URL" from the `kisslog-frontend-code` App Service
+   * - Database.Provider
+     - SqlServer
+     - 
+   * - Database.ConnectionString
+     - Server=xxx,1433;Initial Catalog=xxx;Persist Security Info=False;User ID={your_user};Password={your_password};
+     - "ADO.NET (SQL authentication)" from the SQL Database, "Connection strings" section
+
+2. Upload the artifacts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
