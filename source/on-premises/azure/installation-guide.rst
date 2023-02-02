@@ -493,3 +493,33 @@ If everything went successful, you will see the KissLog.Frontend home page.
 
 .. figure:: images/installation-guide/kisslog-frontend-running.png
     :alt: KissLog Frontend home page
+
+Post deployment
+-------------------------------------------------------
+
+| Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend AppService.
+| Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
+
+.. code-block:: csharp
+
+    KissLogConfiguration.Listeners
+        .Add(new RequestLogsApiListener(new Application(Configuration["KissLog.OrganizationId"], Configuration["KissLog.ApplicationId"]))
+        {
+            ApiUrl = "https://kisslog-backend-code.azurewebsites.net/"
+        });
+
+.. figure:: images/installation-guide/kisslog-frontend-logs.png
+    :alt: KissLog Frontend logs
+
+Upgrade the services
+-------------------------------------------------------
+
+In this tutorial we have used low-pricing tier for all the Azure Services that we have created, respectively:
+
+- SQL Database: Basic
+- Azure Cosmos DB: 1000 RU/s
+- KissLog.Backend App Service: Free F1
+- KissLog.Frontend App Service: Free F1
+
+Although this is enough for KissLog server to start running, the performance and stability of the application is directly affected by the performance of the underlying services.
+
