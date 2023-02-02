@@ -58,7 +58,7 @@ Most of the properties remain as default. We will mention the important changes.
    * - Networking
      - 
    * - Allow Azure services and resources to access this server
-     - No
+     - Yes
 
 .. figure:: images/installation-guide/sql-server-ReviewAndCreate.png
     :alt: Create SQL Database Server
@@ -90,9 +90,9 @@ Most of the properties remain as default. We will mention the important changes.
 Azure Cosmos DB
 ~~~~~~~~~~~~~~~~~~~~~
 
-KissLog server uses Azure Cosmos DB very intensively. The minimum throughtput used by the KissLog server (calculated in RU/s) highly depends on the frequency and volume of data you save.
+KissLog server uses Azure Cosmos DB very intensively. The minimum throughput used by the KissLog server (calculated in RU/s) highly depends on the frequency and volume of data you save.
 
-The cost of the Azure Cosmos DB service is influenced by the throughtput (RU/s) and by the number of replicas used.
+The cost of the Azure Cosmos DB service is influenced by the throughput (RU/s) and by the number of replicas used.
 
 To get started, we will use a single-region `Azure Cosmos DB free tier account <https://learn.microsoft.com/en-us/azure/cosmos-db/free-tier>`_ which covers for free a maximum of 1000 RU/s.
 
@@ -514,12 +514,34 @@ Post deployment
 Upgrade the services
 -------------------------------------------------------
 
-In this tutorial we have used low-pricing tier for all the Azure Services that we have created, respectively:
+In this tutorial we have used the low-pricing tier for all the Azure Services that we have created, respectively:
 
 - SQL Database: Basic
 - Azure Cosmos DB: 1000 RU/s
 - KissLog.Backend App Service: Free F1
 - KissLog.Frontend App Service: Free F1
 
-Although this is enough for KissLog server to start running, the performance and stability of the application is directly affected by the performance of the underlying services.
+Although this is enough for the KissLog server to start running, the performance and stability of the application is directly affected by the capabilities of the underlying services.
 
+If you experience low performance, you should incrementally scale up the services. The most workload is handled by the Azure Cosmos DB service and by the KissLog.Backend App Service, and you can start with them.
+
+.. note::
+   Hotizontal scaling is not currently supported by KissLog server.
+
+   Both KissLog.Backend and KissLog.Frontend App Services must each be deployed to a single instace.
+
+Scale up Azure Cosmos DB
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To scale up the Azure Cosmos DB service, select the "Scale" menu from the left. Increse the Throughput, then click "Save".
+
+.. figure:: images/installation-guide/azure-cosmos-db-scale-up.png
+    :alt: Scale up Azure Cosmos DB
+
+Scale up App Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To scale up an App Service, select the "Scale up (App Service plan)" menu from the left. Choose a new Plan. Click "Select" to apply.
+
+.. figure:: images/installation-guide/kisslog-backend-AppService-scale-up.png
+    :alt: Scale up App Service
