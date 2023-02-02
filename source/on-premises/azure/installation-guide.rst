@@ -424,8 +424,7 @@ In the `KissLog.Frontend` folder, open the configuration file located under ``Co
 2. Update the App Services
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. note::
-   Repeat the steps below for both of the App Services.
+Repeat the steps below for both of the App Services.
 
 Prepare the artifacts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -541,7 +540,7 @@ To scale up the Azure Cosmos DB service, select the "Scale" menu from the left. 
 Scale up App Service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To scale up an App Service, select the "Scale up (App Service plan)" menu from the left. Choose a new Plan. Click "Select" to apply.
+To scale up the App Service, select the "Scale up (App Service plan)" menu from the left. Choose a new Plan. Click "Select" to apply.
 
 .. figure:: images/installation-guide/kisslog-backend-AppService-scale-up.png
     :alt: Scale up App Service
