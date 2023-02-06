@@ -1,4 +1,4 @@
-Host on Microsoft Azure
+Microsoft Azure
 ============================
 
 KissLog server can be hosted on Microsoft Azure.

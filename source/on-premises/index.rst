@@ -57,8 +57,7 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
-   azure/index
-   local-server/index
+   hosting/index
    installation-guide
    update-guide
    Docker

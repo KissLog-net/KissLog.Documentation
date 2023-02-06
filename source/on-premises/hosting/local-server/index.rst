@@ -1,4 +1,4 @@
-Host on a local server
+Local server (IIS)
 ============================
 
 KissLog server can be hosted on a local server, working on both Windows and Linux operating systems.
