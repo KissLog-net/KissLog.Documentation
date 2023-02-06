@@ -8,6 +8,7 @@ Some of the common reasons for which the KissLog server can fail to run include:
 
 - ``Configuration\KissLog.json`` configuration errors
 - Services connectivity errors (such as SQL, Azure Cosmos DB, Storage accounts)
+- SQL permissions errors
 
 Checklist
 -------------------------------------------------------
@@ -41,3 +42,8 @@ Once on the Kudu service, navigate to the application files by clicking on "Site
 
 .. figure:: images/troubleshooting/kisslog-backend-application-logs.png
     :alt: KissLog.Backend application logs
+
+Need help?
+-------------------------------------------------------
+
+Open a `GitHub issue <https://github.com/KissLog-net/KissLog.Sdk/issues>`_ or send an email to catalingavan@gmail.com.
