@@ -10,3 +10,4 @@ KissLog server can be hosted on Microsoft Azure.
 
    installation-guide
    update-guide
+   troubleshooting
