@@ -18,9 +18,9 @@ Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>
 Services
 ~~~~~~~~~~~~~~~~~~~~~
 
-- IIS Web server with `NET Core 3.1 Runtime <https://dotnet.microsoft.com/download/dotnet-core/3.1>`_ installed
+- IIS Web server with `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed
 
-- `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 4.2.x)
+- `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 6.0.x)
 
 - `MS-SQL Server <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>`_ or `MySQL Community Server <https://dev.mysql.com/downloads/mysql/>`_
 
@@ -36,12 +36,12 @@ For instructions installing MongoDB server, please check the `official tutorial 
 MS-SQL / MySql
 ~~~~~~~~~~~~~~~~~~~~~
 
-We will not cover the installation guide for these services. There is a high possibility that the existing server will already have a running instance of MySQL or MS-SQL server.
+We will not cover the installation guide for these services.
 
 IIS web applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1) On the machine hosting the IIS server, install `.NET Core 3.1 Runtime <https://dotnet.microsoft.com/download/dotnet-core/3.1>`_
+1) On the machine hosting the IIS server, install `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_.
 
 2) Create two IIS applications:
 
@@ -50,23 +50,33 @@ IIS web applications
 
 3) Update the Application Pool settings for both of the applications to the following:
 
-   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
-   | KissLogFrontend                                                              | KissLog.Backend                                                             |
-   +==============================================================================+=============================================================================+
-   | .. image:: images/installation-guide/KissLogFrontend-ApplicationPool.png     | .. image:: images/installation-guide/KissLogBackend-ApplicationPool.png     |
-   |   :alt: KissLog.Frontend Application Pool                                    |   :alt: KissLog.Backend Application Pool                                    |
-   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - KissLog.Frontend
+     - KissLog.Backend
+   * - .. image:: images/installation-guide/KissLogFrontend-ApplicationPool.png
+         :alt: KissLog.Frontend Application Pool
+     - .. image:: images/installation-guide/KissLogBackend-ApplicationPool.png
+         :alt: KissLog.Backend Application Pool
 
 4) Copy into each IIS application folder the corresponding deploy package
 
-   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
-   | KissLogFrontend                                                              | KissLog.Backend                                                             |
-   +==============================================================================+=============================================================================+
-   | Example: C:\\inetpub\\wwwroot\\KissLog.Frontend                              | Example: C:\\inetpub\\wwwroot\\KissLog.Backend                              |
-   |                                                                              |                                                                             |
-   | .. image:: images/installation-guide/KissLogFrontend-Folder.png              | .. image:: images/installation-guide/KissLogBackend-Folder.png              |
-   |   :alt: KissLog.Frontend Application Pool                                    |   :alt: KissLog.Backend Application Pool                                    |
-   +------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - KissLog.Frontend
+     - KissLog.Backend
+   * - C:\\inetpub\\wwwroot\\KissLog.Frontend
+
+       .. image:: images/installation-guide/KissLogFrontend-Folder.png
+         :alt: KissLog.Frontend folder
+     
+     - C:\\inetpub\\wwwroot\\KissLog.Backend
+       
+       .. image:: images/installation-guide/KissLogBackend-Folder.png
+         :alt: KissLog.Backend folder
+
 
 Configuration
 -------------------------------------------------------
