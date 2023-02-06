@@ -78,3 +78,21 @@ The new code can also be deployed with Postman.
 
 .. figure:: images/installation-guide/postman-zipdeploy-response.png
     :alt: Uploading KissLog.Backend code
+
+5. Run the KissLog.Backend App Service
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After KissLog.Backend App Service has been updated, start the App Service then browse to the application URL.
+
+If everything went successful, you will see the KissLog.Backend home page.
+
+.. note::
+   | The initial startup is time consuming and can take up to a few minutes.
+
+.. figure:: images/installation-guide/kisslog-backend-running.png
+    :alt: KissLog Backend home page
+
+6. Repeat the steps above for KissLog.Frontend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Repeat the steps above for the KissLog.Frontend App Service, starting with step 1.
