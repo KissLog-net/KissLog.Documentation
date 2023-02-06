@@ -155,6 +155,23 @@ Startup steps
    .. figure:: images/installation-guide/kisslog-frontend-running.png
        :alt: KissLog.Frontend home page
 
+Post deployment
+-------------------------------------------------------
+
+| Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend AppService.
+| Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
+
+.. code-block:: csharp
+
+    KissLogConfiguration.Listeners
+        .Add(new RequestLogsApiListener(new Application(Configuration["KissLog.OrganizationId"], Configuration["KissLog.ApplicationId"]))
+        {
+            ApiUrl = "https://kisslog-backend-code.azurewebsites.net/"
+        });
+
+.. figure:: images/installation-guide/kisslog-frontend-logs.png
+    :alt: KissLog Frontend logs
+
 Troubleshooting
 -------------------------------------------------------
 
@@ -217,7 +234,9 @@ Quick checklist
 
    Create an empty ``Logs`` folder if one does not already exist.
 
+
+
 Need help?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------------------------
 
 Open a `GitHub issue <https://github.com/KissLog-net/KissLog.Sdk/issues>`_ or send an email to catalingavan@gmail.com.
