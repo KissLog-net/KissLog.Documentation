@@ -8,4 +8,6 @@ Hosting
 
    azure/index
    local-server/index
+   docker/index
+   
 

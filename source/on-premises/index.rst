@@ -58,10 +58,6 @@ Table of Contents
    :includehidden:
 
    hosting/index
-   installation-guide
-   update-guide
-   Docker
-   kisslog-frontend
-   kisslog-backend
-   change-log/index
+   kisslog-frontend/index
+   kisslog-backend/index
 
