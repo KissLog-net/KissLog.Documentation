@@ -1,7 +1,7 @@
 Configuration
 =================================
 
-KissLog.Backend configuration is achieved by updating the ``KissLog.Backend\Configuration\KissLog.json`` file.
+KissLog.Backend configuration is achieved by updating the ``Configuration\KissLog.json`` file.
 
 .. contents:: Configuration options
    :local:

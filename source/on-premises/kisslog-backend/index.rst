@@ -24,5 +24,5 @@ Related resources
    :titlesonly:
    :includehidden:
 
-   configuration
+   configuration/index
    change-log
