@@ -68,17 +68,13 @@ Database
    :header-rows: 1
 
    * - Database.MongoDb
-     - 
-   * - Required
-     - true when ``Database.Provider = "MongoDb"``
+   * - Required when ``Database.Provider = "MongoDb"``
 
 .. list-table::
    :header-rows: 1
 
    * - Database.AzureCosmosDb
-     - 
-   * - Required
-     - true when ``Database.Provider = "AzureCosmosDb"``
+   * - Required true when ``Database.Provider = "AzureCosmosDb"``
 
 MongoDb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -147,11 +143,9 @@ Files
    :header-rows: 1
 
    * - Files.Azure
-     - 
-   * - Required
-     - true when ``Files.Provider = "Azure"``
+   * - Required  when ``Files.Provider = "Azure"``
 
-AzureBlobStorage
+Azure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to Azure Storage account.
@@ -159,8 +153,8 @@ Configuration used to connect to Azure Storage account.
 .. code-block:: json
     
     {
-        "UploadRequestLogFiles": {
-            "AzureBlobStorage": {
+        "Files": {
+            "Azure": {
                 "ConnectionString": "DefaultEndpointsProtocol=https;AccountName=myfilesstorage;AccountKey=A889wNrmGpz74rT5kNg53VB==;EndpointSuffix=core.windows.net"
             }
         }
@@ -175,21 +169,93 @@ CreateRequestLog
     {
         "CreateRequestLog": {
             "SaveInputStreamAsFileIfLengthGte": 5000,
-            "TokenizeUrl": {},
-            "Throttle": {},
+            "Ignore": {},
             "Obfuscate": {},
             "Truncate": {}
+            "Throttle": {},
         }
     }
 
+.. list-table::
+   :header-rows: 1
+
+   * - CreateRequestLog.SaveInputStreamAsFileIfLengthGte
+   * - | If Request.InputStream content exceeds the length defined here, the value will be saved as a blob file.
+       | This helps prevent creating too large database objects.
+
+Ignore
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+    
+    {
+        "CreateRequestLog": {
+            "Ignore": {
+                "UrlPathPatterns": [ "(?si).js$", "(?si).css$", "(?si).map$", "(?si).xml$", "(?si).php$", "(?si).ttf" ],
+                "ResponseContentTypePatterns": [ "(?si)^application/javascript", "(?si)^image/", "(?si)^application/font-" ]
+            }
+        }
+    }
+
+.. list-table::
+   :header-rows: 1
+
+   * - Ignore.UrlPathPatterns
+   * - An array of Regex patterns used to identify requests which should be ignored based on the url path
+
+.. list-table::
+   :header-rows: 1
+
+   * - Ignore.ResponseContentTypePatterns
+   * - An array of Regex patterns used to identify requests which should be ignored based on the ``Response.Content-Type`` header
+
+Obfuscate
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+    
+    {
+        "CreateRequestLog": {
+            "Obfuscate": {
+                "IsEnabled": true,
+                "ObfuscateInputStream": false,
+                "Placeholder": "<obfuscated>",
+                "Patterns": [ "(?si)pass" ]
+            }
+        }
+    }
+
+.. list-table::
+   :header-rows: 1
+
+   * - Obfuscate.IsEnabled
+     -
+   * - true
+     - Request parameters are parsed and matched properties will be obfuscated
+   * - false
+     - Obfuscation service is disabled
+
+
++------------------------+-----------------------------------------------------------------------+
+| Obfuscate.IsEnabled                                                                            |
++========================+=======================================================================+
+| ``true``               | Request parameters are parsed and sensitive data will be obfuscated   |
++------------------------+-----------------------------------------------------------------------+
+| ``false``              | Obfuscation service is disabled                                       |
++------------------------+-----------------------------------------------------------------------+
+
 +----------------------------------------------------------------------------------------------+
-| CreateRequestLog.SaveInputStreamAsFileIfLengthGte                                            |
+| Obfuscate.Placeholder                                                                        |
 +==============================================================================================+
-| If Request.InputStream content exceeds the length defined here,                              |
-| the value will be saved as a blob file.                                                      |
-|                                                                                              |
-| This helps prevent creating too large database objects.                                      |
+| Placeholder used to replace the sensitive data matched by the Regex patterns                 |
 +----------------------------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------------------------------------+
+| Obfuscate.Patterns                                                                                  |
++=====================================================================================================+
+| An array of Regex patters which are used to identify potential sensitive data                       |
++-----------------------------------------------------------------------------------------------------+
+
 
 TokenizeUrl
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -304,41 +370,6 @@ Throttle
 
    * - ``LessThanStatusCode``
      - Specifies the "< Status Code" for which the request limit is applied.
-
-Obfuscate
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: json
-    
-    {
-        "CreateRequestLog": {
-            "Obfuscate": {
-                "IsEnabled": true,
-                "Placeholder": "***obfuscated***",
-                "Patterns": [ "(?si)pass" ]
-            }
-        }
-    }
-
-+------------------------+-----------------------------------------------------------------------+
-| Obfuscate.IsEnabled                                                                            |
-+========================+=======================================================================+
-| ``true``               | Request parameters are parsed and sensitive data will be obfuscated   |
-+------------------------+-----------------------------------------------------------------------+
-| ``false``              | Obfuscation service is disabled                                       |
-+------------------------+-----------------------------------------------------------------------+
-
-+----------------------------------------------------------------------------------------------+
-| Obfuscate.Placeholder                                                                        |
-+==============================================================================================+
-| Placeholder used to replace the sensitive data matched by the Regex patterns                 |
-+----------------------------------------------------------------------------------------------+
-
-+-----------------------------------------------------------------------------------------------------+
-| Obfuscate.Patterns                                                                                  |
-+=====================================================================================================+
-| An array of Regex patters which are used to identify potential sensitive data                       |
-+-----------------------------------------------------------------------------------------------------+
 
 Truncate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
