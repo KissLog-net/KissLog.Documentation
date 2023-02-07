@@ -15,7 +15,7 @@ Artifacts
 
 Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
 
-Updating the applications
+Update the applications
 -------------------------------------------------------
 
 Repeat the steps below for both of the App Services. Start with KissLog.Backend followed by KissLog.Frontend.

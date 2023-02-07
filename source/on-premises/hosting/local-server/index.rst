@@ -11,5 +11,7 @@ In this tutorial we will install KissLog on a Windows Server with IIS.
    :includehidden:
 
    installation-guide
+   update-guide
+   troubleshooting
 
 
