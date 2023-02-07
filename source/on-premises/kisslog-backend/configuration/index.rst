@@ -1,7 +1,7 @@
 Configuration
 =================================
 
-KissLog.Backend configuration is achieved by updating the ``Configuration\KissLog.json`` file.
+KissLog.Backend behavior can be customized by updating the ``Configuration\KissLog.json`` file.
 
 .. contents:: Configuration options
    :local:
@@ -59,22 +59,22 @@ Database
 
    * - Database.Provider
      - 
-   * - ``"MongoDb"``
-     - Sets the database provider to MongoDB
-   * - ``"AzureCosmosDb"``
-     - Sets the database provider to Azure CosmosDB
+   * - MongoDb
+     - Sets the database provider to MongoDB.
+   * - AzureCosmosDb
+     - Sets the database provider to Azure CosmosDB.
 
 .. list-table::
    :header-rows: 1
 
    * - Database.MongoDb
-   * - Required when ``Database.Provider = "MongoDb"``
+   * - Required when "Database.Provider" is "MongoDb".
 
 .. list-table::
    :header-rows: 1
 
    * - Database.AzureCosmosDb
-   * - Required true when ``Database.Provider = "AzureCosmosDb"``
+   * - Required true when "Database.Provider" is "AzureCosmosDb".
 
 MongoDb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -118,7 +118,7 @@ Files
     {
         "Files": {
             "Provider": "MongoDb",
-            "MaximumFileSizeInBytes": 2097152, // 2MB
+            "MaximumFileSizeInBytes": 2097152,
             "Azure": {}
         }
     }
@@ -128,10 +128,10 @@ Files
 
    * - Files.Provider
      - 
-   * - ``"MongoDb"``
-     - Sets the files storage provider to MongoDB
-   * - ``"Azure"``
-     - Sets the files storage provider to Azure Storage container
+   * - MongoDb
+     - Sets the files storage provider to MongoDB.
+   * - Azure
+     - Sets the files storage provider to Azure Storage container.
 
 .. list-table::
    :header-rows: 1
@@ -143,7 +143,7 @@ Files
    :header-rows: 1
 
    * - Files.Azure
-   * - Required  when ``Files.Provider = "Azure"``
+   * - Required  when "Files.Provider" is "Azure"
 
 Azure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -171,8 +171,8 @@ CreateRequestLog
             "SaveInputStreamAsFileIfLengthGte": 5000,
             "Ignore": {},
             "Obfuscate": {},
-            "Truncate": {}
-            "Throttle": {},
+            "Truncate": {},
+            "Throttle": {}
         }
     }
 
@@ -181,7 +181,7 @@ CreateRequestLog
 
    * - CreateRequestLog.SaveInputStreamAsFileIfLengthGte
    * - | If Request.InputStream content exceeds the length defined here, the value will be saved as a blob file.
-       | This helps prevent creating too large database objects.
+       | This helps prevent saving excesive large objects in database.
 
 Ignore
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -201,13 +201,13 @@ Ignore
    :header-rows: 1
 
    * - Ignore.UrlPathPatterns
-   * - An array of Regex patterns used to identify requests which should be ignored based on the url path
+   * - An array of Regex patterns used to identify requests which should be ignored based on the url path.
 
 .. list-table::
    :header-rows: 1
 
    * - Ignore.ResponseContentTypePatterns
-   * - An array of Regex patterns used to identify requests which should be ignored based on the ``Response.Content-Type`` header
+   * - An array of Regex patterns used to identify requests which should be ignored based on the ``Response.Content-Type`` header.
 
 Obfuscate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -231,145 +231,32 @@ Obfuscate
    * - Obfuscate.IsEnabled
      -
    * - true
-     - Request parameters are parsed and matched properties will be obfuscated
+     - Request parameters are parsed and any matching properties will be obfuscated.
    * - false
-     - Obfuscation service is disabled
-
-
-+------------------------+-----------------------------------------------------------------------+
-| Obfuscate.IsEnabled                                                                            |
-+========================+=======================================================================+
-| ``true``               | Request parameters are parsed and sensitive data will be obfuscated   |
-+------------------------+-----------------------------------------------------------------------+
-| ``false``              | Obfuscation service is disabled                                       |
-+------------------------+-----------------------------------------------------------------------+
-
-+----------------------------------------------------------------------------------------------+
-| Obfuscate.Placeholder                                                                        |
-+==============================================================================================+
-| Placeholder used to replace the sensitive data matched by the Regex patterns                 |
-+----------------------------------------------------------------------------------------------+
-
-+-----------------------------------------------------------------------------------------------------+
-| Obfuscate.Patterns                                                                                  |
-+=====================================================================================================+
-| An array of Regex patters which are used to identify potential sensitive data                       |
-+-----------------------------------------------------------------------------------------------------+
-
-
-TokenizeUrl
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: json
-    
-    {
-        "CreateRequestLog": {
-            "TokenizeUrl": {
-                "ParameterCharacters": [ "%", " ", ":", ",", ";", "+", "%", "&", "#", "(", ")", "@", "=", "<", ">", "{", "}", "\"", "'" ],
-                "ParameterPatterns": [ "(?si)(?:\\D*\\d){3}" ],
-                "SkipPatterns": [ "(?si)^\/[0-9]+$" ]
-            }
-        }
-    }
+     - Obfuscation service is disabled.
 
 .. list-table::
    :header-rows: 1
 
-   * - TokenizeUrl.ParameterCharacters
-   * - If an url path contains any of the specified characters in this array, the path will be considered a parameter.
-
-       .. code-block:: none
-
-           Example: [ ":" ]
-           Because the url path "/D1:P7:00A" contains ":" character, it will be considered a parameter.
-
-           "/api/reports/generate/D1:P7:00A" ---> "/api/reports/generate/{0}"
-
-
-.. list-table::
-   :header-rows: 1
-
-   * - TokenizeUrl.ParameterPatterns
-   * - An array of Regex patterns used to identify parameters inside url paths
-
-       .. code-block:: none
-
-           Example: [ "(?si)(?:\\D*\\d){3}" ]
-           Because the url path "/APP-002" is matched by the regex (contains 3 digits), it will be considered a parameter.
-
-           "/api/reports/generate/APP-002" ---> "/api/reports/generate/{0}"
-
-
-.. list-table::
-   :header-rows: 1
-
-   * - TokenizeUrl.SkipPatterns
-   * - An array of Regex patterns for which the url tokenization will not be activated.
-
-       .. code-block:: none
-
-           Example: [ "(?si)^\/home\/error-(?:[0-9])+$" ]
-           Because the url "/Home/Error-404" is matched by the regex, url tokenization will not be activated.
-
-           "/Home/Error-404" ---> "/Home/Error-404"
-
-
-Throttle
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: json
-    
-    {
-        "CreateRequestLog": {
-            "Throttle": {
-                "Rules": [
-                    {
-                        "IsEnabled": false,
-                        "ApplicationId": "",
-                        "RemoteIpAddress": "",
-                        "Limits": [
-                            {
-                                "RequestLimit": 1,
-                                "IntervalInSeconds": 5,
-                                "LessThanStatusCode": 400
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    }
-
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Throttle.Rules[]                                                                                                                                                |
-+=================================================================================================================================================================+
-|  A list of throttle rules to be applied when receiving a request log.                                                                                           |
-|                                                                                                                                                                 |
-|  If none of ``ApplicationId`` or ``RemoteIpAddress`` are specified, the rule will apply for all the request logs.                                               |
-+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
-| ``IsEnabled``                         | Specifies if the rule is enabled                                                                                        |
-+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
-| ``ApplicationId``                     | If has value, the throttle rule will apply only for the request logs belonging to the specified ApplicationId.          |
-+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
-| ``RemoteIpAddress``                   | If has value, the throttle rule will apply only for the request logs generated from the specified IP addresses.         |
-+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
-| ``Limits[]``                          | A list of throttle limits to be applied for the rule.                                                                   |
-+---------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
-
-.. list-table::
-   :header-rows: 1
-
-   * - Throttle.Rules[].Limits[]
+   * - Obfuscate.ObfuscateInputStream
      -
+   * - true
+     - | ``Request.InputStream`` will be parsed and any matching properties will be obfuscated.
+       | This method is expensive and can affect the latency of the application.
+   * - false
+     - ``Request.InputStream`` will not be parsed.
 
-   * - ``RequestLimit``
-     - Specifies how many requests should be accepted in the specified interval of time.
-    
-   * - ``IntervalInSeconds``
-     - Specifies the interval of time, in seconds, when the request limit is calculated.
+.. list-table::
+   :header-rows: 1
 
-   * - ``LessThanStatusCode``
-     - Specifies the "< Status Code" for which the request limit is applied.
+   * - Obfuscate.Placeholder
+   * - Placeholder used to replace the sensitive properties matched by the Regex patterns.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Obfuscate.Patterns
+   * - An array of Regex patters which are used to identify potential sensitive data.
 
 Truncate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -383,9 +270,26 @@ Before saving to database, the request log will be truncated using the limits pr
     {
         "CreateRequestLog": {
             "Truncate": {
+                "Files": {
+                    "Limit": 5
+                },
                 "LogMessages": {
                     "Limit": 100,
                     "MessageMaxLength": 10000
+                },
+                "Exceptions": {
+                    "Limit": 6,
+                    "ExceptionMessageMaxLength": 500
+                },
+                "CustomProperties": {
+                    "Limit": 10,
+                    "KeyMaxLength": 20,
+                    "ValueMaxLength": 100
+                },
+                "Keywords": {
+                    "Limit": 6,
+                    "KeywordMinLength": 5,
+                    "KeywordMaxLength": 30
                 },
                 "RequestHeaders": {
                     "Limit": 20,
@@ -397,168 +301,161 @@ Before saving to database, the request log will be truncated using the limits pr
                     "KeyMaxLength": 100,
                     "ValueMaxLength": 100
                 },
-                "RequestQueryString": { },
-                "RequestFormData": { },
-                "RequestServerVariables": { },
-                "RequestClaims": { },
-                "ResponseHeaders": { },
-                "Keywords": { },
-                "Exceptions": { }
+                "RequestQueryString": {
+                    "Limit": 30,
+                    "KeyMaxLength": 100,
+                    "ValueMaxLength": 1000
+                },
+                "RequestFormData": {
+                    "Limit": 30,
+                    "KeyMaxLength": 100,
+                    "ValueMaxLength": 1000
+                },
+                "RequestServerVariables": {
+                    "Limit": 30,
+                    "KeyMaxLength": 100,
+                    "ValueMaxLength": 1000
+                },
+                "RequestClaims": {
+                    "Limit": 30,
+                    "KeyMaxLength": 100,
+                    "ValueMaxLength": 1000
+                },
+                "ResponseHeaders": {
+                    "Limit": 30,
+                    "KeyMaxLength": 100,
+                    "ValueMaxLength": 1000
+                }
             }
         }
     }
 
-Alerts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Configuration used for the alers service.
-
-.. code-block:: json
-    
-    {
-        "Alerts": {
-            "IsEnabled": true,
-            "CacheIntervalInSeconds": 86400,
-            "Queue": { }
-        }
-    }
-
-+------------------------+-------------------------------------------------------------+
-| Alerts.IsEnabled                                                                     |
-+========================+=============================================================+
-| ``true``               | Alerts functionality is enabled                             |
-+------------------------+-------------------------------------------------------------+
-| ``false``              | Alerts functionality is disabled                            |
-+------------------------+-------------------------------------------------------------+
-
-+----------------------------------------------------------------------------------------------+
-| Alerts.CacheIntervalInSeconds                                                                |
-+==============================================================================================+
-| Specifies for how long the alerts created in the user interface                              |
-| should be saved into cache memory.                                                           |
-|                                                                                              |
-| Saving alerts into cache memory reduces the database operations.                             |
-+----------------------------------------------------------------------------------------------+
-
-Queue
+Throttle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
     {
-        "Alerts": {
-            "Queue": {
-                "TriggerIntervalInSeconds": 30
+        "CreateRequestLog": {
+            "Throttle": {
+                "Rules": [
+                    {
+                        "IsEnabled": false,
+                        "Organizations": ["a754e353-a0f9-48ae-ad11-66470c70d0bf"],
+                        "Applications": ["26e1cf75-5ad7-49cc-b48e-798b49dc41ba"],
+                        "RemoteIpAddresses": ["2.127.71.193", "228.137.250.192"],
+                        "Limits": [
+                            {
+                                "RequestLimit": 1,
+                                "IntervalInSeconds": 5,
+                                "StatusCodeLt": 400
+                            }
+                        ]
+                    }
+                ]
             }
         }
     }
 
-+----------------------------------------------------------------------------------------------+
-| Queue.TriggerIntervalInSeconds                                                               |
-+==============================================================================================+
-| Specifies the interval in which the alerts are evaluated against the received                |
-| request logs.                                                                                |
-+----------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
 
-Exceptions
+   * - Throttle.Rules[]
+   * - | A list of throttle rules to be applied when receiving a request log.
+       | A rule can specify only one of ``Organizations``, ``Applications`` or ``RemoteIpAddresses`` filters.
+       | If a rule has no filters specified, the rule will apply for all the incoming requests.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Throttle.Rules[]
+     -
+   * - IsEnabled
+     - Specifies if the rule is enabled.
+   * - Organizations
+     - An array of organization ids for which the rule will apply.
+   * - Applications
+     - An array of application ids for which the rule will apply.
+   * - RemoteIpAddresses
+     - An array of IP addresses for which the rule will apply.
+   * - Limits[]
+     - A list of throttle limits to be applied for the rule.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Throttle.Rules[].Limits[]
+     -
+   * - RequestLimit
+     - Specifies how many requests should be accepted in the specified interval of time.
+   * - IntervalInSeconds
+     - Specifies the interval of time, in seconds, when the request limit is calculated.
+   * - StatusCodeLt
+     - Specifies the "< Status Code" for which the request limit is applied.
+
+
+UrlTokenization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: json
     
     {
-        "Exceptions": {
-            "TreatErrorLogsAsExceptions": false,
-            "ErrorLogExceptionType": "LogMessageException"
+        "UrlTokenization": {
+            "IgnoreTokenizationUrlPathPatterns": [ "(?si)^\/[0-9]+$" ],
+            "PathComponentTokenization": {
+                "Characters": [ "%", " ", ":", ",", ";", "+", "%", "&", "#", "(", ")", "@", "=", "<", ">", "{", "}", "\"", "'" ],
+                "Patterns": [ "(?si)(?:\\D*\\d){3}" ]
+            },
         }
     }
 
-+------------------------+---------------------------------------------------------------------------+
-| Exceptions.TreatErrorLogsAsExceptions | default: ``false``                                         |
-+========================+===========================================================================+
-| ``true``               | String logs of Error verbosity will also be saved as exceptions           |
-+------------------------+---------------------------------------------------------------------------+
-| ``false``              | String logs of Error verbosity are not saved as exceptions (default)      |
-+------------------------+---------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
 
-+----------------------------------------------------------------------------------------------+
-| Exceptions.ErrorLogExceptionType                                                             |
-+========================+=====================================================================+
-| Required               | true when ``Exceptions.TreatErrorLogsAsExceptions = true``          |
-+------------------------+---------------------------------------------------------------------+
-| Specifies the ExceptionType of the exceptions created by the string logs of Error verbosity  |
-+----------------------------------------------------------------------------------------------+
+   * - UrlTokenization.IgnoreTokenizationUrlPathPatterns
+   * - An array of Regex patterns for which the url tokenization will not be activated.
+       
+       .. code-block:: none
 
-Endpoints
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           Example: [ "(?si)^\/home\/error-(?:[0-9])+$" ]
+           Because the url "/Home/Error-404" is matched by the regex, url tokenization will not be activated.
 
-.. code-block:: json
-    
-    {
-        "Endpoints": {
-            "IncrementErrorCountCondition": "HttpStatusCodeGte400"
-        }
-    }
+           "/Home/Error-404" ---> "/Home/Error-404"       
+       
+.. list-table::
+   :header-rows: 1
 
-+---------------------------------------------------------------------------------------------------------------------------------------------+
-| Endpoints.IncrementErrorCountCondition                                                                                                      |
-+=============================================================================================================================================+
-| **Values**                                                                                                                                  |
-+---------------------------------------------------------------+-----------------------------------------------------------------------------+
-| ``"HttpStatusCodeGte400"``                                    | An endpoint will increment the errors counter when                          |  
-|                                                               | the Response.StatusCode >= 400                                              |
-+---------------------------------------------------------------+-----------------------------------------------------------------------------+
-| ``"HttpStatusCodeGte400_or_HasErrorLogMessage"``              | An endpoint will increment the errors counter when                          |  
-|                                                               | the Response.StatusCode >= 400 or when it has any Error verbosity log       |
-|                                                               | messasges                                                                   |
-+---------------------------------------------------------------+-----------------------------------------------------------------------------+
+   * - UrlTokenization.PathComponentTokenization.Characters
+   * - If an url path contains any of the specified characters in this array, the path will be considered a parameter.
+
+       .. code-block:: none
+
+           Example: [ ":" ]
+           Because the url path "/D1:P7:00A" contains ":" character, it will be considered a parameter.
+
+           "/api/reports/generate/D1:P7:00A" ---> "/api/reports/generate/{0}"
 
 
-RequestLogs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. list-table::
+   :header-rows: 1
 
-.. code-block:: json
-    
-    {
-        "RequestLogs": {
-            "Search": { }
-        }
-    }
+   * - UrlTokenization.PathComponentTokenization.Patterns
+   * - An array of Regex patterns used to identify parameters inside url paths
 
-Search
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       .. code-block:: none
 
-Configuration used by the Request logs "search for keywords" engine.
+           Example: [ "(?si)(?:\\D*\\d){3}" ]
+           Because the url path "/APP-002" is matched by the regex (contains 3 digits), it will be considered a parameter.
 
-.. code-block:: json
-    
-    {
-        "RequestLogs": {
-            "Search": {
-                "Engine": "MongoDbTextSearch",
-                "IndexInputStream": true,
-                "KeyRange": [ 1, 100 ],
-                "ValueRange": [ 1, 100 ]
-            }
-        }
-    }
+           "/api/reports/generate/APP-002" ---> "/api/reports/generate/{0}"
 
-+---------------------------------------------------------------------------------------------------------------+
-| Search.Engine                                                                                                 |
-+===============================================================================================================+
-| **Values**                                                                                                    |
-+----------------------------+----------------------------------------------------------------------------------+
-| ``null``                   | Search for keywords functionality is disabled                                    |
-+----------------------------+----------------------------------------------------------------------------------+
-| ``"MongoDbTextSearch"``    | Uses the MongoDB text-search engine.                                             |
-|                            | Available when ``Database.Provider = "MongoDb"``                                 |
-+----------------------------+----------------------------------------------------------------------------------+
-| ``"RegexSearch"``          | Uses Regex to search for keywords                                                |
-+----------------------------+----------------------------------------------------------------------------------+
 
 TimeToLive
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Specifies for how long the captured logs and data aggregates should be kept in database.
+Specifies for how long the captured logs and other data entities should be kept in database.
+
+The time to live value can be specified in ``Days``, ``Hours`` or ``Minutes``. 
 
 .. code-block:: json
     
@@ -566,113 +463,114 @@ Specifies for how long the captured logs and data aggregates should be kept in d
         "TimeToLive": {
             "RequestLog": [
                 {
-                    "LessThanStatusCode": 400,
+                    "StatusCodeLt": 400,
                     "Minutes": 2880
+                },
+                {
+                    "StatusCodeLt": 500,
+                    "Hours": 96
+                },
+                {
+                    "StatusCodeLt": 600,
+                    "Days": 6
                 }
             ],
+            "AlertDefinitionInvocation": {
+                "Days": 30
+            },
             "ApplicationAlert": {
-                "Minutes": 43200
+                "Days": 30
+            },
+            "ApplicationChartData": {
+                "Days": 30
+            },
+            "ApplicationData": {
+                "Days": 30
+            },
+            "ApplicationEndpoint": {
+                "Days": 30
             },
             "ApplicationException": {
-                "Minutes": 43200
+                "Days": 30
             },
-            "ApplicationAlertTriggerEvent": { },
-            "ApplicationChartData": { },
-            "ApplicationExceptionInterval": { },
-            "ApplicationGeneralData": { },
-            "ApplicationMetadata": { },
-            "ApplicationUrl": { },
-            "ApplicationUser": { },
-            "UrlException": { },
-            "ApplicationUsageInterval": { }
-        }
-    }
-
-Jobs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Configuration used for the automatic background jobs.
-
-.. code-block:: json
-    
-    {
-        "Jobs": {
-            "DeleteApplicationData": { }
-        }
-    }
-
-DeleteApplicationData
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Delete application data job configuration.
-
-.. code-block:: json
-    
-    {
-        "Jobs": {
-            "DeleteApplicationData": {
-                "TriggerIntervalInMinutes": 720
+            "ApplicationUsage": {
+                "Days": 180
+            },
+            "ApplicationUser": {
+                "Days": 30
+            },
+            "HttpRefererDestination": {
+                "Days": 30
+            },
+            "HttpRefererSource": {
+                "Days": 30
             }
         }
     }
 
-+----------------------------------------------------------------------------------------------+
-| DeleteApplicationData.TriggerIntervalInMinutes                                               |
-+==============================================================================================+
-| Specifies the interval of time in which the delete application data service is executed.     |
-+----------------------------------------------------------------------------------------------+
-
-
-RepositoryQueues
+ApplicationSettings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DeleteApplicationDataByExpiryDate
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
     {
-        "RepositoryQueues": {
-            "ApplicationChartData": {
-                "IsEnabled": true,
-                "TriggerIntervalInSeconds": 10,
-                "Take": 50
-            },
-            "ApplicationExceptionInterval": {
-                "IsEnabled": true,
-                "TriggerIntervalInSeconds": 10,
-                "Take": 50
-            },
-            "ApplicationGeneralData": { },
-            "ApplicationMetadata": { },
-            "ApplicationUrl": { },
-            "ApplicationUsageInterval": { },
-            "ApplicationUser": { }
+        "ApplicationSettings": {
+            "DeleteApplicationDataByExpiryDate": {
+                "TriggerIntervalInMinutes": 180
+            }
         }
     }
 
-+----------------------------------------------------------------------------------------------------+
-| [_DatabaseCollection_].IsEnabled                                                                   |
-+===================+================================================================================+
-| ``true``          | Enables delayed insert for the specified database collection.                  |
-|                   | When enabled, the new entities are kept in memory (queue), and are later       |
-| (recommended)     | inserted in database at regular intervals of time.                             |
-|                   |                                                                                |
-|                   | Having queue enabled significantly reduces                                     |
-|                   | the database operations.                                                       |
-+-------------------+--------------------------------------------------------------------------------+
-| ``false``         | Entities are inserted in database as soon as a request is saved.               |
-|                   |                                                                                |
-|                   | Setting the flag to ``false`` can have a negative impact for the MongoDB       |
-|                   | performance when dealing with large volumes of logs to be saved.               |
-+-------------------+--------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
 
-+----------------------------------------------------------------------------------------------------------------------+
-| [_DatabaseCollection_].TriggerIntervalInSeconds                                                                      |
-+======================================================================================================================+
-| Specifies the interval in which the entities saved in memory (queue) should be inserted in database.                 |
-+----------------------------------------------------------------------------------------------------------------------+
+   * - DeleteApplicationDataByExpiryDate.TriggerIntervalInMinutes
+   * - Specifies the interval of time in which the delete application data service is executed.
 
-+----------------------------------------------------------------------------------------------------------------------+
-| [_DatabaseCollection_].Take                                                                                          |
-+======================================================================================================================+
-| Specifies how many items from queue should be processed at the specified interval of time.                           |
-+----------------------------------------------------------------------------------------------------------------------+
+ProcessQueues
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. code-block:: json
+    
+    {
+        "ApplicationSettings": {
+            "ProcessQueues": {
+                "TriggerIntervalInSeconds": 10,
+                "Take": 100
+            }
+        }
+    }
+
+.. list-table::
+   :header-rows: 1
+
+   * - ProcessQueues.TriggerIntervalInSeconds
+   * - Specifies the interval in which the entities saved in memory (queue) should be inserted in database.
+
+.. list-table::
+   :header-rows: 1
+
+   * - ProcessQueues.Take
+   * - Specifies how many items from queue should be processed at the specified interval of time.
+
+ProcessAlerts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+    
+    {
+        "ApplicationSettings": {
+            "ProcessAlerts": {
+                "TriggerIntervalInSeconds": 10
+            }
+        }
+    }
+
+.. list-table::
+   :header-rows: 1
+
+   * - ProcessAlerts.TriggerIntervalInSeconds
+   * - Specifies the interval in which the alerts are evaluated against the received request logs.
