@@ -140,18 +140,8 @@ Authorization
        
        The authentication JWT must be signed with the secret provided in this property.
 
-       :ref:`here <on-premises/kisslog-frontend/index:authentication>`
+       More details about authentication can be found :ref:`here <on-premises/kisslog-frontend/index:authentication>`.
 
-+---------------------------------------------------------------------------------------------------------------+
-| Authorization.HS256Secret                                                                                     |
-+===============================================================================================================+
-| Represents the signature key of the authentication JWT signature key.                                                              |
-|                                                                                                               |
-| In order to authenticate to this KissLog application, the user must provide a JWT token which                 |
-| has been signed with the same key (HS256Secret) that has been specified here.                                 |
-|                                                                                                               |
-| The authentication JWT can be created programmatically or online using https://jwt.io/.                       |
-+---------------------------------------------------------------------------------------------------------------+
 
 SessionCookie
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -167,25 +157,28 @@ SessionCookie
         }
     }
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| SessionCookie.IsPersistentFixedValue                                                                                                                            |
-+===================+=============================================================================================================================================+
-| ``null``          | Allows the user to specify, at login page, if he/she wants to create a persistent cookie or not.                                            |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
-| ``true``          | Authentication will create a peristent cookie.                                                                                              |
-|                   |                                                                                                                                             |
-|                   | The user will be remembered after he/she closes the browser.                                                                                |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
-| ``false``         | Authentication will create a session cookie.                                                                                                |
-|                   |                                                                                                                                             |
-|                   | The user will need to sign in again after he/she closes the browser.                                                                        |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
 
-+----------------------------------------------------------------------------------------------+
-| SessionCookie.ExpireInMinutes                                                                |
-+==============================================================================================+
-| Specifies the persistent cookie expiration time.                                             |
-+----------------------------------------------------------------------------------------------+
+   * - SessionCookie.IsPersistentFixedValue
+     - 
+   * - null
+     - Allows the user to specify, at login page, if he/she wants to create a persistent cookie or not.
+   * - true
+     - Authentication will create a peristent cookie.
+
+       The user will be remembered after he/she closes the browser.
+   * - false
+     - Authentication will create a session cookie.
+
+       The user will need to sign in again after he/she closes the browser.
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - SessionCookie.ExpireInMinutes
+   * - Specifies the persistent cookie expiration time.
 
 ExternalIdentityProviders
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -262,13 +255,11 @@ UserInterface
 | When a value is provided, the user avatars (displayed in the user-interface) will always use this value.                                                        |
 |                                                                                                                                                                 |
 | This is useful when you need to prevent any external resources loading.                                                                                         |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
-| ``null``          | User avatars will be generated using Gravatar (default).                                                                                    |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
-| ``string``        | User avatars will always load the provided ``src`` value.                                                                                   |
-|                   |                                                                                                                                             |
-|                   | Example: ``"ForceAvatarSrc": "/images/defaultAvatar.png"``                                                                                  |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
++------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| null                         |  User avatars will be generated using Gravatar (default).                                                                        |
++------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| some_value                   | User avatars will always load the provided value: ``<img src="some_value" />``                                                   |
++------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
 
 CreatePermalinkWithAnonymousAccess
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -284,21 +275,23 @@ CreatePermalinkWithAnonymousAccess
         }
     }
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| CreatePermalinkWithAnonymousAccess.IsEnabled                                                                                                                    |
-+===================+=============================================================================================================================================+
-| ``true``          | Permalinks created from the user interface (links to request logs) can be anonymously accessed for a limited period of time.                |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
-| ``false``         | Permalinks created from the user interface can be accessed only by authenticated users.                                                     |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
 
-+----------------------------------------------------------------------------------------------+
-| CreatePermalinkWithAnonymousAccess.ValidForSeconds                                           |
-+==============================================================================================+
-| Required when ``CreatePermalinkWithAnonymousAccess.IsEnabled = true``                        |
-+----------------------------------------------------------------------------------------------+
-| Specifies for how long after creation the permalink can be anonymously accessed.             |
-+----------------------------------------------------------------------------------------------+
+   * - CreatePermalinkWithAnonymousAccess.IsEnabled
+     - 
+   * - true
+     - Permalinks created from the user interface (links to request logs) can be anonymously accessed for a limited period of time.
+   * - false
+     - Permalinks created from the user interface can be accessed only by authenticated users.
+
+.. list-table::
+   :header-rows: 1
+
+   * - CreatePermalinkWithAnonymousAccess.ValidForSeconds
+   * - Required when "CreatePermalinkWithAnonymousAccess.IsEnabled" is "true".
+       
+       Specifies for how long after creation the permalink can be anonymously accessed.
 
 Applications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -313,11 +306,12 @@ Applications
         }
     }
 
-+----------------------------------------------------------------------------------------------+
-| Applications.LoadHowMany                                                                     |
-+==============================================================================================+
-| Specifies how many applications should be preloaded under the ``/Applications`` section.     |
-+----------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - Applications.LoadHowMany
+   * - Specifies how many applications should be preloaded under the ``/Applications`` section.
+       
 
 Dashboard
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -332,12 +326,14 @@ Dashboard
         }
     }
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ShowReferringSites                                                                                                                                              |
-+===================+=============================================================================================================================================+
-| ``true``          | The list of individual referring sites will be visible under the Dashboard page.                                                            |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
-| ``false``         | The list of individual referring sites will not be visible under the Dashboard page.                                                        |
-+-------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - ShowReferringSites
+     - 
+   * - true
+     - The list of individual referring sites will be visible under the Dashboard page.
+   * - false
+     - The list of individual referring sites will not be visible under the Dashboard page.
 
 

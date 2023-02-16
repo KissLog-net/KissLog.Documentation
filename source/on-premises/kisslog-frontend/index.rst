@@ -23,6 +23,8 @@ KissLog.Frontend uses a JSON Web Token (JWT) for authentication.
 
 The authentication JWT must be signed with the secret provided under ``Authorization\HS256Secret`` property from the ``Configuration\KissLog.json`` file. 
 
+The authentication JWT can be created programmatically or online (using https://jwt.io/, for example).  
+
 .. figure:: images/generating-authentication-jwt.png
     :alt: Generating authentication JWT
 

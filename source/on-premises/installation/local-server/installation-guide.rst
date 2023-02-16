@@ -78,6 +78,11 @@ IIS web applications
          :alt: KissLog.Backend folder
 
 
+.. note::
+   Hotizontal scaling is not currently supported by KissLog server.
+
+   Both KissLog.Backend and KissLog.Frontend applications must each be deployed to a single instace.
+
 Configuration
 -------------------------------------------------------
 
@@ -132,11 +137,11 @@ After the configuration files have been updated, you can run the applications.
 
 The initial startup  will bootstrap all the necessary components including MongoDB and SQL databases.
 
-Startup logs (including errors) will be generated under ``Logs`` folder:
+Startup logs (including errors) will be generated under ``logs`` folder:
 
-* ``C:\inetpub\wwwroot\KissLog.Backend\Logs``
+* ``C:\inetpub\wwwroot\KissLog.Backend\logs``
 
-* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs``
+* ``C:\inetpub\wwwroot\KissLog.Frontend\logs``
 
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,8 +163,9 @@ Startup steps
 Post deployment
 -------------------------------------------------------
 
-| Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend IIS application.
-| Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
+Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend IIS application.
+
+Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
 
 .. code-block:: csharp
 
@@ -175,18 +181,18 @@ Post deployment
 Troubleshooting
 -------------------------------------------------------
 
-Startup logs (including errors) will be available under ``\Logs`` folder. Here should be the first place to check.
+Startup logs (including errors) will be available under ``\logs`` folder. Here should be the first place to check.
 
-* ``C:\inetpub\wwwroot\KissLog.Backend\Logs``
+* ``C:\inetpub\wwwroot\KissLog.Backend\logs``
 
-* ``C:\inetpub\wwwroot\KissLog.Frontend\Logs``
+* ``C:\inetpub\wwwroot\KissLog.Frontend\logs``
 
 Quick checklist
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1) Make sure you deploy and run KissLog.Backend first
 
-2) If there are any confiuguration errors, you should see them under the ``\Logs`` folder.
+2) If there are any confiuguration errors, you should see them under the ``\logs`` folder.
 
 3) KissLog.Backend will try to connect to MongoDB. If the MongoDB server is not reachable, you should see an error:
 
@@ -203,15 +209,14 @@ Quick checklist
    | On the first run, KissLog.Frontend will also create the database (if not already exists).
    | Any database errors, such as connection errors or database permissions, will be saved under the ``\Logs`` folder.
  
-   **Important:**
-
+   | **Important:**
    | If the SQL user does not have permissions to create the database, you will have to create it manually.
-   | The database generation script will be generated under ``KissLog.Frontend\Logs\CreateDatabaseScript.txt``.
+   | The database generation script will be generated under ``KissLog.Frontend\logs\{Provider}-database.sql.txt``.
 
 5) | KissLog applications (KissLog.Frontend and KissLog.Backend) connect to each other using HTTP requests.
    | Make sure there is no firewall blocking the connection.
 
-6) | If the application fails to start and there are no log messages, **enable IIS logs**:
+6) | If the application fails to start and there are no log messages, enable IIS logs:
    | Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then restart the application.
 
    .. code-block:: xml
@@ -230,11 +235,10 @@ Quick checklist
        </configuration>
        <!--ProjectGuid: 4EC40754-6618-4D7D-B45E-C7FE1D6B8EF6-->
 
-   **Important:**
+   | **Important:**
+   | Create an empty ``logs`` folder if one does not already exist.
 
-   Create an empty ``Logs`` folder if one does not already exist.
-
-
+7) If no logs are generated (including no IIS logs), double check that you have `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed.
 
 Need help?
 -------------------------------------------------------

@@ -180,8 +180,9 @@ CreateRequestLog
    :header-rows: 1
 
    * - CreateRequestLog.SaveInputStreamAsFileIfLengthGte
-   * - | If Request.InputStream content exceeds the length defined here, the value will be saved as a blob file.
-       | This helps prevent saving excesive large objects in database.
+   * - If Request.InputStream content exceeds the length defined here, the value will be saved as a blob file.
+       
+       This helps prevent saving excesive large objects in database.
 
 Ignore
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -241,8 +242,9 @@ Obfuscate
    * - Obfuscate.ObfuscateInputStream
      -
    * - true
-     - | ``Request.InputStream`` will be parsed and any matching properties will be obfuscated.
-       | This method is expensive and can affect the latency of the application.
+     - ``Request.InputStream`` will be parsed and any matching properties will be obfuscated.
+       
+       This method is expensive and can affect the latency of the application.
    * - false
      - ``Request.InputStream`` will not be parsed.
 
@@ -361,9 +363,11 @@ Throttle
    :header-rows: 1
 
    * - Throttle.Rules[]
-   * - | A list of throttle rules to be applied when receiving a request log.
-       | A rule can specify only one of ``Organizations``, ``Applications`` or ``RemoteIpAddresses`` filters.
-       | If a rule has no filters specified, the rule will apply for all the incoming requests.
+   * - A list of throttle rules to be applied when receiving a request log.
+       
+       A rule can specify only one of ``Organizations``, ``Applications`` or ``RemoteIpAddresses`` filters.
+       
+       If a rule has no filters specified, the rule will apply for all the incoming requests.
 
 .. list-table::
    :header-rows: 1

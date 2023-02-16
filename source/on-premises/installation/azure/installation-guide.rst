@@ -496,8 +496,9 @@ If everything went successful, you will see the KissLog.Frontend home page.
 Post deployment
 -------------------------------------------------------
 
-| Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend AppService.
-| Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
+Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend AppService.
+
+Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
 
 .. code-block:: csharp
 
