@@ -1,7 +1,7 @@
 Configuration
 =================================
 
-KissLog.Frontend configuration is achieved by updating the ``KissLog.Frontend\Configuration\KissLog.json``.
+KissLog.Frontend behavior can be customized by updating the ``Configuration\KissLog.json`` file.
 
 .. contents:: Configuration options
    :local:
@@ -28,28 +28,6 @@ This property should be changed after an application update in order to invalida
     
     {
         "AppVersion": "1.0.0"
-    }
-
-InternalLogs.DirectoryPath
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Specifies the location of the internal logs folder. Path can be either relative or absolute.
-
-.. code-block:: json
-    
-    {
-        "InternalLogs.DirectoryPath": "Logs"
-    }
-
-InternalLogs.MinimumStatusCode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Specifies the minimum http status code for the requests which should be saved to internal logs.
-
-.. code-block:: json
-    
-    {
-        "InternalLogs.MinimumStatusCode": "400"
     }
 
 KissLogBackend.BasicAuth.Password
@@ -98,6 +76,7 @@ Root url pointing to KissLog.Frontend application.
         "KissLogFrontendUrl": "http://kisslog.myapp.com/"
     }
 
+
 MediaDirectoryPath
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -116,30 +95,20 @@ Database
     
     {
         "Database": {
-            "Provider": "SqlServer",
-            "KissLogDbContext": "Data Source=192.168.16.11;Initial Catalog=KissLog;UID=user;PWD=pass;"
+            "Provider": "MySql",
+            "ConnectionString": "server=localhost;port=3306;database=KissLog_Frontend;uid={user};password={pass};Charset=utf8;"
         }
     }
 
-+------------------------+-------------------------------------------------------------+
-| Database.Provider                                                                    |
-+========================+=============================================================+
-| ``"SqlServer"``        | Sets the database provider to MS-SQL                        |
-+------------------------+-------------------------------------------------------------+
-| ``"MySql"``            | Sets the database provider to MySql                         |
-+------------------------+-------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Database.KissLogDbContext                                                                                                                                       |
-+=================================================================================================================================================================+
-| Database connection string                                                                                                                                      |
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Example**                                                                                                                                                     |
-+-----------------------------------------------------+-----------------------------------------------------------------------------------------------------------+
-| ``Database.Provider = "SqlServer"``                 | "Data Source=192.168.16.11;Initial Catalog=KissLog;UID=user;PWD=pass;"                                    |
-+-----------------------------------------------------+-----------------------------------------------------------------------------------------------------------+
-| ``Database.Provider = "MySql"``                     | "server=192.168.16.11;port=3306;database=KissLog;uid=root;password=pass;Charset=utf8;"                    |
-+-----------------------------------------------------+-----------------------------------------------------------------------------------------------------------+
+   * - Database.Provider
+     - 
+   * - MySql
+     - Sets the database provider to MySql.
+   * - SqlServer
+     - Sets the database provider to MS-SQL.
 
 Authorization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -155,18 +124,28 @@ Authorization
         }
     }
 
-+----------------------------------------------------------------------------------------------+
-| Authorization.DefaultEmailDomain                                                             |
-+==============================================================================================+
-| Sets the default email domain for the authenticated users.                                   |
-|                                                                                              |
-| For example, ``darcy`` user will be displayed in the user-interface as ``darcy@myapp.com``.  |
-+----------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - Authorization.DefaultEmailDomain
+   * - Sets the default email domain for the authenticated users (used when displaying the logged-in user).
+       
+       For example, user with name ``mike`` will be displayed in the user-interface as ``mike@myapp.com``.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Authorization.HS256Secret
+   * - Represents the signature key of the authentication JSON Web Token (JWT).
+       
+       The authentication JWT must be signed with the secret provided in this property.
+
+       :ref:`here <on-premises/kisslog-frontend/index:authentication>`
 
 +---------------------------------------------------------------------------------------------------------------+
 | Authorization.HS256Secret                                                                                     |
 +===============================================================================================================+
-| Represents the authentication JWT signature key.                                                              |
+| Represents the signature key of the authentication JWT signature key.                                                              |
 |                                                                                                               |
 | In order to authenticate to this KissLog application, the user must provide a JWT token which                 |
 | has been signed with the same key (HS256Secret) that has been specified here.                                 |
