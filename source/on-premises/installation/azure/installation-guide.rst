@@ -277,7 +277,7 @@ On the newly created Storage account dashboard, select the "Lifecycle management
      - Delete the blob
 
 .. note::
-   The value for **Created more than (days ago)** should be equal to (or slightly bigger) than the maximum TimeToLive property for Request logs.
+   The value for **Created more than (days ago)** should be equal to (or slightly bigger) than the maximum TimeToLive property of the Request logs.
 
 App Services
 ~~~~~~~~~~~~~~~~~~~~~

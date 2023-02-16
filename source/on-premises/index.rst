@@ -13,21 +13,23 @@ Artifacts
 
 Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
 
-Prerequisites
-------------------------
+Installation prerequisites
+------------------------------
 
 .. list-table::
    :header-rows: 1
 
-   * - Server hosting
+   * - Local server
      - Azure hosting
      - Run as Docker container
-   * - * IIS Web server with `NET Core 3.1 Runtime <https://dotnet.microsoft.com/download/dotnet-core/3.1>`_ installed
-       * `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 4.2.x)
+   * - * IIS Web server with `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed
+       * `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 6.0.x)
        * `MS-SQL Server <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>`_ or `MySQL Community Server <https://dev.mysql.com/downloads/mysql/>`_
-     - * 2x App Service
-       * 1x Azure Cosmos DB database
-       * 1x SQL database
+     - * SQL Database
+       * Azure Cosmos DB
+       * Storage account
+       * 2x App Services
+       
      - `Docker Engine <https://docs.docker.com/engine/>`_
    
 
@@ -44,7 +46,7 @@ Consumer applications (the applications you develop) are sending the logs to Kis
 KissLog Frontend
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-KissLog.Frontend represents the user-interface application where users (developers, business analysts, QA testers, application managers) can visualise the captured logs, exceptions and other metrics data.
+KissLog.Frontend represents the user-interface application where users (developers, business analysts, QA testers, application managers) can visualize the captured logs, exceptions and other metrics data.
 
 .. figure:: images/kissLog-architecture.png
     :alt: KissLog arhitecture
