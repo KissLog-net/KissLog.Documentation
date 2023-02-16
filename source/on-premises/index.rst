@@ -57,7 +57,7 @@ Table of Contents
    :titlesonly:
    :includehidden:
 
-   hosting/index
+   installation/index
    kisslog-frontend/index
    kisslog-backend/index
 

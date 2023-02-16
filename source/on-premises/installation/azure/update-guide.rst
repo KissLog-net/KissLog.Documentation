@@ -38,7 +38,9 @@ The configuration file is located under ``Configuration/KissLog.json``. Copy thi
 2. Update the configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Apply the configuration changes (if any) by updating KissLog.json file. The configuration changes will be listed in the Change log.
+Apply the configuration changes (if any) by updating KissLog.json file.
+
+The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-backend/change-log>`.
 
 3. Prepare the artifacts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -65,12 +65,17 @@ Copy new files
 Update KissLog.Backend configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-7) Apply the configuration changes (if any) by updating KissLog.json file. The configuration changes will be listed in the Change log.
+7) Apply the configuration changes (if any) by updating KissLog.json file.
+
+   The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-backend/change-log>`.
+
 
 Update KissLog.Frontend configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-8) Apply the configuration changes (if any) by updating KissLog.json file. The configuration changes will be listed in the Change log.
+8) Apply the configuration changes (if any) by updating KissLog.json file.
+
+   The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-frontend/change-log>`.
 
 9) Change/increment the value of ``"AppVersion"`` property from ``KissLog.json`` file.
 
