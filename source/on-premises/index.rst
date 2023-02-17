@@ -8,8 +8,8 @@ Hosting KissLog server locally, all the logs will be stored and accessible only 
 Artifacts
 ------------------------
 
-- KissLog.Backend-v{version}-{platform}.zip
-- KissLog.Frontend-v{version}-{platform}.zip
+- KissLog.Backend-{version}-{platform}.zip
+- KissLog.Frontend-{version}-{platform}.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
 

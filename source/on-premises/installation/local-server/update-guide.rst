@@ -7,8 +7,8 @@ Update guide
 Artifacts
 -------------------------------------------------------
 
-- KissLog.Backend-v{version}-win-x64.zip
-- KissLog.Frontend-v{version}-win-x64.zip
+- KissLog.Backend-{version}-win-x64.zip
+- KissLog.Frontend-{version}-win-x64.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
 

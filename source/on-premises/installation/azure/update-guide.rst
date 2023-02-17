@@ -10,8 +10,8 @@ Prerequisites
 Artifacts
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- KissLog.Backend-v{version}-linux-x64.zip
-- KissLog.Frontend-v{version}-linux-x64.zip
+- KissLog.Backend-{version}-linux-x64.zip
+- KissLog.Frontend-{version}-linux-x64.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
 
