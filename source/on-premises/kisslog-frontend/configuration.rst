@@ -17,7 +17,7 @@ Display name of the on-premises KissLog application - used when generating HTML 
         "ApplicationName": "My logging app"
     }
 
-AppVersion
+StaticResourcesVersion
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Property used as query string parameter when loading static resources (css/javascript).
@@ -27,7 +27,7 @@ This property should be changed after an application update in order to invalida
 .. code-block:: json
     
     {
-        "AppVersion": "1.0.0"
+        "StaticResourcesVersion": "1.0.0"
     }
 
 KissLogBackend.BasicAuth.Password

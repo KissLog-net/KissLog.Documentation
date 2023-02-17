@@ -10,10 +10,10 @@ Prerequisites
 Artifacts
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- KissLog.Backend.AspNetCore.zip
-- KissLog.Frontend.AspNetCore.zip
+- KissLog.Backend-v{version}-linux-x64.zip
+- KissLog.Frontend-v{version}-linux-x64.zip
 
-Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
+Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
 
 Update the applications
 -------------------------------------------------------

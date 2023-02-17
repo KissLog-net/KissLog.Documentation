@@ -8,10 +8,10 @@ Hosting KissLog server locally, all the logs will be stored and accessible only 
 Artifacts
 ------------------------
 
-- KissLog.Backend.AspNetCore.zip
-- KissLog.Frontend.AspNetCore.zip
+- KissLog.Backend-v{version}-{platform}.zip
+- KissLog.Frontend-v{version}-{platform}.zip
 
-Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
+Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
 
 Installation prerequisites
 ------------------------------
