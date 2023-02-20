@@ -5,13 +5,6 @@ These steps describe how to install and configure KissLog for a .NET Core Web Ap
 
 A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNetCore5>`_.
 
-By following the install instructions, you will will:
-
-- register KissLog as ``Microsoft.Extensions.Logging.ILogger<>`` adapter
-- configure KissLog to capture and log all the unhandled exceptions
-- configure KissLog to capture all the HTTP properties (User-Agent, FormData, Headers, StatusCode, etc.)
-- register ``RequestLogsApiListener`` listener which will save the captured data to `kisslog.net <https://kisslog.net>`_
-
 Instructions
 ----------------------------------------------
 
