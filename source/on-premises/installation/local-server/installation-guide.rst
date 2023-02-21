@@ -36,7 +36,7 @@ For instructions installing MongoDB server, please check the `official tutorial 
 MS-SQL / MySql
 ~~~~~~~~~~~~~~~~~~~~~
 
-We will not cover the installation guide for these services.
+We will not cover the installation guide for these services. There is a high possibility that the existing server already has a running instance of MySQL or MS-SQL server.
 
 IIS web applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

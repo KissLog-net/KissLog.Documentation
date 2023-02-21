@@ -3,7 +3,7 @@ ASP.NET MVC
 
 These steps describe how to install and configure KissLog for a ASP.NET MVC application.
 
-A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNet.Mvc>`_.
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk.Samples/tree/main/src/netframework_MVC>`_.
 
 Instructions
 ----------------------------------------------

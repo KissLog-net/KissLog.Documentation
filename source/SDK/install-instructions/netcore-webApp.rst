@@ -3,7 +3,7 @@
 
 These steps describe how to install and configure KissLog for a .NET Core Web Application.
 
-A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps/AspNetCore5>`_.
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk.Samples/tree/main/src/dotnetcore_3.1_WebApp>`_.
 
 Instructions
 ----------------------------------------------

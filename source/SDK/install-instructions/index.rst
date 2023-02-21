@@ -5,6 +5,7 @@ Install instructions
    :maxdepth: 1
    
    dotnet6-webApp
+   dotnet6-consoleApp
    netcore-webApp
    netcore-consoleApp
    aspnet-mvc

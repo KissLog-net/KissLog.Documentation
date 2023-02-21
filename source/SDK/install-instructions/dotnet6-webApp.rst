@@ -1,7 +1,9 @@
 .NET 6 Web App
 ====================
 
-These steps describe how to install and configure KissLog for a dotnet6 Web Application.
+These steps describe how to install and configure KissLog for a .NET 6 Web application.
+
+A full working example can be found `here <https://github.com/KissLog-net/KissLog.Sdk.Samples/tree/main/src/dotnet6_WebApp>`_.
 
 Instructions
 ----------------------------------------------
