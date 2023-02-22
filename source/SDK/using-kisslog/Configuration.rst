@@ -74,8 +74,8 @@ Determines if a cookie item should be captured by a log listener. Default ``true
         });
 
 
-ShouldLogFormData
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ShouldLogFormData (for log listener)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Determines if a request form data item should be captured by a log listener. Default ``true``.
 
@@ -125,8 +125,8 @@ Determines if a claim should be captured by a log listener. Default ``true``.
         });
 
 
-ShouldLogInputStream
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ShouldLogInputStream (for log listener)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Determines if request payload should be captured by a log listener. Default ``true``.
 

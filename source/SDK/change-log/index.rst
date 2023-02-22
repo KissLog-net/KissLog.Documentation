@@ -1,6 +1,9 @@
 Change log
 =======================================================
 
+.. contents:: Versions
+   :local:
+
 KissLog 5.1.2
 --------------------------
 
@@ -10,10 +13,9 @@ Release date: 02-05-2022
 
 https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.1.2
 
-Fixes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Fixes**
 
-- ``Logging same InnerException throws an error`` (https://github.com/KissLog-net/KissLog.Sdk/issues/60)
+- Logging same InnerException throws an error (https://github.com/KissLog-net/KissLog.Sdk/issues/60)
 
 KissLog 5.1.1
 --------------------------
@@ -24,10 +26,9 @@ Release date: 27-12-2021
 
 https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.1.1
 
-Fixes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Fixes**
 
-- ``MachineName is null for ConsoleApps`` (https://github.com/KissLog-net/KissLog.Sdk/issues/56)
+- MachineName is null for ConsoleApps (https://github.com/KissLog-net/KissLog.Sdk/issues/56)
 
 KissLog 5.1.0
 --------------------------
@@ -38,10 +39,9 @@ Release date: 26-12-2021
 
 https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.1.0
 
-Fixes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Fixes**
 
-- ``MirrorStreamDecorator: Cannot access a closed Stream`` (https://github.com/KissLog-net/KissLog.Sdk/issues/54)
+- MirrorStreamDecorator: Cannot access a closed Stream (https://github.com/KissLog-net/KissLog.Sdk/issues/54)
 
 KissLog 5.0.0
 --------------------------
@@ -52,8 +52,7 @@ Release date: 06-11-2021
 
 https://github.com/KissLog-net/KissLog.Sdk/releases/tag/5.0.0
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 All the functionality has been rewritten from the ground up.
 
@@ -63,8 +62,7 @@ Implemented a more simplified and adaptive logging framework.
 
 KissLog now fully supports .NET 5, both Web and Console applications.
 
-Migration guide
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Migration guide**
 
 A list of test applications using KissLog can found `on GitHub <https://github.com/KissLog-net/KissLog.Sdk/tree/master/testApps>`_.
 
@@ -248,8 +246,7 @@ KissLog.AspNetCore 4.2.0 | KissLog.AspNet.Mvc 4.2.0 | KissLog.AspNet.WebApi 4.2.
 
 Release date: 06-08-2021
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 Implemented ``KissLogConfiguration.Options.OnRequestLogsApiListenerException()``.
 
@@ -286,8 +283,7 @@ KissLog.AspNetCore 4.1.0 | KissLog.AspNet.Mvc 4.1.0 | KissLog.AspNet.WebApi 4.1.
 
 Release date: 31-01-2021
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 Implemented AspNetCore logger provider.
 
@@ -353,8 +349,7 @@ KissLog.AspNetCore 4.0.0 | KissLog.AspNet.Mvc 4.0.0 | KissLog.AspNet.WebApi 4.0.
 
 Release date: 19-09-2020
 
-Breaking changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
 
 ``KissLog.Apis.v1`` NuGet package has been deprecated. Use ``KissLog.CloudListeners`` instead.
 
@@ -419,8 +414,7 @@ KissLog.AspNetCore 2.5.6 | KissLog.AspNet.Mvc 3.5.6 | KissLog.AspNet.WebApi 3.5.
 
 Release date: 03-03-2020
 
-Breaking changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
 
 ``KissLogConfiguration.Options.AddRequestKeywords()`` has been deprecated.
 
@@ -445,8 +439,7 @@ Use ``KissLogConfiguration.Options.GenerateKeywords()`` instead.
             });
     }
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 Implemented ``KissLogConfiguration.Options.GenerateKeywords()``.
 
@@ -511,8 +504,7 @@ KissLog.AspNetCore 2.5.3 | KissLog.AspNet.Mvc 3.5.4 | KissLog.AspNet.WebApi 3.5.
 
 Release date: 22-11-2019
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 Improved fire-and-forget logging for ``KissLogApiListener``.
 
@@ -548,8 +540,7 @@ Release date: 16-10-2019
 
 Fixes: https://github.com/KissLog-net/KissLog.Sdk/issues/19
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 ``LogListenerParser`` exposes an additional event:
 
@@ -593,8 +584,7 @@ KissLog.AspNetCore 2.5.0 | KissLog.AspNet.Mvc 3.5.0 | KissLog.AspNet.WebApi 3.5.
 
 Release date: 12-10-2019
 
-Breaking changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
 
 The changes will affect only the custom implementations of LogListeners.
 
@@ -617,8 +607,7 @@ The changes will affect only the custom implementations of LogListeners.
 
 These changes allows for more flexibility when creating custom LogListeners.
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 Updated ``LocalTextFileListener`` log listener, which now can write the logs as soon as they get created.
 
@@ -664,8 +653,7 @@ KissLog 3.4.0
 
 Release date: 05-07-2019
 
-Improvements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Improvements**
 
 Implemented ``logger.AddCustomProperty(key, value)`` method.
 
@@ -696,8 +684,7 @@ Custom properties can be viewed from the RequestLog view, and they can be access
    logger.AddCustomProperty
 
 
-Breaking changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
 
 For **.NET MVC** and **.NET WebApi** applications, ``Application_Error`` method needs to be updated to ensure that KissLog logs startup exceptions.
 
@@ -800,8 +787,7 @@ KissLog 3.2.0
 
 Release date: 19-05-2019
 
-Breaking changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Breaking changes**
 
 **Environment** configuration has been removed.
 
@@ -833,8 +819,7 @@ New usage:
     }
 
 
-Options
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Options**
 
 New methods and properties:
 
@@ -860,8 +845,7 @@ New methods and properties:
             });
     }
 
-General improvements and fixes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**General improvements and fixes**
 
 Creating multiple log categories would not work in some scenarios.
 
@@ -886,8 +870,7 @@ KissLog 3.1.1
 
 Release date: 27-03-2019
 
-Options
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Options**
 
 New methods and properties:
 
@@ -933,8 +916,7 @@ KissLog 3.0.0
 
 Release date: 15-03-2019
 
-Logger
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Logger**
 
 New methods and properties:
 
@@ -950,8 +932,7 @@ New methods and properties:
     }
 
 
-KissLogConfiguration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**KissLogConfiguration**
 
 Removed methods and properties:
 
@@ -989,8 +970,7 @@ New methods and properties:
     }
 
 
-LogListenerParser
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**LogListenerParser**
 
 Removed methods and properties:
 
@@ -1023,8 +1003,7 @@ New methods and properties:
     }
 
 
-Options
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Options**
 
 Container for KissLog configuration.
 

@@ -4,15 +4,13 @@ Update guide
 .. contents:: Table of contents
    :local:
 
-This guide describes how to update an existing installation of KissLog on-premises.
-
 Artifacts
 -------------------------------------------------------
 
-- KissLog.Backend.AspNetCore.zip
-- KissLog.Frontend.AspNetCore.zip
+- KissLog.Backend-{version}-win-x64.zip
+- KissLog.Frontend-{version}-win-x64.zip
 
-Artifacts can be downloaded from `here <https://kisslog.net/Overview/OnPremises>`_.
+Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
 
 
 Update steps
@@ -30,7 +28,7 @@ Create backup
 
    .. code-block:: none
 
-       /Backups
+       \Backups
        ├── KissLog.Frontend\
        └── KissLog.Backend\
 
@@ -41,7 +39,7 @@ Copy new files
 
    .. code-block:: none
 
-       /KissLog.Backend
+       \KissLog.Backend
        ├── Configuration\
        ├── appsettings.json
        └── web.config
@@ -50,7 +48,7 @@ Copy new files
 
    .. code-block:: none
 
-       /KissLog.Frontend
+       \KissLog.Frontend
        ├── _kisslogMedia\
        ├── Configuration\
        ├── appsettings.json
@@ -67,12 +65,17 @@ Copy new files
 Update KissLog.Backend configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-7) Apply the configuration changes (if any) by updating ``KissLog.json`` file.
+7) Apply the configuration changes (if any) by updating KissLog.json file.
+
+   The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-backend/change-log>`.
+
 
 Update KissLog.Frontend configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-8) Apply the configuration changes (if any) by updating ``KissLog.json`` file.
+8) Apply the configuration changes (if any) by updating KissLog.json file.
+
+   The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-frontend/change-log>`.
 
 9) Change/increment the value of ``"AppVersion"`` property from ``KissLog.json`` file.
 
@@ -84,10 +87,7 @@ Update KissLog.Frontend configuration
 
        {
            "ApplicationName": "KissLog",
-           "AppVersion": "any-new-value",
-
-           "InternalLogs.DirectoryPath": "Logs",
-           "InternalLogs.MinimumStatusCode": "400"
+           "AppVersion": "any-new-value"
        }
 
 Start the applications
@@ -98,26 +98,17 @@ Start the applications
     * KissLog.Backend
     * KissLog.Frontend
 
-11) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.myapp.com")
+11) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.your_domain.com")
+   
+    If everything went successful, you will see the KissLog.Backend home page.
+   
+    .. figure:: images/installation-guide/kisslog-backend-running.png
+        :alt: KissLog.Backend home page
 
-    If the startup process went successful, a ``200 OK "Running"`` response will be returned.
-
-    .. figure:: images/installation-guide/KissLogBackend-Startup.png
-        :alt: KissLog.Backend Startup
-
-12) Make a single request to the KissLog.Frontend root URL ("http://kisslog.myapp.com").
-
+12) Make a single request to the KissLog.Frontend root URL ("http://kisslog-frontend.your_domain.com").
+   
     If the startup process went successful, you will see the home page.
+   
+    .. figure:: images/installation-guide/kisslog-frontend-running.png
+        :alt: KissLog.Frontend home page
 
-    .. figure:: images/installation-guide/KissLogFrontend-Startup.png
-        :alt: KissLog.Frontend Startup
-
-Troubleshooting
--------------------------------------------------------
-
-Please follow the troubleshooting steps from the :ref:`installation guide <InstallInstructions-Troubleshooting>`.
-
-Need help?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Open a `GitHub issue <https://github.com/KissLog-net/KissLog.Sdk/issues>`_ or send an email to catalingavan@gmail.com.

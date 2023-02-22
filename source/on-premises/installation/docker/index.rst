@@ -31,7 +31,7 @@ To get started running KissLog as a Docker application, create the following fil
 .. admonition:: Download Docker files
    :class: note
 
-   Full working example of the files above can also be download from `here <https://kisslog.net/Overview/OnPremises>`_.
+   Full working example of the files above can be found on https://github.com/KissLog-net/KissLog-server.
 
 KissLog.Frontend will read the configuration options from ``KissLog_Docker\frontend.KissLog.json``.
 
@@ -187,15 +187,18 @@ KissLog.Frontend will be exposed to ``http://localhost:44080/``.
 
 KissLog.Backend will be exposed to ``http://localhost:44088/``.
 
-.. figure:: images/Docker/docker-compose-up.png
+.. figure:: images/docker-compose-up.png
    :align: left
 
-+------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
-| KissLog.Frontend                                                             | KissLog.Backend                                                             |
-+==============================================================================+=============================================================================+
-| .. image:: images/Docker/KissLog.Frontend.localhost.png                      | .. image:: images/Docker/KissLog.Backend.localhost.png                      |
-|   :alt: KissLog.Frontend                                                     |   :alt: KissLog.Backend                                                     |
-+------------------------------------------------------------------------------+-----------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+
+   * - KissLog.Frontend
+     - KissLog.Backend
+   * - .. image:: images/kisslog-frontend-docker.png
+         :alt: KissLog.Frontend running on Docker
+     - .. image:: images/kisslog-backend-docker.png
+         :alt: KissLog.Backend running on Docker
 
 Destroy
 ----------------------------
@@ -204,6 +207,6 @@ Destroy
 
     C:\KissLog_Docker> docker-compose down
 
-.. figure:: images/Docker/docker-compose-down.png
+.. figure:: images/docker-compose-down.png
    :align: left
 
