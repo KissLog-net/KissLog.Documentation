@@ -31,7 +31,7 @@ To get started running KissLog as a Docker application, create the following fil
 .. admonition:: Download Docker files
    :class: note
 
-   Full working example of the files above can also be download from `here <https://kisslog.net/Overview/OnPremises>`_.
+   Full working example of the files above can be found on https://github.com/KissLog-net/KissLog-server.
 
 KissLog.Frontend will read the configuration options from ``KissLog_Docker\frontend.KissLog.json``.
 
