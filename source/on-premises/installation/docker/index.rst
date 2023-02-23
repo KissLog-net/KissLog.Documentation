@@ -178,8 +178,8 @@ To spawn KissLog and all the necessary prerequisites, use ``docker-compose up`` 
 
 After all the services have been created, you can access the applications on the following urls:
 
-- KissLog.Frontend: <http://localhost:44080/>
-- KissLog.Backend: <http://localhost:44088/>
+- KissLog.Frontend: http://localhost:44080/
+- KissLog.Backend: http://localhost:44088/
 
 To authenticate, use the following token:
 
@@ -189,20 +189,22 @@ To authenticate, use the following token:
 
 
 .. figure:: images/docker-compose-up.png
-   :align: left
 
-   docker-compose up  
+   docker-compose up
 
 .. figure:: images/kisslog-frontend-docker.png
-   :align: left
+
+   KissLog.Frontend
 
 
 .. figure:: images/kisslog-frontend-login.png
-   :align: left
+
+   KissLog.Frontend login
 
 
 .. figure:: images/kisslog-backend-docker.png
-   :align: left
+
+   KissLog.Backend
 
 
 Destroy
@@ -214,5 +216,6 @@ Destroy
 
 
 .. figure:: images/docker-compose-down.png
-   :align: left
+
+   docker-compose down
 
