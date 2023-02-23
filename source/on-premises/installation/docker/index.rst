@@ -31,7 +31,7 @@ To get started running KissLog as a Docker application, create the following fil
 .. admonition:: Download Docker files
    :class: note
 
-   Full working example of the files above can be found on https://github.com/KissLog-net/KissLog-server.
+   Full working example of the files above can be found on `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server/tree/main/Docker>`_.
 
 KissLog.Frontend will read the configuration options from ``KissLog_Docker\frontend.KissLog.json``.
 
@@ -42,59 +42,59 @@ KissLog.Backend will read the configuration options from ``KissLog_Docker\backen
 
     version: "3.7"
     networks:
-      default:
+    default:
         name: kisslog-net
         driver_opts:
-          com.docker.network.driver.mtu: 1380
+        com.docker.network.driver.mtu: 1380
 
     services:
-      backend:
-        image: catalingavan/kisslog.backend:3.1.1
+    backend:
+        image: catalingavan/kisslog.backend:4.0.0
         container_name: kisslog.backend.dev
         restart: unless-stopped
         volumes:
-          - ./backend.appsettings.json:/app/appsettings.json
-          - ./backend.KissLog.json:/app/Configuration/KissLog.json
+        - ./backend.appsettings.json:/app/appsettings.json
+        - ./backend.KissLog.json:/app/Configuration/KissLog.json
         ports:
-          - "44088:80"
+        - "44088:80"
         links:
-          - "mongodb"
+        - "mongodb"
 
-      frontend:
-        image: catalingavan/kisslog.frontend:3.1.1
+    frontend:
+        image: catalingavan/kisslog.frontend:4.0.0
         container_name: kisslog.frontend.dev
         restart: unless-stopped
         volumes:
-          - ./frontend.appsettings.json:/app/appsettings.json
-          - ./frontend.KissLog.json:/app/Configuration/KissLog.json
+        - ./frontend.appsettings.json:/app/appsettings.json
+        - ./frontend.KissLog.json:/app/Configuration/KissLog.json
         ports:
-          - "44080:80"
+        - "44080:80"
         links:
-          - "backend"
-          - "mariadb"
+        - "backend"
+        - "mariadb"
 
-      mongodb:
-        image: mongo
+    mongodb:
+        image: mongo:6.0.4
         container_name: kisslog.mongodb.dev
         restart: unless-stopped
         volumes:
-          - mongo-data:/data/db
-          - mongo-config:/data/configdb
+        - mongo-data:/data/db
+        - mongo-config:/data/configdb
 
-      mariadb:
-        image: mariadb
+    mariadb:
+        image: mariadb:10.8
         container_name: kisslog.mariadb.dev
         restart: unless-stopped
         volumes:
-          - mariadb-data:/var/lib/mysql
+        - mariadb-data:/var/lib/mysql
         environment:
-          MYSQL_ROOT_PASSWORD: pass
-          MYSQL_DATABASE: KissLog_Frontend_Dev
+        MYSQL_ROOT_PASSWORD: pass
+        MYSQL_DATABASE: KissLog_Frontend_Dev
 
-      volumes:
-        mariadb-data:
-        mongo-data:
-        mongo-config:
+    volumes:
+    mariadb-data:
+    mongo-data:
+    mongo-config:
 
 
 .. code-block:: json
@@ -109,8 +109,6 @@ KissLog.Backend will read the configuration options from ``KissLog_Docker\backen
             }
         },
         "ApplicationType": "OnPremises",
-        "ConfigurationFilePath": "Configuration/KissLog.json",
-        "KissLogCloud": "",
         "AllowedHosts": "*",
         "Kestrel": {
             "EndPoints": {
@@ -130,9 +128,7 @@ KissLog.Backend will read the configuration options from ``KissLog_Docker\backen
         "Database": {
             "Provider": "MySql",
             "KissLogDbContext": "server=kisslog.mariadb.dev;port=3306;database=KissLog_Frontend_Dev;uid=root;password=pass;Charset=utf8;"
-        },
-
-        "/* Other configuration options */": ""
+        }
     }
 
 .. code-block:: json
@@ -146,7 +142,6 @@ KissLog.Backend will read the configuration options from ``KissLog_Docker\backen
                 "Microsoft.Hosting.Lifetime": "Warning"
             }
         },
-        "ConfigurationFilePath": "Configuration/KissLog.json",
         "AllowedHosts": "*",
         "Kestrel": {
             "EndPoints": {
@@ -169,9 +164,7 @@ KissLog.Backend will read the configuration options from ``KissLog_Docker\backen
                 "ConnectionString": "mongodb://kisslog.mongodb.dev:27017",
                 "DatabaseName": "KissLogDev"
             }
-        },
-
-        "/* Other configuration options */": ""
+        }
     }
 
 Build
@@ -183,22 +176,34 @@ To spawn KissLog and all the necessary prerequisites, use ``docker-compose up`` 
 
     C:\KissLog_Docker> docker-compose up
 
-KissLog.Frontend will be exposed to ``http://localhost:44080/``.
+After all the services have been created, you can access the applications on the following urls:
 
-KissLog.Backend will be exposed to ``http://localhost:44088/``.
+- KissLog.Frontend: <http://localhost:44080/>
+- KissLog.Backend: <http://localhost:44088/>
+
+To authenticate, use the following token:
+
+.. code-block:: none
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.FI5EFsgHo6MvkU7UXyu0wK6ZfpKA3y2vlVfmwFNEyMc@your.name.here
+
 
 .. figure:: images/docker-compose-up.png
    :align: left
 
-.. list-table::
-   :header-rows: 1
+   docker-compose up  
 
-   * - KissLog.Frontend
-     - KissLog.Backend
-   * - .. image:: images/kisslog-frontend-docker.png
-         :alt: KissLog.Frontend running on Docker
-     - .. image:: images/kisslog-backend-docker.png
-         :alt: KissLog.Backend running on Docker
+.. figure:: images/kisslog-frontend-docker.png
+   :align: left
+
+
+.. figure:: images/kisslog-frontend-login.png
+   :align: left
+
+
+.. figure:: images/kisslog-backend-docker.png
+   :align: left
+
 
 Destroy
 ----------------------------
@@ -206,6 +211,7 @@ Destroy
 .. code-block:: none
 
     C:\KissLog_Docker> docker-compose down
+
 
 .. figure:: images/docker-compose-down.png
    :align: left

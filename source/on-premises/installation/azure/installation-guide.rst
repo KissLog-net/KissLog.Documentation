@@ -13,7 +13,7 @@ Artifacts
 - KissLog.Backend-{version}-linux-x64.zip
 - KissLog.Frontend-{version}-linux-x64.zip
 
-Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
+Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server>`_.
 
 Services
 ~~~~~~~~~~~~~~~~~~~~~~~

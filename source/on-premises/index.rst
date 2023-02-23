@@ -11,7 +11,7 @@ Artifacts
 - KissLog.Backend-{version}-{platform}.zip
 - KissLog.Frontend-{version}-{platform}.zip
 
-Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server/releases <https://github.com/KissLog-net/KissLog-server/releases>`_.
+Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server>`_.
 
 Installation prerequisites
 ------------------------------
