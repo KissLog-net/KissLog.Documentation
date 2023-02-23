@@ -3,6 +3,8 @@ Configuration
 
 KissLog.Backend behavior can be customized by updating the ``Configuration\KissLog.json`` file.
 
+A full example of the ``KissLog.json`` configuration file can be found `here <https://github.com/KissLog-net/KissLog-server/blob/main/KissLog.Backend/KissLog.json>`_.
+
 .. contents:: Configuration options
    :local:
 
