@@ -77,7 +77,7 @@ Update KissLog.Frontend configuration
 
    The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-frontend/change-log>`.
 
-9) Change/increment the value of ``"AppVersion"`` property from ``KissLog.json`` file.
+9) Change/increment the value of ``"StaticResourcesVersion"`` property from ``KissLog.json`` file.
 
    This will refresh the browser cache for static resources.
 
@@ -87,7 +87,7 @@ Update KissLog.Frontend configuration
 
        {
            "ApplicationName": "KissLog",
-           "AppVersion": "any-new-value"
+           "StaticResourcesVersion": "any-new-value"
        }
 
 Start the applications
