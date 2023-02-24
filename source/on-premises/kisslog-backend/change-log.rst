@@ -21,4 +21,7 @@ This update comes with important improvements for Microsoft Azure hosting, reduc
 
    If you are updating an existing instance of KissLog.Backend, please update the MongoDB server to 6.0 and point to a new :ref:`DatabaseName <on-premises/kisslog-backend/configuration/index:database>`.
 
-   
+
+**KissLog.json** changes:
+
+The configuration file has been restructured. Please start with the `template <https://github.com/KissLog-net/KissLog-server/blob/main/KissLog.Backend/KissLog.json>`_ and replace the values you need.
