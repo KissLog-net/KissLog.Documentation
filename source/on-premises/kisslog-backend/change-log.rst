@@ -1,6 +1,30 @@
 Change log
 ===============
 
+KissLog.Backend 4.0.2
+--------------------------
+
+Release date: 24-03-2023
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v4.0.2
+
+Fixed javascript evaluator engine which would randomly throw errors while evaluating the alerts.
+
+.. code-block:: none
+
+    14:54:10.8568072Z, Error                Error trying to evaluate Javascript code:
+    function(context, callback) {
+        var requestLog = context.RequestLog;
+        var httpStatusCode = requestLog.HttpProperties.Response.HttpStatusCode;
+
+        return callback(httpStatusCode >= 500);
+    }
+    System.IndexOutOfRangeException: Index was outside the bounds of the array.
+    at Jint.Engine.get_Realm()
+    at Jint.Engine.GetValue(String propertyName)
+    at Jint.Engine.Invoke(String propertyName, Object thisObj, Object[] arguments)
+    at Jint.Engine.Invoke(String propertyName, Object[] arguments)
+
 KissLog.Backend 4.0.1
 --------------------------
 
