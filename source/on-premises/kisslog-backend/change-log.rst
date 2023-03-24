@@ -1,6 +1,18 @@
 Change log
 ===============
 
+KissLog.Backend 4.0.1
+--------------------------
+
+Release date: 27-02-2023
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v4.0.1
+
+Runtime intervals are now displayed in local time-zone.
+
+.. figure:: images/change-log/KissLog.Backend-v4.0.1-Runtime-intervals.png
+    :alt: Runtime intervals
+
 KissLog.Backend 4.0.0
 --------------------------
 
