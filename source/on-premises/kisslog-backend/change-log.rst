@@ -1,6 +1,18 @@
 Change log
 ===============
 
+KissLog.Backend 4.0.3
+--------------------------
+
+Release date: 31-03-2023
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v4.0.3
+
+Displaying "Delete by due date" runtime statistics.
+
+.. figure:: images/change-log/KissLog.Backend-v4.0.3-Delete-by-due-date-runtime-stat.png
+    :alt: Runtime intervals
+
 KissLog.Backend 4.0.2
 --------------------------
 
