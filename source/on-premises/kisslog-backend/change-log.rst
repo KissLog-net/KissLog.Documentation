@@ -10,7 +10,7 @@ https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v5.0.
 
 This release contains improvements related to alerts functionality.
 
-If you are updating KissLog.Backend application, delete the records from ``AlertDefinitionInvocation`` table before starting the new application.
+If you are updating an existing instance of KissLog.Backend application, you must delete the existing records from ``AlertDefinitionInvocation`` collection before starting the new application.
 
 .. code-block:: none
     :caption: >_MONGOSH
