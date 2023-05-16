@@ -1,6 +1,30 @@
 Change log
 ===============
 
+KissLog.Backend 5.0.0
+--------------------------
+
+Release date: 11-05-2023
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v5.0.0
+
+This release contains improvements related to alerts functionality.
+
+If you are updating an existing instance of KissLog.Backend application, you must delete the existing records from ``AlertDefinitionInvocation`` collection before starting the new application.
+
+.. code-block:: none
+    :caption: >_MONGOSH
+
+    > use KissLog
+    < 'switched to db KissLog'
+    KissLog> db.AlertDefinitionInvocation.deleteMany({})
+    < {
+        acknowledged: true,
+        deletedCount: 23
+      }
+
+KissLog.Backend 5.0.0 is only compatible with KissLog.Frontend 5.0.0, and, for this reason, both applications must be updated at the same time.
+
 KissLog.Backend 4.0.3
 --------------------------
 
