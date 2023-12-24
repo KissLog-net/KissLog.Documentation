@@ -1,6 +1,19 @@
 Change log
 ===============
 
+KissLog.Backend 5.3.0
+--------------------------
+
+Release date: 24-12-2023
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v5.3.0
+
+This release improves the efficiency of saving requests, achieving up to a 3x improvement under specific conditions.
+
+Previously, we identified a performance degradation when processing requests containing files.
+
+The bottleneck originated from the default implementation of the .NET ``IFormFile``, which would write any files larger than 64KB to a temp file on disk, making the process of saving requests very IO intensive. Details available at https://stackoverflow.com/a/53750820/1157952.
+
 KissLog.Backend 5.0.0
 --------------------------
 
