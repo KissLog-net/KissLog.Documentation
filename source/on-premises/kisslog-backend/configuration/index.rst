@@ -514,6 +514,32 @@ The time to live value can be specified in ``Days``, ``Hours`` or ``Minutes``.
         }
     }
 
+UserAgentParser
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sets the provider which is used to parse the User-Agent header and display additional information about the Browser/OS.
+
+.. figure:: ../images/UserAgentParser.png
+    :alt: UserAgentParser
+
+.. code-block:: json
+    
+    {
+        "UserAgentParser": null
+    }
+
+.. list-table::
+   :header-rows: 1
+
+   * - UserAgentParser
+     - 
+   * - | null
+       | (recommended)
+     - The functionality of parsing the user-agent is disabled.
+   * - DeviceDetectorNet
+     - | Uses the `DeviceDetector.NET <https://github.com/totpero/DeviceDetector.NET>`_ user-agent parser.
+       | This provider tends to be relatively slow and can cause performance degradation for applications processing large volumes of logs.
+
 ApplicationSettings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

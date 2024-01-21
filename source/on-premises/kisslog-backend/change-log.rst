@@ -1,6 +1,37 @@
 Change log
 ===============
 
+KissLog.Backend 5.4.0
+--------------------------
+
+Release date: 21-01-2024
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v5.4.0
+
+This release contains significant improvements for the process of saving requests, with the potential of reducing the average duration of saving one request from 25ms to less than 5ms.
+
+**Configuration changes**
+
+Introduced :ref:`UserAgentParser <on-premises/kisslog-backend/configuration/index:useragentparser>` configuration property.
+
+.. admonition:: Update guide
+
+   | Step 1:
+   | Stop the application.
+
+   | Step 2:
+   | Add the new ``"UserAgentParser": null`` property in the `KissLog.json` configuration file.
+   | Setting the value to `null` will disable UserAgent parsing (used only for user-interface purposes), but it will greatly improve the performance of the application.
+
+   | Step 3:
+   | Delete the existing `RequestLog_TextIndex` MongoDB index, as this index has been removed (in order to reduce the workload on the MongoDB server).
+
+   .. figure:: images/change-log/remove-MongoDB-text-index.png
+       :alt: Remove TextIndex
+
+   | Step 4:
+   | Update the application code using the latest release artifacts. Make sure you don't override the local configuration file. Start the application.
+
 KissLog.Backend 5.3.0
 --------------------------
 
@@ -8,7 +39,7 @@ Release date: 24-12-2023
 
 https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v5.3.0
 
-This release improves the efficiency of saving requests, achieving up to a 3x improvement under specific conditions.
+This release improves the efficiency of saving requests, achieving up to a 1.5x improvement under specific conditions.
 
 Previously, we identified a performance degradation when processing requests containing files.
 
