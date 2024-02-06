@@ -1,71 +1,69 @@
 Logging during Application Startup
 ========================================
 
-In some scenarios you need to log messages during the application startup, prior to any logging configuration.
+In this example we will use KissLog to save the logs generated during application startup on a local text file.
 
-This can be achieved by invoking a listener programmatically.
+.. contents:: Application types
+   :local:
 
-In the example below you will save **Startup.cs** events to a local text file using ``LocalTextFileListener``.
+ASP.NET Core / .NET6
+----------------------------------------------
 
 .. code-block:: c#
+    :caption: Program.cs
 
-    using KissLog;
-    using KissLog.Listeners.FileListener;
-    using System;
+    var builder = WebApplication.CreateBuilder(args);
 
-    namespace AspNetCore_WebApp
+    // register LocalTextFileListener
+    KissLog.KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs"), FlushTrigger.OnMessage));
+
+    // create a "Program" logger, used to log code executed during application startup
+    using var loggerFactory = LoggerFactory.Create(config =>
     {
-        public class Startup
-        {
-            public Startup(IConfiguration configuration)
+        config
+            .AddConfiguration(builder.Configuration.GetSection("Logging"))
+            .AddSimpleConsole()
+            .AddKissLog(options =>
             {
-                Configuration = configuration;
-
-                Logger logger = new Logger(url: "Startup");
-                try
+                options.Formatter = (FormatterArgs args) =>
                 {
-                    logger.Debug("Executing an important startup code");
+                    if (args.Exception == null)
+                        return args.DefaultValue;
 
-                    string message = null;
-                    int length = message.Length;    // will throw NullReferenceException
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex);
-                    throw;
-                }
-                finally
-                {
-                    FlushLogArgs flushLogArgs = FlushLogArgsFactory.Create(new[] { logger });
-                    
-                    // programmatically invoke LocalTextFileListener
-                    var listener = new LocalTextFileListener("logs", FlushTrigger.OnFlush);
-                    listener.OnFlush(flushLogArgs);
-                }
-            }
+                    string exceptionStr = new ExceptionFormatter().Format(args.Exception, args.Logger);
+                    return string.Join(Environment.NewLine, new[] { args.DefaultValue, exceptionStr });
+                };
+            });
+    });
+    var logger = loggerFactory.CreateLogger(nameof(Program));
 
-            public IConfiguration Configuration { get; }
+    logger.LogDebug("Executing an important startup code [...]");
 
-            public void ConfigureServices(IServiceCollection services)
-            {
-                // [ ... ]
-            }
+    try
+    {
+        // simulating an exception during startup code
 
-            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-            {
-                // [ ... ]
-            }
-        }
+        int zero = 0;
+        var result = 10 / zero;
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Error executing startup code");
+        throw;
     }
 
-.. figure:: images/Application-Startup-logs.png
-   :alt: Application Startup logs
+    // code removed for simplicity
 
-The same concept can be followed for other scenarios.
+    app.Run();
 
-In the example below you will save **Global.asax** events to a local text file using ``LocalTextFileListener``.
+.. figure:: images/AspNetCore_startup-logs.png
+   :alt: ASP.NET Core Startup logs
+
+.NET Framework
+----------------------------------------------
 
 .. code-block:: c#
+    :caption: Global.asax
 
     using KissLog;
     using KissLog.Listeners.FileListener;
@@ -80,13 +78,19 @@ In the example below you will save **Global.asax** events to a local text file u
                 AreaRegistration.RegisterAllAreas();
                 RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+                 // register LocalTextFileListener
+                KissLogConfiguration.Listeners.Add(new LocalTextFileListener(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs"), FlushTrigger.OnMessage));
+
                 Logger logger = new Logger(url: "Application_Start");
+
+                logger.Debug("Executing an important startup code [...]");
+
                 try
                 {
-                    logger.Debug("Executing an important startup code");
+                    // simulating an exception during startup code
 
-                    int value = 0;
-                    int result = 100 / value;    // will throw DivideByZeroException
+                    int zero = 0;
+                    var result = 10 / zero;
                 }
                 catch (Exception ex)
                 {
@@ -95,11 +99,7 @@ In the example below you will save **Global.asax** events to a local text file u
                 }
                 finally
                 {
-                    FlushLogArgs flushLogArgs = FlushLogArgsFactory.Create(new[] { logger });
-
-                    // programmatically invoke LocalTextFileListener
-                    var listener = new LocalTextFileListener("logs", FlushTrigger.OnFlush);
-                    listener.OnFlush(flushLogArgs);
+                    Logger.NotifyListeners(logger);
                 }
             }
 
@@ -107,5 +107,5 @@ In the example below you will save **Global.asax** events to a local text file u
         }
     }
 
-.. figure:: images/AspNetMvc-Startup-logs.png
-   :alt: ASP.NET MVC Startup logs
+.. figure:: images/netFramework_startup-logs.png
+   :alt: .NET Framework Startup logs
