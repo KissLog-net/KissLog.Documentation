@@ -208,10 +208,7 @@ On kisslog.net, users can search for specific requests by using any of the value
     KissLogConfiguration.Options
         .GenerateSearchKeywords((FlushLogArgs flushArgs) =>
         {
-            string? traceId = null;
-            var traceIdProperty = flushArgs.CustomProperties.FirstOrDefault(p => p.Key == "TRACE-ID");
-            if (!string.IsNullOrWhiteSpace(traceIdProperty.Key))
-                traceId = traceIdProperty.Value?.ToString();
+            string? traceId = flushArgs.CustomProperties.FirstOrDefault(p => p.Key == "TRACE-ID").Value?.ToString();
 
             List<string> keywords = new();
             keywords.Add("00000001");
