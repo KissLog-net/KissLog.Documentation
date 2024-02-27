@@ -32,3 +32,5 @@ Table of Contents
    ../SDK/index
    ../on-premises/index
    ../licensing/index
+   ../TermsOfService
+   ../PrivacyPolicy
