@@ -1,6 +1,29 @@
 Change log
 ===============
 
+KissLog.Backend 6.0.0
+--------------------------
+
+Release date: 11-03-2024
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v6.0.0
+
+This release is part of the complete rewrite of the KissLog.Frontend application.
+
+**Configuration changes**
+
+- Renamed `$.UserAgentParser` to `$.UserAgentParserProvider`
+https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L25
+
+- Added `$.["KissLogFrontend.BasicAuth.Password"]` property
+https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L4
+
+- Added `$.KissLogFrontend` configuration object, which contains the database connection used by the KissLog.Frontend application
+https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L26
+
+- Added `$.CreateRequestLog.ValidateApplicationKeys` property
+https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L42
+
 KissLog.Backend 5.4.0
 --------------------------
 
