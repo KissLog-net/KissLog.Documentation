@@ -1,6 +1,10 @@
 Change log
 ===============
 
+.. contents:: Versions
+   :local:
+   :depth: 1
+
 KissLog.Backend 6.0.0
 --------------------------
 
@@ -10,19 +14,44 @@ https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v6.0.
 
 This release is part of the complete rewrite of the KissLog.Frontend application.
 
-**Configuration changes**
+Configuration changes
+~~~~~~~~~~~~~~~~~~~~~~~
 
-- Renamed `$.UserAgentParser` to `$.UserAgentParserProvider`
-https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L25
+.. list-table::
+   :header-rows: 1
 
-- Added `$.["KissLogFrontend.BasicAuth.Password"]` property
-https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L4
+   * - Added $.["KissLogFrontend.BasicAuth.Password"]
+   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L4
 
-- Added `$.KissLogFrontend` configuration object, which contains the database connection used by the KissLog.Frontend application
-https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L26
 
-- Added `$.CreateRequestLog.ValidateApplicationKeys` property
-https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L42
+.. list-table::
+   :header-rows: 1
+
+   * - Renamed $.UserAgentParser to "UserAgentParserProvider"
+   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L25
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - Added $.KissLogFrontend
+   * - | This configuration object contains the database connection used by the KissLog.Frontend application.
+       | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L26
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - Added $.CreateRequestLog.ValidateApplicationKeys
+   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L42
+
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- Implemented ``POST /request-logs`` endpoint which can be used to manually create logs.
+
+- KissLog.Backend now connects to KissLog.Frontend database directly.
 
 KissLog.Backend 5.4.0
 --------------------------
