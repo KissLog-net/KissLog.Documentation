@@ -67,6 +67,65 @@ Below are the braking changes in the KissLog.json file:
    * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Frontend/KissLog.json#L30
 
 
+Database breaking changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+KissLog.Frontend is now using a new database schema, incompatible with the previous versions.
+
+If you are updating an existing version of the KissLog.Frontend application, please follow these steps:
+
+1. Update your connection string to a new database name.
+
+2. Run the application for the first time, which will create the empty database (with the new schema).
+
+3. Copy the existing data from the old database to the new database, using the following script (MySql language):
+
+.. code-block:: sql
+
+    INSERT INTO `<NEW_DATABASE>`.`application`
+    (`Id`,`Organization_Id`,`Name`,`CreatedAt`)
+    SELECT `Id`, `Organization_Id`, `Name`, `DateTimeCreated`
+    FROM `<OLD_DATABASE>`.`application`
+    WHERE `Id` NOT IN (SELECT `Id` from `NEW_DATABASE`.`application`)
+
+
+    INSERT INTO `<NEW_DATABASE>`.`organization`
+    (`Id`,`Name`,`CreatedAt`)
+    SELECT `Id`, `Name`, `DateTimeCreated`
+    FROM `<OLD_DATABASE>`.`organization`
+    WHERE `Id` NOT IN (SELECT `Id` from `<NEW_DATABASE>`.`organization`)
+
+
+    INSERT INTO `<NEW_DATABASE>`.`organizationalert`
+    (`Id`,
+    `Organization_Id`,
+    `Name`,
+    `Description`,
+    `JavascriptCode`,
+    `ThrottleInSeconds`,
+    `CreatedAt`,
+    `IsEnabled`,
+    `AppliesToAllApplications`,
+    `EmailNotificationJson`,
+    `SlackNotificationJson`,
+    `MicrosoftTeamsNotificationJson`)
+    SELECT
+    `Id`,
+    `Organization_Id`,
+    `Name`,
+    `Description`,
+    `JavascriptCode`,
+    `ThrottleInSeconds`,
+    `DateTimeCreated`,
+    `IsActive`,
+    1,
+    REPLACE(REPLACE(`EmailNotification`, '"IsActive"', '"IsEnabled"'), '"Emails"', '"SendTo"'),
+    REPLACE(`SlackNotification`, '"IsActive"', '"IsEnabled"'),
+    REPLACE(`MicrosoftTeamsNotification`, '"IsActive"', '"IsEnabled"')
+    FROM `<OLD_DATABASE>`.`alert`
+    WHERE `Id` NOT IN (SELECT `Id` from `<NEW_DATABASE>`.`organizationalert`)
+
+
 KissLog.Frontend 5.0.0
 --------------------------
 
