@@ -49,7 +49,6 @@ Copy new files
    .. code-block:: none
 
        \KissLog.Frontend
-       ├── _kisslogMedia\
        ├── Configuration\
        ├── appsettings.json
        └── web.config
@@ -86,7 +85,7 @@ Update KissLog.Frontend configuration
        :caption: C:\\inetpub\\wwwroot\\KissLog.Frontend\\Configuration\\KissLog.json
 
        {
-           "ApplicationName": "KissLog",
+           "KissLogFrontendDomain": "kisslog.dev",
            "StaticResourcesVersion": "any-new-value"
        }
 
@@ -98,14 +97,14 @@ Start the applications
     * KissLog.Backend
     * KissLog.Frontend
 
-11) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.your_domain.com")
+11) Make a single request to KissLog.Backend root URL (http://kisslog-backend.your_domain.com).
    
     If everything went successful, you will see the KissLog.Backend home page.
    
     .. figure:: images/installation-guide/kisslog-backend-running.png
         :alt: KissLog.Backend home page
 
-12) Make a single request to the KissLog.Frontend root URL ("http://kisslog-frontend.your_domain.com").
+12) Make a single request to the KissLog.Frontend root URL (http://kisslog-frontend.your_domain.com).
    
     If the startup process went successful, you will see the home page.
    

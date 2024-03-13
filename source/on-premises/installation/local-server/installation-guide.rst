@@ -102,7 +102,7 @@ Startup logs (including errors) will be generated under the \\logs folder:
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1) Make a single request to KissLog.Backend root URL (http://kisslog-backend.your_domain.com)
+1) Make a single request to KissLog.Backend root URL (http://kisslog-backend.your_domain.com).
 
    If everything went successful, you will see the KissLog.Backend home page.
 
