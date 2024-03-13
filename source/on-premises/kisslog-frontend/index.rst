@@ -23,11 +23,11 @@ KissLog.Frontend uses a JSON Web Token (JWT) for authentication.
 
 The authentication JWT must be signed with the secret provided under ``Authorization.HS256Secret`` property from the :ref:`KissLog.json <on-premises/kisslog-frontend/configuration:Authorization>` file.
 
-For the default value of "Authorization.HS256Secret" ("_ChangeThis_4H3Q935LLRG5TEPNVUYOQPRS0SXLT3ML_"), you can use the following authentication JWT:
+For the default value of "Authorization.HS256Secret" ("00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000"), you can use the following authentication JWT:
 
 .. code-block:: none
     
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.FI5EFsgHo6MvkU7UXyu0wK6ZfpKA3y2vlVfmwFNEyMc@your.name
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.HP79qro7bvfH7BneUy5jB9Owc_5D2UavFDulRETAl9E
 
 Authenticated user name can be specified in one of the following options:
 
@@ -49,13 +49,13 @@ The authentication JWT can be created programmatically or online (using https://
 Tips
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can automate the login process by specifying the JWT as a query string parameter: `/OnPremiseAuth/Login?token={JWT}`.
+You can automate the login process by specifying the JWT as a query string parameter: `/Auth/Login?token={JWT}`.
 
 For example, you can bookmark this URL and, once accessed, KissLog will automatically login the user using the bookmarked token.
 
 .. code-block:: none
     
-    http://kisslog.myapp.com/OnPremiseAuth/Login?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.FI5EFsgHo6MvkU7UXyu0wK6ZfpKA3y2vlVfmwFNEyMc@your.name
+    http://kisslog.myapp.com/Auth/Login?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.HP79qro7bvfH7BneUy5jB9Owc_5D2UavFDulRETAl9E
 
 Related resources
 ------------------

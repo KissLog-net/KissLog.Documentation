@@ -64,7 +64,7 @@ This release contains significant improvements for the process of saving request
 
 **Configuration changes**
 
-Introduced :ref:`UserAgentParser <on-premises/kisslog-backend/configuration/index:useragentparser>` configuration property.
+Introduced :ref:`UserAgentParserProvider <on-premises/kisslog-backend/configuration/index:useragentparserprovider>` configuration property.
 
 .. admonition:: Update guide
 

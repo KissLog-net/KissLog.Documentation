@@ -591,7 +591,7 @@ UserAgentParserProvider
 
 Sets the provider which is used to parse the User-Agent header and display additional information about the Browser/OS.
 
-.. figure:: ../images/UserAgentParser.png
+.. figure:: images/UserAgentParser.png
     :alt: UserAgentParser
 
 .. code-block:: json
