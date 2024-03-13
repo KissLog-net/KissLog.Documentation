@@ -22,9 +22,6 @@ Services
 
 - `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 6.0.x)
 
-- `MS-SQL Server <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>`_ or `MySQL Community Server <https://dev.mysql.com/downloads/mysql/>`_
-
-
 Installation
 -------------------------------------------------------
 
@@ -32,11 +29,6 @@ MongoDB
 ~~~~~~~~~~~~~~~~~~~~~
 
 For instructions installing MongoDB server, please check the `official tutorial <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/>`_.
-
-MS-SQL / MySql
-~~~~~~~~~~~~~~~~~~~~~
-
-We will not cover the installation guide for these services. There is a high possibility that the existing server already has a running instance of MySQL or MS-SQL server.
 
 IIS web applications
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,74 +78,38 @@ IIS web applications
 Configuration
 -------------------------------------------------------
 
-On the first deployment you need to update the required configuration options.
+On the first deployment you need to update the required configuration options, such as:
+
+- database connection
+- application endpoints
+- authorization tokens
 
 The configuration file for each application (KissLog.Frontend and KissLog.Backend) is located under ``Configuration\KissLog.json``.
-
-KissLog.Backend 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Replace the following mandatory properties with corresponding values:
-
-.. list-table::
-   :header-rows: 1
-
-   * - Property
-     - Value
-   * - KissLogBackendUrl
-     - http://kisslog-backend.your_domain.com
-   * - KissLogFrontendUrl
-     - http://kisslog-frontend.your_domain.com
-   * - Database.Provider
-     - MongoDb
-   * - Database.MongoDb.ConnectionString
-     - mongodb://localhost:27017
-   * - Files.Provider
-     - MongoDb
-
-KissLog.Frontend 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Replace the following mandatory properties with corresponding values:
-
-.. list-table::
-   :header-rows: 1
-
-   * - Property
-     - Value
-   * - KissLogBackendUrl
-     - http://kisslog-backend.your_domain.com
-   * - KissLogFrontendUrl
-     - https://kisslog-frontend.your_domain.com
-   * - Database.Provider
-     - SqlServer
-   * - Database.ConnectionString
-     - Data Source=192.168.16.11;Initial Catalog=KissLog_Frontend;UID={_username_};PWD={_password_};
 
 Initial startup
 -------------------------------------------------------
 
 After the configuration files have been updated, you can run the applications.
 
-The initial startup  will bootstrap all the necessary components including MongoDB and SQL databases.
+The initial startup  will bootstrap all the necessary components including the MongoDB database.
 
-Startup logs (including errors) will be generated under ``logs`` folder:
+Startup logs (including errors) will be generated under the \\logs folder:
 
-* ``C:\inetpub\wwwroot\KissLog.Backend\logs``
+* C:\\inetpub\\wwwroot\\KissLog.Backend\\logs
 
-* ``C:\inetpub\wwwroot\KissLog.Frontend\logs``
+* C:\\inetpub\\wwwroot\\KissLog.Frontend\\logs
 
 Startup steps 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1) Make a single request to KissLog.Backend root URL ("http://kisslog-backend.your_domain.com")
+1) Make a single request to KissLog.Backend root URL (http://kisslog-backend.your_domain.com)
 
    If everything went successful, you will see the KissLog.Backend home page.
 
    .. figure:: images/installation-guide/kisslog-backend-running.png
        :alt: KissLog.Backend home page
 
-2) Make a single request to the KissLog.Frontend root URL ("http://kisslog-frontend.your_domain.com").
+2) Make a single request to the KissLog.Frontend root URL (http://kisslog-frontend.your_domain.com).
 
    If the startup process went successful, you will see the home page.
 
@@ -163,7 +119,7 @@ Startup steps
 Post deployment
 -------------------------------------------------------
 
-Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend IIS application.
+Your KissLog server is running and ready to process the logs. You can update your .NET applications to start sending the logs to the newly created KissLog.Backend application.
 
 Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
 
@@ -172,7 +128,7 @@ Make sure you update the configuration values, respectively the "OrganizationId"
     KissLogConfiguration.Listeners
         .Add(new RequestLogsApiListener(new Application(Configuration["KissLog.OrganizationId"], Configuration["KissLog.ApplicationId"]))
         {
-            ApiUrl = "http://kisslog-frontend.your_domain.com"
+            ApiUrl = "http://kisslog-backend.your_domain.com"
         });
 
 .. figure:: images/installation-guide/kisslog-frontend-logs.png
