@@ -131,48 +131,28 @@ Make sure you update the configuration values, respectively the "OrganizationId"
             ApiUrl = "http://kisslog-backend.your_domain.com"
         });
 
-.. figure:: images/installation-guide/kisslog-frontend-logs.png
-    :alt: KissLog Frontend logs
+.. figure:: images/installation-guide/kisslog-frontend-request.png
+    :alt: KissLog Frontend request
 
 Troubleshooting
 -------------------------------------------------------
 
-Startup logs (including errors) will be available under ``\logs`` folder. Here should be the first place to check.
+Startup logs (including errors) will be available under \\logs folder. Here should be the first place to check.
 
-* ``C:\inetpub\wwwroot\KissLog.Backend\logs``
+* C:\\inetpub\\wwwroot\\KissLog.Backend\\logs
 
-* ``C:\inetpub\wwwroot\KissLog.Frontend\logs``
+* C:\\inetpub\\wwwroot\\KissLog.Frontend\\logs
 
 Quick checklist
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1) Make sure you deploy and run KissLog.Backend first
+1) If there are any confiuguration errors, you should see them under the \\logs folder.
 
-2) If there are any confiuguration errors, you should see them under the ``\logs`` folder.
+2) If using a relational database provider (MySql/SqlServer), KissLog.Frontend will try to create the database (if it doesn't exist).
+   
+   Additionally, the database script will be saved under the "\\logs\\{Provider}-database.sql.txt" file.
 
-3) KissLog.Backend will try to connect to MongoDB. If the MongoDB server is not reachable, you should see an error:
-
-   .. code-block:: none
-       :caption: C:\\inetpub\\wwwroot\\KissLog.Backend\\Logs\\06-02-2023.log
-
-       KissLog.Backend startup failed
-       DatabaseName: KissLogBackend
-       Exception: A timeout occured after 30000ms selecting a server using CompositeServerSelector{ Selectors = MongoDB.Driver.MongoClient+AreSessionsSupportedServerSelector, LatencyLimitingServerSelector{ AllowedLatencyRange = 00:00:00.0150000 } }. Client view of cluster state is { ClusterId : "1", ConnectionMode : "Automatic", Type : "Unknown", State : "Disconnected", Servers : [{ ServerId: "{ ClusterId : 1, EndPoint : "Unspecified/localhost3:27017" }", EndPoint: "Unspecified/localhost:27017", ReasonChanged: "Heartbeat", State: "Disconnected", ServerVersion: , TopologyVersion: , Type: "Unknown", HeartbeatException: "MongoDB.Driver.MongoConnectionException: An exception occurred while opening a connection to the server.
-       ---> System.Net.Sockets.SocketException (11001): No such host is known.
-
-
-4) | KissLog.Frontend will try to connect to MS-SQL / MySql server.
-   | On the first run, KissLog.Frontend will also create the database (if not already exists).
-   | Any database errors, such as connection errors or database permissions, will be saved under the ``\Logs`` folder.
- 
-   | **Important:**
-   | If the SQL user does not have permissions to create the database, you will have to create it manually.
-   | The database generation script will be generated under ``KissLog.Frontend\logs\{Provider}-database.sql.txt``.
-
-5) | KissLog applications (KissLog.Frontend and KissLog.Backend) connect to each other using HTTP requests.
-   | Make sure there is no firewall blocking the connection.
-
-6) | If the application fails to start and there are no log messages, enable IIS logs:
+3) | If the application fails to start and there are no log messages, enable IIS logs:
    | Update ``web.config``, set ``<aspNetCore stdoutLogEnabled="true" />``, then restart the application.
 
    .. code-block:: xml
@@ -194,9 +174,9 @@ Quick checklist
    | **Important:**
    | Create an empty ``logs`` folder if one does not already exist.
 
-7) If no logs are generated (including no IIS logs), double check that you have `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed.
+4) If no logs are generated (including no IIS logs), double check that you have `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed.
 
 Need help?
 -------------------------------------------------------
 
-Open a `GitHub issue <https://github.com/KissLog-net/KissLog.Sdk/issues>`_ or send an email to catalingavan@gmail.com.
+Open a `GitHub issue <https://github.com/KissLog-net/KissLog-server/issues>`_ or send an email to catalingavan@gmail.com.
