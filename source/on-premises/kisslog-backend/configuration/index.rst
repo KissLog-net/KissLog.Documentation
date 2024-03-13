@@ -13,12 +13,23 @@ KissLogBackend.BasicAuth.Password
 
 The Basic HTTP authentication scheme password used to connect to KissLog.Backend application.
 
+.. code-block:: json
+    
+    {
+        "KissLogBackend.BasicAuth.Password": "_KissLogBackend_authorization_password_"
+    }
+
+KissLogFrontend.BasicAuth.Password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Basic HTTP authentication scheme password used to connect to KissLog.KissLogFrontend application.
+
 This property should have the same value as the same property from ``KissLog.Frontend\Configuration\KissLog.json``.
 
 .. code-block:: json
     
     {
-        "KissLogBackend.BasicAuth.Password": "_This_Password_Should_Be_Replaced_"
+        "KissLogFrontend.BasicAuth.Password": "_KissLogFrontend_authorization_password_"
     }
 
 KissLogBackendUrl
@@ -163,6 +174,58 @@ Configuration used to connect to Azure Storage account.
     }
 
 
+KissLogFrontend
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Configuration specific to KissLog.Frontend application.
+
+For better performance, KissLog.Backend connects directly to the KissLog.Frontend database.
+
+All the values provided here must match the same values specified in ``KissLog.Frontend\Configuration\KissLog.json``.
+
+.. code-block:: json
+    
+    {
+        "KissLogFrontend": {
+            "Database": {}
+        }
+    }
+
+Database
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+    
+    {
+        "KissLogFrontend": {
+            "Database": {
+                "Provider": "MongoDb",
+                "MySql": {
+                    "ConnectionString": "server=localhost;port=3306;database=KissLogFrontend;uid=<replace_user>;password=<replace_password>;Charset=utf8;"
+                },
+                "SqlServer": {
+                    "ConnectionString": "Server=localhost;Database=KissLogFrontend;User ID=<replace_user>;Password=<replace_password>;TrustServerCertificate=True;"
+                },
+                "MongoDb": {
+                    "ConnectionString": "mongodb://localhost:27017?socketTimeoutMS=5000&connectTimeoutMS=5000",
+                    "DatabaseName": "KissLogFrontend"
+                }
+            }
+        }
+    }
+
+.. list-table::
+   :header-rows: 1
+
+   * - KissLogFrontend.Database.Provider
+     - 
+   * - MySql
+     - Sets the KissLog.Frontend database provider to MySql.
+   * - SqlServer
+     - Sets the KissLog.Frontend provider to MS-SQL.
+   * - MongoDb
+     - Sets the KissLog.Frontend provider to MongoDb.
+
 CreateRequestLog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -170,6 +233,7 @@ CreateRequestLog
     
     {
         "CreateRequestLog": {
+            "ValidateApplicationKeys": true,
             "SaveInputStreamAsFileIfLengthGte": 5000,
             "Ignore": {},
             "Obfuscate": {},
@@ -177,6 +241,14 @@ CreateRequestLog
             "Throttle": {}
         }
     }
+
+.. list-table::
+   :header-rows: 1
+
+   * - CreateRequestLog.ValidateApplicationKeys
+   * - If true, the ``"ApplicationId"`` and ``"OrganizationId"`` are validated against existing records from the KissLog.Frontend database.
+       
+       This is useful if you want to prevent processing logs of applications which have been deleted in the KissLog.Frontend user-interface.
 
 .. list-table::
    :header-rows: 1
@@ -514,7 +586,7 @@ The time to live value can be specified in ``Days``, ``Hours`` or ``Minutes``.
         }
     }
 
-UserAgentParser
+UserAgentParserProvider
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sets the provider which is used to parse the User-Agent header and display additional information about the Browser/OS.
@@ -525,13 +597,13 @@ Sets the provider which is used to parse the User-Agent header and display addit
 .. code-block:: json
     
     {
-        "UserAgentParser": null
+        "UserAgentParserProvider": null
     }
 
 .. list-table::
    :header-rows: 1
 
-   * - UserAgentParser
+   * - UserAgentParserProvider
      - 
    * - | null
        | (recommended)
