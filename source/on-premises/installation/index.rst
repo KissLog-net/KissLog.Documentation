@@ -6,8 +6,8 @@ Installation
    :titlesonly:
    :includehidden:
 
-   azure/index
    local-server/index
+   azure/index
    docker/index
    
 

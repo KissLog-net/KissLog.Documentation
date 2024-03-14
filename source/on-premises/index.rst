@@ -24,7 +24,6 @@ Installation prerequisites
      - Run as Docker container
    * - * IIS Web server with `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed
        * `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 6.0.x)
-       * `MS-SQL Server <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>`_ or `MySQL Community Server <https://dev.mysql.com/downloads/mysql/>`_
      - * SQL Database
        * Azure Cosmos DB
        * Storage account
