@@ -64,7 +64,7 @@ This release contains significant improvements for the process of saving request
 
 **Configuration changes**
 
-Introduced :ref:`UserAgentParserProvider <on-premises/kisslog-backend/configuration/index:useragentparserprovider>` configuration property.
+Introduced :ref:`UserAgentParserProvider <on-premises/kisslog-backend/configuration:useragentparserprovider>` configuration property.
 
 .. admonition:: Update guide
 
@@ -187,7 +187,7 @@ This update comes with important improvements for Microsoft Azure hosting, reduc
 
    After updating to KissLog.Backend 4.0.0, all the existing logs and metrics will be lost. 
 
-   If you are updating an existing instance of KissLog.Backend, please update the MongoDB server to 6.0 and point to a new :ref:`DatabaseName <on-premises/kisslog-backend/configuration/index:database>`.
+   If you are updating an existing instance of KissLog.Backend, please update the MongoDB server to 6.0 and point to a new :ref:`DatabaseName <on-premises/kisslog-backend/configuration:database>`.
 
 
 **KissLog.json** changes:

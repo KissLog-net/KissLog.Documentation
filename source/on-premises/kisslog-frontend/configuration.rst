@@ -138,7 +138,7 @@ Database
    * - Database.SqlServer
    * - Required when "Database.Provider" is "SqlServer".
 
-MongoDb
+Database.MongoDb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to MongoDb database.
@@ -154,7 +154,7 @@ Configuration used to connect to MongoDb database.
         }
     }
 
-MySql
+Database.MySql
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to MySql database.
@@ -169,7 +169,7 @@ Configuration used to connect to MySql database.
         }
     }
 
-SqlServer
+Database.SqlServer
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to MS-SQL database.
@@ -225,7 +225,8 @@ Authorization
     
     {
         "Authorization": {
-            "HS256Secret": "00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000"
+            "HS256Secret": "00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000",
+            "AzureActiveDirectory": {}
         }
     }
 
@@ -239,3 +240,21 @@ Authorization
 
        More details about authentication can be found :ref:`here <on-premises/kisslog-frontend/index:authentication>`.
 
+Authorization.AzureActiveDirectory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Optional configuration used to set up Azure Active Directory authentication.
+
+More details can be found :ref:`here <on-premises/kisslog-frontend/index:Azure Active Directory>`.
+
+.. code-block:: json
+    
+    {
+        "Authorization": {
+            "AzureActiveDirectory": {
+                "ClientId": "<AD Application (client) ID>",
+                "ClientSecret": "<secret>",
+                "Authority": "https://login.microsoftonline.com/<AD Directory (tenant) ID>/v2.0/"
+            }
+        }
+    }

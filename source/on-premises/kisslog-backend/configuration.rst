@@ -89,7 +89,7 @@ Database
    * - Database.AzureCosmosDb
    * - Required true when "Database.Provider" is "AzureCosmosDb".
 
-MongoDb
+Database.MongoDb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to MongoDB server.
@@ -105,7 +105,7 @@ Configuration used to connect to MongoDB server.
         }
     }
 
-AzureCosmosDb
+Database.AzureCosmosDb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to Azure Cosmos DB service.
@@ -158,7 +158,7 @@ Files
    * - Files.Azure
    * - Required  when "Files.Provider" is "Azure"
 
-Azure
+Files.Azure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to Azure Storage account.
@@ -191,7 +191,7 @@ All the values provided here must match the same values specified in ``KissLog.F
         }
     }
 
-Database
+KissLogFrontend.Database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
@@ -248,7 +248,7 @@ CreateRequestLog
    * - CreateRequestLog.ValidateApplicationKeys
    * - If true, the ``"ApplicationId"`` and ``"OrganizationId"`` are validated against existing records from the KissLog.Frontend database.
        
-       This is useful if you want to prevent processing logs of applications which have been deleted in the KissLog.Frontend user-interface.
+       This is useful if you want to prevent processing logs from applications which have been deleted in the KissLog.Frontend user-interface, but are still running.
 
 .. list-table::
    :header-rows: 1
@@ -258,7 +258,7 @@ CreateRequestLog
        
        This helps prevent saving excesive large objects in database.
 
-Ignore
+CreateRequestLog.Ignore
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
@@ -284,7 +284,7 @@ Ignore
    * - Ignore.ResponseContentTypePatterns
    * - An array of Regex patterns used to identify requests which should be ignored based on the ``Response.Content-Type`` header.
 
-Obfuscate
+CreateRequestLog.Obfuscate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
@@ -334,7 +334,7 @@ Obfuscate
    * - Obfuscate.Patterns
    * - An array of Regex patters which are used to identify potential sensitive data.
 
-Truncate
+CreateRequestLog.Truncate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to truncate request log payloads.
@@ -406,7 +406,7 @@ Before saving to database, the request log will be truncated using the limits pr
         }
     }
 
-Throttle
+CreateRequestLog.Throttle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
@@ -592,7 +592,7 @@ UserAgentParserProvider
 Sets the provider which is used to parse the User-Agent header and display additional information about the Browser/OS.
 
 .. figure:: images/UserAgentParser.png
-    :alt: UserAgentParser
+    :alt: UserAgentParserProvider
 
 .. code-block:: json
     
@@ -615,8 +615,8 @@ Sets the provider which is used to parse the User-Agent header and display addit
 ApplicationSettings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-DeleteApplicationDataByExpiryDate
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ApplicationSettings.DeleteApplicationDataByExpiryDate
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
@@ -634,8 +634,8 @@ DeleteApplicationDataByExpiryDate
    * - DeleteApplicationDataByExpiryDate.TriggerIntervalInMinutes
    * - Specifies the interval of time in which the delete application data service is executed.
 
-ProcessQueues
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ApplicationSettings.ProcessQueues
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
@@ -660,7 +660,7 @@ ProcessQueues
    * - ProcessQueues.Take
    * - Specifies how many items from queue should be processed at the specified interval of time.
 
-ProcessAlerts
+ApplicationSettings.ProcessAlerts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
