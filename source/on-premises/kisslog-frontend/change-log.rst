@@ -5,12 +5,12 @@ Change log
    :local:
    :depth: 1
 
-KissLog.Frontend 6.0.0
+KissLog.Frontend 6.0.1
 --------------------------
 
-Release date: 11-03-2024
+Release date: 15-03-2024
 
-https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Frontend-v6.0.0
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Frontend-v6.0.1
 
 
 Improvements
@@ -36,35 +36,35 @@ Below are the braking changes in the KissLog.json file:
    :header-rows: 1
 
    * - Added $.["KissLogFrontend.BasicAuth.Password"]
-   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Frontend/KissLog.json#L6
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Frontend/KissLog.json#L6
 
 
 .. list-table::
    :header-rows: 1
 
    * - Renamed $.ApplicationName to "KissLogFrontendDomain"
-   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Frontend/KissLog.json#L2
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Frontend/KissLog.json#L2
 
 
 .. list-table::
    :header-rows: 1
 
    * - Moved $.Database.ConnectionString to $.Database.[Provider].ConnectionString
-   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Frontend/KissLog.json#L12
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Frontend/KissLog.json#L12
 
 
 .. list-table::
    :header-rows: 1
 
    * - Removed $.Smtp.From
-   * - | https://github.com/KissLog-net/KissLog-server/blob/main/KissLog.Frontend/KissLog.json#L22
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Frontend/KissLog.json#L22
 
 
 .. list-table::
    :header-rows: 1
 
    * - Moved $.UserInterface.Applications.LoadHowMany to $.UserInterface.NumberOfApplicationsToPreloadOnTheDashboardPage
-   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Frontend/KissLog.json#L30
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Frontend/KissLog.json#L30
 
 
 Database breaking changes

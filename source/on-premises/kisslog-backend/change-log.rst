@@ -5,12 +5,12 @@ Change log
    :local:
    :depth: 1
 
-KissLog.Backend 6.0.0
+KissLog.Backend 6.0.1
 --------------------------
 
-Release date: 11-03-2024
+Release date: 15-03-2024
 
-https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v6.0.0
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v6.0.1
 
 This release is part of the complete rewrite of the KissLog.Frontend application.
 
@@ -21,14 +21,14 @@ Configuration changes
    :header-rows: 1
 
    * - Added $.["KissLogFrontend.BasicAuth.Password"]
-   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L4
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L4
 
 
 .. list-table::
    :header-rows: 1
 
    * - Renamed $.UserAgentParser to "UserAgentParserProvider"
-   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L25
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L239
 
 
 .. list-table::
@@ -36,14 +36,14 @@ Configuration changes
 
    * - Added $.KissLogFrontend
    * - | This configuration object contains the database connection used by the KissLog.Frontend application.
-       | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L26
+       | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L25
 
 
 .. list-table::
    :header-rows: 1
 
    * - Added $.CreateRequestLog.ValidateApplicationKeys
-   * - | https://github.com/KissLog-net/KissLog-server/blob/c04e64455a01ce59450fc46b1bc2607b7aba0a99/KissLog.Backend/KissLog.json#L42
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L41
 
 
 Improvements
