@@ -11,29 +11,22 @@ KissLog.Frontend is a user-interface application used by developers to visualize
 
 KissLog.Frontend is generating the user-interface by consuming KissLog.Backend REST endpoints.
 
-.. figure:: images/kisslog-frontend-architecture.png
-    :alt: KissLog.Frontend arhitecture
-
-    KissLog.Frontend arhitecture
-
 Authentication
 ------------------------------
 
 KissLog.Frontend uses a JSON Web Token (JWT) for authentication.
 
-The authentication JWT must be signed with the secret provided under ``Authorization.HS256Secret`` property from the :ref:`KissLog.json <on-premises/kisslog-frontend/configuration:Authorization>` file.
+The authentication JWT must be signed with the value provided at :ref:`$.Authorization.HS256Secret <on-premises/kisslog-frontend/configuration:Authorization>` property from the KissLog.json configuration file.
 
-For the default value of "Authorization.HS256Secret" ("_ChangeThis_4H3Q935LLRG5TEPNVUYOQPRS0SXLT3ML_"), you can use the following authentication JWT:
+For the default value of ``$.Authorization.HS256Secret``, you can use the following authentication JWT:
 
 .. code-block:: none
     
-    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.FI5EFsgHo6MvkU7UXyu0wK6ZfpKA3y2vlVfmwFNEyMc@your.name
-
-Authenticated user name can be specified in one of the following options:
-
-- at the end of the JWT using ``token@username``
-
-- in the JWT payload using any of these properties: "emailAddress", "email", "name", "username", "user"
+    # $.Authorization.HS256Secret:
+    # 00000000-0000-0000-0000-000000000000-00000000-0000-0000-0000-000000000000
+    
+    # Authentication token:
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.HP79qro7bvfH7BneUy5jB9Owc_5D2UavFDulRETAl9E
 
 Creating the JWT
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -46,21 +39,44 @@ The authentication JWT can be created programmatically or online (using https://
 .. figure:: images/kisslog-frontend-login.png
     :alt: KissLog.Frontend login page
 
-Tips
+
+User name
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can automate the login process by specifying the JWT as a query string parameter: `/OnPremiseAuth/Login?token={JWT}`.
+Authenticated user name is used for display purposes only, and it can be specified in one of the following options:
 
-For example, you can bookmark this URL and, once accessed, KissLog will automatically login the user using the bookmarked token.
+- at the end of the JWT, appended as ``@user_name``
 
 .. code-block:: none
     
-    http://kisslog.myapp.com/OnPremiseAuth/Login?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.FI5EFsgHo6MvkU7UXyu0wK6ZfpKA3y2vlVfmwFNEyMc@your.name
+    # Authentication token:
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.HP79qro7bvfH7BneUy5jB9Owc_5D2UavFDulRETAl9E@user_name
 
-Related resources
-------------------
+- in the JWT payload using any of these claims: "emailAddress", "email", "preferred_username", "name"
+
+Auto-login
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can automate the login process by directly passing the Authentication token in the login url, using the `token=value` query string parameter.
+
+.. code-block:: none
+    
+    # Authentication url:
+    http://localhost:44080/Auth/Login?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.HP79qro7bvfH7BneUy5jB9Owc_5D2UavFDulRETAl9E
+
+Bookmarking this url will allow for a faster login process.
+
+Azure Active Directory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If :ref:`$.Authorization.AzureActiveDirectory <on-premises/kisslog-frontend/configuration:Authorization.AzureActiveDirectory>` is configured, you can login using the Azure Active Directory OAuth flow.
+
+.. figure:: images/kisslog-frontend-azureActiveDirectory-login.png
+    :alt: KissLog.Frontend Azure Active Directory login option
+
 
 .. toctree::
+   :hidden: 
    :maxdepth: 2
    :titlesonly:
    :includehidden:

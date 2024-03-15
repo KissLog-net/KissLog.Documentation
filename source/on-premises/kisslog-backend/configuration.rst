@@ -13,12 +13,23 @@ KissLogBackend.BasicAuth.Password
 
 The Basic HTTP authentication scheme password used to connect to KissLog.Backend application.
 
+.. code-block:: json
+    
+    {
+        "KissLogBackend.BasicAuth.Password": "_KissLogBackend_authorization_password_"
+    }
+
+KissLogFrontend.BasicAuth.Password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Basic HTTP authentication scheme password used to connect to KissLog.KissLogFrontend application.
+
 This property should have the same value as the same property from ``KissLog.Frontend\Configuration\KissLog.json``.
 
 .. code-block:: json
     
     {
-        "KissLogBackend.BasicAuth.Password": "_This_Password_Should_Be_Replaced_"
+        "KissLogFrontend.BasicAuth.Password": "_KissLogFrontend_authorization_password_"
     }
 
 KissLogBackendUrl
@@ -78,7 +89,7 @@ Database
    * - Database.AzureCosmosDb
    * - Required true when "Database.Provider" is "AzureCosmosDb".
 
-MongoDb
+Database.MongoDb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to MongoDB server.
@@ -94,7 +105,7 @@ Configuration used to connect to MongoDB server.
         }
     }
 
-AzureCosmosDb
+Database.AzureCosmosDb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to Azure Cosmos DB service.
@@ -147,7 +158,7 @@ Files
    * - Files.Azure
    * - Required  when "Files.Provider" is "Azure"
 
-Azure
+Files.Azure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to connect to Azure Storage account.
@@ -163,6 +174,58 @@ Configuration used to connect to Azure Storage account.
     }
 
 
+KissLogFrontend
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Configuration specific to KissLog.Frontend application.
+
+For better performance, KissLog.Backend connects directly to the KissLog.Frontend database.
+
+All the values provided here must match the same values specified in ``KissLog.Frontend\Configuration\KissLog.json``.
+
+.. code-block:: json
+    
+    {
+        "KissLogFrontend": {
+            "Database": {}
+        }
+    }
+
+KissLogFrontend.Database
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+    
+    {
+        "KissLogFrontend": {
+            "Database": {
+                "Provider": "MongoDb",
+                "MySql": {
+                    "ConnectionString": "server=localhost;port=3306;database=KissLogFrontend;uid=<replace_user>;password=<replace_password>;Charset=utf8;"
+                },
+                "SqlServer": {
+                    "ConnectionString": "Server=localhost;Database=KissLogFrontend;User ID=<replace_user>;Password=<replace_password>;TrustServerCertificate=True;"
+                },
+                "MongoDb": {
+                    "ConnectionString": "mongodb://localhost:27017?socketTimeoutMS=5000&connectTimeoutMS=5000",
+                    "DatabaseName": "KissLogFrontend"
+                }
+            }
+        }
+    }
+
+.. list-table::
+   :header-rows: 1
+
+   * - KissLogFrontend.Database.Provider
+     - 
+   * - MySql
+     - Sets the KissLog.Frontend database provider to MySql.
+   * - SqlServer
+     - Sets the KissLog.Frontend provider to MS-SQL.
+   * - MongoDb
+     - Sets the KissLog.Frontend provider to MongoDb.
+
 CreateRequestLog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -170,6 +233,7 @@ CreateRequestLog
     
     {
         "CreateRequestLog": {
+            "ValidateApplicationKeys": true,
             "SaveInputStreamAsFileIfLengthGte": 5000,
             "Ignore": {},
             "Obfuscate": {},
@@ -181,12 +245,20 @@ CreateRequestLog
 .. list-table::
    :header-rows: 1
 
+   * - CreateRequestLog.ValidateApplicationKeys
+   * - If true, the ``"ApplicationId"`` and ``"OrganizationId"`` are validated against existing records from the KissLog.Frontend database.
+       
+       This is useful if you want to prevent processing logs from applications which have been deleted in the KissLog.Frontend user-interface, but are still running.
+
+.. list-table::
+   :header-rows: 1
+
    * - CreateRequestLog.SaveInputStreamAsFileIfLengthGte
    * - If Request.InputStream content exceeds the length defined here, the value will be saved as a blob file.
        
        This helps prevent saving excesive large objects in database.
 
-Ignore
+CreateRequestLog.Ignore
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
@@ -212,7 +284,7 @@ Ignore
    * - Ignore.ResponseContentTypePatterns
    * - An array of Regex patterns used to identify requests which should be ignored based on the ``Response.Content-Type`` header.
 
-Obfuscate
+CreateRequestLog.Obfuscate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
@@ -262,7 +334,7 @@ Obfuscate
    * - Obfuscate.Patterns
    * - An array of Regex patters which are used to identify potential sensitive data.
 
-Truncate
+CreateRequestLog.Truncate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configuration used to truncate request log payloads.
@@ -334,7 +406,7 @@ Before saving to database, the request log will be truncated using the limits pr
         }
     }
 
-Throttle
+CreateRequestLog.Throttle
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
@@ -514,24 +586,24 @@ The time to live value can be specified in ``Days``, ``Hours`` or ``Minutes``.
         }
     }
 
-UserAgentParser
+UserAgentParserProvider
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sets the provider which is used to parse the User-Agent header and display additional information about the Browser/OS.
 
-.. figure:: ../images/UserAgentParser.png
-    :alt: UserAgentParser
+.. figure:: images/UserAgentParser.png
+    :alt: UserAgentParserProvider
 
 .. code-block:: json
     
     {
-        "UserAgentParser": null
+        "UserAgentParserProvider": null
     }
 
 .. list-table::
    :header-rows: 1
 
-   * - UserAgentParser
+   * - UserAgentParserProvider
      - 
    * - | null
        | (recommended)
@@ -543,8 +615,8 @@ Sets the provider which is used to parse the User-Agent header and display addit
 ApplicationSettings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-DeleteApplicationDataByExpiryDate
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ApplicationSettings.DeleteApplicationDataByExpiryDate
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
@@ -562,8 +634,8 @@ DeleteApplicationDataByExpiryDate
    * - DeleteApplicationDataByExpiryDate.TriggerIntervalInMinutes
    * - Specifies the interval of time in which the delete application data service is executed.
 
-ProcessQueues
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ApplicationSettings.ProcessQueues
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json
     
@@ -588,7 +660,7 @@ ProcessQueues
    * - ProcessQueues.Take
    * - Specifies how many items from queue should be processed at the specified interval of time.
 
-ProcessAlerts
+ApplicationSettings.ProcessAlerts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: json

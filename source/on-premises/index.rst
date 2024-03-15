@@ -16,45 +16,28 @@ Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server 
 Installation prerequisites
 ------------------------------
 
-.. list-table::
-   :header-rows: 1
-
-   * - Local server
-     - Azure hosting
-     - Run as Docker container
-   * - * IIS Web server with `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed
-       * `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 6.0.x)
-       * `MS-SQL Server <https://www.microsoft.com/en-us/sql-server/sql-server-downloads>`_ or `MySQL Community Server <https://dev.mysql.com/downloads/mysql/>`_
-     - * SQL Database
-       * Azure Cosmos DB
-       * Storage account
-       * 2x App Services
-       
-     - `Docker Engine <https://docs.docker.com/engine/>`_
-   
-
-Arhitecture
-------------------------
-
-KissLog Backend
+Local server
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-KissLog.Backend is the application responsible for saving the logs, exceptions and all other data aggregates.
+- IIS Web server with `ASP.NET Core Runtime 6 <https://dotnet.microsoft.com/en-us/download/dotnet/6.0>`_ installed
+- `MongoDB Community Server <https://www.mongodb.com/try/download/community>`_ (version >= 6.0.x)
 
-Consumer applications (the applications you develop) are sending the logs to KissLog.Backend using HTTP requests.
-
-KissLog Frontend
+Microsoft Azure
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-KissLog.Frontend represents the user-interface application where users (developers, business analysts, QA testers, application managers) can visualize the captured logs, exceptions and other metrics data.
+- SQL Database
+- Azure Cosmos DB
+- Storage account
+- 2x App Services
 
-.. figure:: images/kissLog-architecture.png
-    :alt: KissLog arhitecture
+Docker
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Table of Contents
-------------------
+- `Docker Engine <https://docs.docker.com/engine/>`_
+
 
 .. toctree::
+   :hidden: 
    :maxdepth: 2
    :titlesonly:
    :includehidden:

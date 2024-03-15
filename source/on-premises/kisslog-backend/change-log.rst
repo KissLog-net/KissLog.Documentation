@@ -1,6 +1,58 @@
 Change log
 ===============
 
+.. contents:: Versions
+   :local:
+   :depth: 1
+
+KissLog.Backend 6.0.1
+--------------------------
+
+Release date: 15-03-2024
+
+https://github.com/KissLog-net/KissLog-server/releases/tag/KissLog.Backend-v6.0.1
+
+This release is part of the complete rewrite of the KissLog.Frontend application.
+
+Configuration changes
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Added $.["KissLogFrontend.BasicAuth.Password"]
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L4
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - Renamed $.UserAgentParser to "UserAgentParserProvider"
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L239
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - Added $.KissLogFrontend
+   * - | This configuration object contains the database connection used by the KissLog.Frontend application.
+       | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L25
+
+
+.. list-table::
+   :header-rows: 1
+
+   * - Added $.CreateRequestLog.ValidateApplicationKeys
+   * - | https://github.com/KissLog-net/KissLog-server/blob/bcc1eb0be8afea1f6389664a6c7e59e8ac13b872/KissLog.Backend/KissLog.json#L41
+
+
+Improvements
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- Implemented ``POST /request-logs`` endpoint which can be used to manually create logs.
+
+- KissLog.Backend now connects to KissLog.Frontend database directly.
+
 KissLog.Backend 5.4.0
 --------------------------
 
@@ -12,7 +64,7 @@ This release contains significant improvements for the process of saving request
 
 **Configuration changes**
 
-Introduced :ref:`UserAgentParser <on-premises/kisslog-backend/configuration/index:useragentparser>` configuration property.
+Introduced :ref:`UserAgentParserProvider <on-premises/kisslog-backend/configuration:useragentparserprovider>` configuration property.
 
 .. admonition:: Update guide
 
@@ -135,7 +187,7 @@ This update comes with important improvements for Microsoft Azure hosting, reduc
 
    After updating to KissLog.Backend 4.0.0, all the existing logs and metrics will be lost. 
 
-   If you are updating an existing instance of KissLog.Backend, please update the MongoDB server to 6.0 and point to a new :ref:`DatabaseName <on-premises/kisslog-backend/configuration/index:database>`.
+   If you are updating an existing instance of KissLog.Backend, please update the MongoDB server to 6.0 and point to a new :ref:`DatabaseName <on-premises/kisslog-backend/configuration:database>`.
 
 
 **KissLog.json** changes:
