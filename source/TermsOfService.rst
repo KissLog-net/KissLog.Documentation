@@ -1,9 +1,9 @@
 Terms of Service
 ==========================================
 
-Last updated: February 10, 2021
+Last updated: April 01, 2024
 
-These Terms of Service ("Terms", "Terms of Service") govern your relationship with https://kisslog.net website (the "Service", "Site", "KissLog") operated by KISS Software SRL ("us", "we", or "our").
+These Terms of Service ("Terms", "Terms of Service") govern your relationship with https://logBee.net website (the "Service", "Site", "logBee") operated by KISS Software SRL ("us", "we", or "our").
 
 If you do not agree with any term or condition set forth below, you are not authorized to use the Service for any purpose.
 
@@ -14,27 +14,27 @@ Accounts
 
 2. You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service.
 
-3. You understand that KissLog reserves the right to implement fair use rate limiting based on your volume of data.
+3. You understand that logBee reserves the right to implement fair use rate limiting based on your volume of data.
 
 4. You authorise KISS Software employees the right to access your account information to provide necessary support and administration services.
 
 Logging and tracing data
 ------------------------------------------
 
-1. KissLog stores the data you provide (logs, errors and tracing information) on a secured server hosted in Bucharest, Romania.
+1. logBee stores the data you provide (logs, errors and tracing information) on a secured server hosted in Bucharest, Romania.
 
 2. We do not share or disclosure any of your logging information, unless there is a legal obligation to do so imposed by relevant government agencies.
 
 3. We do not sell or rent your logging information to anyone.
 
-4. You have full control over the data you wish to send to KissLog for processing. You may unintentionally send information from your application to our Service that includes sensitive data. If you wish to remove specific information from being sent within logs, error or crash reports, we provide the means to do so at a code level.
+4. You have full control over the data you wish to send to logBee for processing. You may unintentionally send information from your application to our Service that includes sensitive data. If you wish to remove specific information from being sent within logs, error or crash reports, we provide the means to do so at a code level.
 
 Disclaimer
 ------------------------------------------
 
 1. Your use of the Service is at your sole risk. The Service is provided on an "AS IS" and "AS AVAILABLE" basis. The Service is provided without warranties of any kind, whether express or implied.
 
-2. The Site or Service may be temporarily unavailable from time to time for maintenance or other reasons. KissLog assumes no responsibility for any error, omission, interruption, deletion, defect, delay in operation or transmission, communications line failure, theft or destruction or unauthorized access to, or alteration of, user communications.
+2. The Site or Service may be temporarily unavailable from time to time for maintenance or other reasons. logBee assumes no responsibility for any error, omission, interruption, deletion, defect, delay in operation or transmission, communications line failure, theft or destruction or unauthorized access to, or alteration of, user communications.
 
 3. We maintain reasonable administrative, physical and technical measures to protect the confidentiality and security of your information. Unfortunately, no website is completely secure. Therefore, we cannot guarantee that your information will not be disclosed, misused or lost by accident or by the unauthorized acts of others.
 
