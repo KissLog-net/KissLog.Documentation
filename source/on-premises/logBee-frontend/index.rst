@@ -1,4 +1,4 @@
-KissLog.Frontend
+logBee.Frontend
 =================================
 
 .. contents:: Table of contents
@@ -7,16 +7,16 @@ KissLog.Frontend
 About
 ------------------------------
 
-KissLog.Frontend is a user-interface application used by developers to visualize the captured errors, logs and other metrics data.
+logBee.Frontend is a user-interface application used by developers to visualize the captured errors, logs and other metrics data.
 
-KissLog.Frontend is generating the user-interface by consuming KissLog.Backend REST endpoints.
+logBee.Frontend is generating the user-interface by consuming logBee.Backend REST endpoints.
 
 Authentication
 ------------------------------
 
-KissLog.Frontend uses a JSON Web Token (JWT) for authentication.
+logBee.Frontend uses a JSON Web Token (JWT) for authentication.
 
-The authentication JWT must be signed with the value provided at :ref:`$.Authorization.HS256Secret <on-premises/kisslog-frontend/configuration:Authorization>` property from the KissLog.json configuration file.
+The authentication JWT must be signed with the value provided at :ref:`$.Authorization.HS256Secret <on-premises/logbee-frontend/configuration:Authorization>` property from the KissLog.json configuration file.
 
 For the default value of ``$.Authorization.HS256Secret``, you can use the following authentication JWT:
 
@@ -37,7 +37,7 @@ The authentication JWT can be created programmatically or online (using https://
     :alt: Generating authentication JWT
 
 .. figure:: images/kisslog-frontend-login.png
-    :alt: KissLog.Frontend login page
+    :alt: logBee.Frontend login page
 
 
 User name
@@ -69,10 +69,10 @@ Bookmarking this url will allow for a faster login process.
 Azure Active Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If :ref:`$.Authorization.AzureActiveDirectory <on-premises/kisslog-frontend/configuration:Authorization.AzureActiveDirectory>` is configured, you can login using the Azure Active Directory OAuth flow.
+If :ref:`$.Authorization.AzureActiveDirectory <on-premises/logbee-frontend/configuration:Authorization.AzureActiveDirectory>` is configured, you can login using the Azure Active Directory OAuth flow.
 
 .. figure:: images/kisslog-frontend-azureActiveDirectory-login.png
-    :alt: KissLog.Frontend Azure Active Directory login option
+    :alt: logBee.Frontend Azure Active Directory login option
 
 
 .. toctree::

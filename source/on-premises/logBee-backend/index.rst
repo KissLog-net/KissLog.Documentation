@@ -1,4 +1,4 @@
-KissLog.Backend
+logBee.Backend
 =================================
 
 .. contents:: Table of contents
@@ -7,9 +7,9 @@ KissLog.Backend
 About
 ------------------------------
 
-KissLog.Backend application is responsible for saving and centralizing the logs and other metrics.
+logBee.Backend application is responsible for saving and centralizing the logs and other metrics.
 
-KissLog.Backend exposes REST endpoints which can be used to save and to query the data.
+logBee.Backend exposes REST endpoints which can be used to save and to query the data.
 
 .. code-block:: none
    :caption: Creating a request by consuming the REST endpoint:

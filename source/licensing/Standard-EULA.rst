@@ -3,7 +3,7 @@ Standard EULA
 
 This is a perpetual license which allows you to continue to use the extension indefinitely. There is no requirement to pay again to continue using the extension.
 
-This license is a legal agreement (the "Agreement") between KISS Software SRL ("We", "Us", "Vendor") and you or the organization on whose behalf you are entering into this Agreement ("You"), and describes the terms and conditions for using KissLog on-premiess ("Software", "KissLog").
+This license is a legal agreement (the "Agreement") between KISS Software SRL ("We", "Us", "Vendor") and you or the organization on whose behalf you are entering into this Agreement ("You"), and describes the terms and conditions for using logBee on-premiess ("Software", "logBee").
 
 By downloading, installing, copying or otherwise using the Software, you accept the following terms and conditions.
 If you do not agree with any of the terms or conditions of the license agreement, do not proceed with downloading, copying, installing or any other use of the Software or Software components.
@@ -11,7 +11,7 @@ If you do not agree with any of the terms or conditions of the license agreement
 Terms and Definitions
 ----------------------------------------
 
-"Software", "KissLog" refers to the KissLog application and all the related components, including but not limited to web components (JavaScript, CSS, images), modules, source code (if available), documentation etc.
+"Software", "logBee" refers to the logBee application and all the related components, including but not limited to web components (JavaScript, CSS, images), modules, source code (if available), documentation etc.
 
 "License" means the right provided by Us allowing You to use the Software.
 
@@ -80,7 +80,7 @@ For a period of 12 months starting from the initiation of the contract, We might
 8. Refund Policy
 ----------------------------------------
 
-KissLog values any feedback from the customers and does everything to fix all possible issues. However, we have no refund policy on our Software. We do this because we offer free, fully functional Trial version of the Software which can be used for the purpose of testing the Software.
+logBee values any feedback from the customers and does everything to fix all possible issues. However, we have no refund policy on our Software. We do this because we offer free, fully functional Trial version of the Software which can be used for the purpose of testing the Software.
 
 9. Verification
 ----------------------------------------
@@ -90,7 +90,7 @@ We or a certified auditor acting on Our behalf, may, upon its reasonable request
 10. Third Party Software
 ----------------------------------------
 
-The Software contains third party open-source software which requires notices and/or additional terms and conditions. Such required third party software notices and/or additional terms and conditions are available at https://kisslog.net/Overview/Third-Party-Licenses, and are part of this Agreement. By accepting this Agreement, you are also accepting the additional terms and conditions, if any, set forth therein.
+The Software contains third party open-source software which requires notices and/or additional terms and conditions. Such required third party software notices and/or additional terms and conditions are available at https://logBee.net/Docs/licensing.Third-Party-Licenses.html, and are part of this Agreement. By accepting this Agreement, you are also accepting the additional terms and conditions, if any, set forth therein.
 
 11. Miscellaneous
 ----------------------------------------

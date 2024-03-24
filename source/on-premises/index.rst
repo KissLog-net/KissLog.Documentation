@@ -1,15 +1,15 @@
-KissLog on-premises
+logBee on-premises
 ======================
 
-KissLog server can be installed on-premises.
+logBee server can be installed on-premises.
 
-Hosting KissLog server locally, all the logs will be stored and accessible only from within your in-house servers.
+Hosting logBee server locally, all the logs will be stored and accessible only from within your in-house servers.
 
 Artifacts
 ------------------------
 
-- KissLog.Backend-{version}-{platform}.zip
-- KissLog.Frontend-{version}-{platform}.zip
+- logBee.Backend-{version}-{platform}.zip
+- logBee.Frontend-{version}-{platform}.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server>`_.
 
@@ -43,6 +43,6 @@ Docker
    :includehidden:
 
    installation/index
-   kisslog-frontend/index
-   kisslog-backend/index
+   logBee-frontend/index
+   logBee-backend/index
 
