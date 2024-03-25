@@ -10,8 +10,8 @@ Prerequisites
 Artifacts
 ~~~~~~~~~~~~~~~~~~~~~
 
-- KissLog.Backend-{version}-win-x64.zip
-- KissLog.Frontend-{version}-win-x64.zip
+- logBee.Backend-{version}-win-x64.zip
+- logBee.Frontend-{version}-win-x64.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server>`_.
 
@@ -126,13 +126,13 @@ Make sure you update the configuration values, respectively the "OrganizationId"
 .. code-block:: csharp
 
     KissLogConfiguration.Listeners
-        .Add(new RequestLogsApiListener(new Application(Configuration["KissLog.OrganizationId"], Configuration["KissLog.ApplicationId"]))
+        .Add(new RequestLogsApiListener(new Application(Configuration["LogBee.OrganizationId"], Configuration["LogBee.ApplicationId"]))
         {
             ApiUrl = "http://logBee-backend.your_domain.com"
         });
 
-.. figure:: images/installation-guide/kisslog-frontend-request.png
-    :alt: KissLog Frontend request
+.. figure:: images/installation-guide/logBee.Frontend-request.png
+    :alt: logBee.Frontend request
 
 Troubleshooting
 -------------------------------------------------------

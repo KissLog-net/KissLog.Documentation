@@ -36,7 +36,7 @@ The authentication JWT can be created programmatically or online (using https://
 .. figure:: images/generating-authentication-jwt.png
     :alt: Generating authentication JWT
 
-.. figure:: images/kisslog-frontend-login.png
+.. figure:: images/logBee.Frontend-login.png
     :alt: logBee.Frontend login page
 
 
@@ -71,7 +71,7 @@ Azure Active Directory
 
 If :ref:`$.Authorization.AzureActiveDirectory <on-premises/logbee-frontend/configuration:Authorization.AzureActiveDirectory>` is configured, you can login using the Azure Active Directory OAuth flow.
 
-.. figure:: images/kisslog-frontend-azureActiveDirectory-login.png
+.. figure:: images/logBee.Frontend-azureActiveDirectory-login.png
     :alt: logBee.Frontend Azure Active Directory login option
 
 
