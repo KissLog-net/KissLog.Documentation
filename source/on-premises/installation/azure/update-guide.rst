@@ -10,15 +10,15 @@ Prerequisites
 Artifacts
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- KissLog.Backend-{version}-linux-x64.zip
-- KissLog.Frontend-{version}-linux-x64.zip
+- logBee.Backend-{version}-linux-x64.zip
+- logBee.Frontend-{version}-linux-x64.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server>`_.
 
 Update the applications
 -------------------------------------------------------
 
-Repeat the steps below for both of the App Services. Start with KissLog.Backend followed by KissLog.Frontend.
+Repeat the steps below for both of the App Services. Start with logBee.Backend followed by logBee.Frontend.
 
 1. Download the existing configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,7 +27,7 @@ Navigate on the App Service overview page. On the left menu under "Development T
 
 Once on the Kudu service, navigate to the application files by clicking on "Site wwwroot" link.
 
-The configuration file is located under ``Configuration/KissLog.json``. Copy this file locally.
+The configuration file is located under ``Configuration/logBee.json``. Copy this file locally.
 
 .. figure:: images/update-guide/kisslog-backend-kudu-service.png
     :alt: Kudu Service
@@ -38,30 +38,28 @@ The configuration file is located under ``Configuration/KissLog.json``. Copy thi
 2. Update the configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Apply the configuration changes (if any) by updating KissLog.json file.
+Apply the configuration changes (if any) by updating logBee.json file.
 
-The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-backend/change-log>`.
+The configuration changes will be listed in the :doc:`change log </on-premises/logBee-backend/change-log>`.
 
 3. Prepare the artifacts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Download the KissLog server package from `here <https://kisslog.net/Overview/OnPremises>`_.
+Extract the LogBee server artifact archive in a folder. Then, extract both of the resulting archives in two separate folders: `logBee.Backend` and `logBee.Frontend`.
 
-Extract the archive in a folder. Then, extract both of the resulting archives in two separate folders: `KissLog.Backend` and `KissLog.Frontend`.
+Replace the ``logBee.Backend\Configuration\logBee.json`` with the existing configuration file.
 
-Replace the ``KissLog.Backend\Configuration\KissLog.json`` with the existing configuration file.
-
-Create a ``zip`` archive with the contents of the `KissLog.Backend` folder.
+Create a ``zip`` archive with the contents of the `logBee.Backend` folder.
 
 4. Upload the new code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Make sure the App Service is stopped before uploading the new code.
 
-Navigate to KissLog.Backend App Service. On top right, click on "Download publish profile" button. Open the downloaded file and copy the ``userName`` and the ``userPWD``.
+Navigate to logBee.Backend App Service. On top right, click on "Download publish profile" button. Open the downloaded file and copy the ``userName`` and the ``userPWD``.
 
 .. figure:: images/installation-guide/publish-profile.png
-    :alt: KissLog Backend artifact
+    :alt: logBee.Backend artifact
 
 | To deploy the application, send a POST request to :samp:`https://<app_name>.scm.azurewebsites.net/api/zipdeploy`.
 | The POST request must contain the .zip file in the message body.
@@ -69,7 +67,7 @@ Navigate to KissLog.Backend App Service. On top right, click on "Download publis
 
 .. code-block:: none
 
-   curl -X POST -u $kisslog-backend-code:{password} --data-binary @"<zip_file_path>" https://kisslog-backend-code.scm.azurewebsites.net/api/zipdeploy
+   curl -X POST -u $logBee-backend:{password} --data-binary @"<zip_file_path>" https://logBee-backend.scm.azurewebsites.net/api/zipdeploy
 
 If the update was successful, you will receive a ``200 OK`` response status code.
 
@@ -79,22 +77,22 @@ The new code can also be deployed with Postman.
     :alt: Postman Authorization
 
 .. figure:: images/installation-guide/postman-zipdeploy-response.png
-    :alt: Uploading KissLog.Backend code
+    :alt: Uploading logBee.Backend code
 
-5. Run the KissLog.Backend App Service
+5. Run the logBee.Backend App Service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After KissLog.Backend App Service has been updated, start the App Service then browse to the application URL.
+After logBee.Backend App Service has been updated, start the App Service then browse to the application URL.
 
-If everything went successful, you will see the KissLog.Backend home page.
+If everything went successful, you will see the logBee.Backend home page.
 
 .. note::
    | The initial startup is time consuming and can take up to a few minutes.
 
 .. figure:: images/installation-guide/kisslog-backend-running.png
-    :alt: KissLog Backend home page
+    :alt: logBee.Backend home page
 
-6. Repeat the steps above for KissLog.Frontend
+6. Repeat the steps above for logBee.Frontend
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Repeat the steps above for the KissLog.Frontend App Service, starting with step 1.
+Repeat the steps above for the logBee.Frontend App Service, starting with step 1.

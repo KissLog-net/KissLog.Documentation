@@ -4,9 +4,9 @@ Troubleshooting
 .. contents:: Table of contents
    :local:
 
-Some of the common reasons for which the KissLog server can fail to run include:
+Some of the common reasons for which the logBee server can fail to run include:
 
-- ``Configuration\KissLog.json`` configuration errors
+- ``Configuration\logBee.json`` configuration errors
 - Services connectivity errors (such as SQL, Azure Cosmos DB, Storage accounts)
 - SQL permissions errors
 
@@ -41,7 +41,7 @@ Once on the Kudu service, navigate to the application files by clicking on "Site
     :alt: Application logs folder
 
 .. figure:: images/troubleshooting/kisslog-backend-application-logs.png
-    :alt: KissLog.Backend application logs
+    :alt: logBee.Backend application logs
 
 Need help?
 -------------------------------------------------------
