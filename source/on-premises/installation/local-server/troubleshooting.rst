@@ -4,9 +4,9 @@ Troubleshooting
 .. contents:: Table of contents
    :local:
 
-Some of the common reasons for which the KissLog server can fail to run include:
+Some of the common reasons for which the logBee server can fail to run include:
 
-- ``Configuration\KissLog.json`` configuration errors
+- ``Configuration\logBee.json`` configuration errors
 - Services connectivity errors (such as SQL or MongoDB)
 - SQL permissions errors
 
@@ -15,8 +15,8 @@ Application logs
 
 Both IIS applications save their internal logs under the \\logs folder. Here should be the first place to check.
 
-* C:\\inetpub\\wwwroot\\KissLog.Backend\\logs
-* C:\\inetpub\\wwwroot\\KissLog.Frontend\\logs
+* C:\\inetpub\\wwwroot\\logBee.Backend\\logs
+* C:\\inetpub\\wwwroot\\logBee.Frontend\\logs
 
 Need help?
 -------------------------------------------------------

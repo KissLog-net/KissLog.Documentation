@@ -10,8 +10,8 @@ Prerequisites
 Artifacts
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- KissLog.Backend-{version}-linux-x64.zip
-- KissLog.Frontend-{version}-linux-x64.zip
+- logBee.Backend-{version}-linux-x64.zip
+- logBee.Frontend-{version}-linux-x64.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server>`_.
 
@@ -29,7 +29,7 @@ Installation
 SQL Database
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-KissLog server does not use SQL intensively. The Basic or Standard tier should be enough to start with. If necessary, you can always upgrade it later.
+logBee server does not use SQL intensively. The Basic or Standard tier should be enough to start with. If necessary, you can always upgrade it later.
 
 If you already have an SQL server, you can skip this step.
 
@@ -74,7 +74,7 @@ Most of the properties remain as default. We will mention the important changes.
    * - Basics
      - 
    * - Database name
-     - kisslog-frontend *(or any value)*
+     - logBee-frontend *(or any value)*
    * - Server
      - *<the server created at the previous step>*
    * - Want to use SQL elastic pool?
@@ -90,7 +90,7 @@ Most of the properties remain as default. We will mention the important changes.
 Azure Cosmos DB
 ~~~~~~~~~~~~~~~~~~~~~
 
-KissLog server uses Azure Cosmos DB very intensively. The minimum throughput used by the KissLog server (calculated in RU/s) highly depends on the frequency and volume of data you save.
+logBee server uses Azure Cosmos DB very intensively. The minimum throughput used by the logBee server (calculated in RU/s) highly depends on the frequency and volume of data you save.
 
 The cost of the Azure Cosmos DB service is influenced by the throughput (RU/s) and by the number of replicas used.
 
@@ -104,7 +104,7 @@ Create an Azure Cosmos DB account. Select **Azure Cosmos DB for NoSQL**.
    * - Basics
      - 
    * - Account Name
-     - kisslog-database-nosql *(or any value)*
+     - logBee-database-nosql *(or any value)*
    * - Location
      - (Europe) West Europe *<or any appropriate value>*
    * - Capacity mode
@@ -157,7 +157,7 @@ Create an Azure Cosmos DB account. Select **Azure Cosmos DB for NoSQL**.
 Storage account
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-KissLog server uses Azure storage account for saving blob files and for reducing the workload of Azure Cosmos DB.
+logBee server uses Azure storage account for saving blob files and for reducing the workload of Azure Cosmos DB.
 
 1. Create Storage account
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -168,7 +168,7 @@ KissLog server uses Azure storage account for saving blob files and for reducing
    * - Basics
      - 
    * - Storage account Name
-     - kisslogstorage *(or any value)*
+     - logbeestorage *(or any value)*
    * - Region
      - (Europe) West Europe *<or any appropriate value>*
    * - Performance
@@ -282,28 +282,28 @@ On the newly created Storage account dashboard, select the "Lifecycle management
 App Services
 ~~~~~~~~~~~~~~~~~~~~~
 
-KissLog server uses 2 App Services, one for KissLog.Backend application and the second for KissLog.Frontend application.
+logBee server uses 2 App Services, one for logBee.Backend application and the second for logBee.Frontend application.
 
-KissLog.Backend application is responsible for processing and saving all the logs to Azure Cosmos DB.
+logBee.Backend application is responsible for processing and saving all the logs to Azure Cosmos DB.
 This application is CPU intensive (used for serializing/deserialzing the Azure Cosmos DB records), and uses the RAM memory for the internal queuing system.
 
-KissLog.Frontend application is lightweight and is only responsible for displaying the user-interface.
+logBee.Frontend application is lightweight and is only responsible for displaying the user-interface.
 
 In this tutorial we will use for both of the App Services the Free pricing plan.
 However, for a reliable performance and user-experience, you should scale up the App Service plans matching your usage needs. 
 
 .. note::
-   Hotizontal scaling is not currently supported by KissLog server.
+   Hotizontal scaling is not currently supported by logBee server.
 
-   Both KissLog.Backend and KissLog.Frontend applications must each be deployed to a single instace.
+   Both logBee.Backend and logBee.Frontend applications must each be deployed to a single instace.
 
 Create App Services
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We will create two App Services, both with the same configurations:
 
-* kisslog-backend-code
-* kisslog-frontend-code
+* logBee-backend
+* logBee-frontend
 
 .. list-table::
    :header-rows: 1
@@ -311,7 +311,7 @@ We will create two App Services, both with the same configurations:
    * - Basics
      - 
    * - Name
-     - kisslog-backend-code *(or any value)*
+     - logBee-backend *(or any value)*
    * - Publish
      - Code
    * - Runtime stack
@@ -360,14 +360,12 @@ Initial deployment
 1. Prepare the artifacts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Download the KissLog server package from `here <https://kisslog.net/Overview/OnPremises>`_.
+Extract the logBee server artifact archive in a folder. Then, extract both of the resulting archives in two separate folders: `logBee.Backend` and `logBee.Frontend`.
 
-Extract the archive in a folder. Then, extract both of the resulting archives in two separate folders: `KissLog.Backend` and `KissLog.Frontend`.
-
-Update KissLog.Backend configuration
+Update logBee.Backend configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the `KissLog.Backend` folder, open the configuration file located under ``Configuration\KissLog.json`` and update the following properties:
+In the `logBee.Backend` folder, open the configuration file located under ``Configuration\logBee.json`` and update the following properties:
 
 .. list-table::
    :header-rows: 1
@@ -376,11 +374,11 @@ In the `KissLog.Backend` folder, open the configuration file located under ``Con
      - Value
      - Notes
    * - KissLogBackendUrl
-     - https://kisslog-backend-code.azurewebsites.net
-     - "URL" from the `kisslog-backend-code` App Service
+     - https://logBee-backend.azurewebsites.net
+     - "URL" from the `logBee-backend` App Service
    * - KissLogFrontendUrl
-     - https://kisslog-frontend-code.azurewebsites.net
-     - "URL" from the `kisslog-frontend-code` App Service
+     - https://logBee-frontend.azurewebsites.net
+     - "URL" from the `logBee-frontend` App Service
    * - Database.Provider
      - AzureCosmosDb
      - 
@@ -397,10 +395,10 @@ In the `KissLog.Backend` folder, open the configuration file located under ``Con
      - DefaultEndpointsProtocol=https;AccountName=xxx;AccountKey=xxx;EndpointSuffix=core.windows.net
      - "Connection string" from the Storage account, "Access keys" section
 
-Update KissLog.Frontend configuration
+Update logBee.Frontend configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the `KissLog.Frontend` folder, open the configuration file located under ``Configuration\KissLog.json`` and update the following properties:
+In the `logBee.Frontend` folder, open the configuration file located under ``Configuration\logBee.json`` and update the following properties:
 
 .. list-table::
    :header-rows: 1
@@ -409,11 +407,11 @@ In the `KissLog.Frontend` folder, open the configuration file located under ``Co
      - Value
      - Notes
    * - KissLogBackendUrl
-     - https://kisslog-backend-code.azurewebsites.net
-     - "URL" from the `kisslog-backend-code` App Service
+     - https://logBee-backend.azurewebsites.net
+     - "URL" from the `logBee-backend` App Service
    * - KissLogFrontendUrl
-     - https://kisslog-frontend-code.azurewebsites.net
-     - "URL" from the `kisslog-frontend-code` App Service
+     - https://logBee-frontend.azurewebsites.net
+     - "URL" from the `logBee-frontend` App Service
    * - Database.Provider
      - SqlServer
      - 
@@ -429,10 +427,10 @@ Repeat the steps below for both of the App Services.
 Prepare the artifacts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Create a ``zip`` archive with the contents of `KissLog.Backend` folder.
+Create a ``zip`` archive with the contents of `logBee.Backend` folder.
 
 .. figure:: images/installation-guide/kisslog-backend-artifact.png
-    :alt: KissLog Backend artifact
+    :alt: logBee.Backend artifact
 
 Stop the App Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -442,10 +440,10 @@ Make sure the App Service is stopped before uploading the new code.
 Upload the artifacts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Navigate to KissLog.Backend App Service. On top right, click on "Download publish profile" button. Open the downloaded file and copy the ``userName`` and the ``userPWD``.
+Navigate to logBee.Backend App Service. On top right, click on "Download publish profile" button. Open the downloaded file and copy the ``userName`` and the ``userPWD``.
 
 .. figure:: images/installation-guide/publish-profile.png
-    :alt: KissLog Backend artifact
+    :alt: logBee.Backend artifact
 
 | To deploy the application, send a POST request to :samp:`https://<app_name>.scm.azurewebsites.net/api/zipdeploy`.
 | The POST request must contain the .zip file in the message body.
@@ -453,7 +451,7 @@ Navigate to KissLog.Backend App Service. On top right, click on "Download publis
 
 .. code-block:: none
 
-   curl -X POST -u $kisslog-backend-code:{password} --data-binary @"<zip_file_path>" https://kisslog-backend-code.scm.azurewebsites.net/api/zipdeploy
+   curl -X POST -u $logbee-backend:{password} --data-binary @"<zip_file_path>" https://logBee-backend.scm.azurewebsites.net/api/zipdeploy
 
 If the update was successful, you will receive a ``200 OK`` response status code.
 
@@ -463,53 +461,53 @@ The artifact can also be deployed with Postman.
     :alt: Postman Authorization
 
 .. figure:: images/installation-guide/postman-zipdeploy-response.png
-    :alt: Uploading KissLog.Backend code
+    :alt: Uploading logBee.Backend code
 
-3. Run the KissLog.Backend App Service
+3. Run the logBee.Backend App Service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After KissLog.Backend App Service has been updated, start the App Service then browse to the application URL.
+After logBee.Backend App Service has been updated, start the App Service then browse to the application URL.
 
-If everything went successful, you will see the KissLog.Backend home page.
+If everything went successful, you will see the logBee.Backend home page.
 
 .. note::
    | The initial startup is time consuming and can take up to a few minutes.
-   | During the initial startup, KissLog.Backend will also create the Azure Cosmos DB database and the containers.
+   | During the initial startup, logBee.Backend will also create the Azure Cosmos DB database and the containers.
 
 .. figure:: images/installation-guide/kisslog-backend-running.png
-    :alt: KissLog Backend home page
+    :alt: logBee.Backend home page
 
-4. Run the KissLog.Frontend App Service
+4. Run the logBee.Frontend App Service
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-After KissLog.Frontend App Service has been updated, start the App Service then browse to the application URL.
+After logBee.Frontend App Service has been updated, start the App Service then browse to the application URL.
 
-If everything went successful, you will see the KissLog.Frontend home page.
+If everything went successful, you will see the logBee.Frontend home page.
 
 .. note::
    | The initial startup is time consuming and can take up to a few minutes.
-   | During the initial startup, KissLog.Frontend will also create the SQL database.
+   | During the initial startup, logBee.Frontend will also create the SQL database.
 
 .. figure:: images/installation-guide/kisslog-frontend-running.png
-    :alt: KissLog Frontend home page
+    :alt: logBee.Frontend home page
 
 Post deployment
 -------------------------------------------------------
 
-Your KissLog server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created KissLog.Backend AppService.
+Your logBee server is running and ready to process the logs. You can update your dotnet applications to start sending the logs to the newly created logBee.Backend AppService.
 
 Make sure you update the configuration values, respectively the "OrganizationId", "ApplicationId" and "ApiUrl".
 
 .. code-block:: csharp
 
     KissLogConfiguration.Listeners
-        .Add(new RequestLogsApiListener(new Application(Configuration["KissLog.OrganizationId"], Configuration["KissLog.ApplicationId"]))
+        .Add(new RequestLogsApiListener(new Application(Configuration["LogBee.OrganizationId"], Configuration["LogBee.ApplicationId"]))
         {
-            ApiUrl = "https://kisslog-backend-code.azurewebsites.net/"
+            ApiUrl = "https://logBee-backend.azurewebsites.net/"
         });
 
 .. figure:: images/installation-guide/kisslog-frontend-logs.png
-    :alt: KissLog Frontend logs
+    :alt: logBee.Frontend logs
 
 Upgrade the services
 -------------------------------------------------------
@@ -518,17 +516,17 @@ In this tutorial we have used the low-pricing tier for all the Azure Services th
 
 - SQL Database: Basic
 - Azure Cosmos DB: 1000 RU/s
-- KissLog.Backend App Service: Free F1
-- KissLog.Frontend App Service: Free F1
+- logBee.Backend App Service: Free F1
+- logBee.Frontend App Service: Free F1
 
-Although this is enough for the KissLog server to start running, the performance and stability of the application is directly affected by the capabilities of the underlying services.
+Although this is enough for the logBee server to start running, the performance and stability of the application is directly affected by the capabilities of the underlying services.
 
-If you experience low performance, you should incrementally scale up the services. The most workload is handled by the Azure Cosmos DB service and by the KissLog.Backend App Service, and you can start with them.
+If you experience low performance, you should incrementally scale up the services. The most workload is handled by the Azure Cosmos DB service and by the logBee.Backend App Service, and you can start with them.
 
 .. note::
-   Hotizontal scaling is not currently supported by KissLog server.
+   Hotizontal scaling is not currently supported by logBee server.
 
-   Both KissLog.Backend and KissLog.Frontend App Services must each be deployed to a single instace.
+   Both logBee.Backend and logBee.Frontend App Services must each be deployed to a single instace.
 
 Scale up Azure Cosmos DB
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

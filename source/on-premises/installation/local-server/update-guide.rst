@@ -7,8 +7,8 @@ Update guide
 Artifacts
 -------------------------------------------------------
 
-- KissLog.Backend-{version}-win-x64.zip
-- KissLog.Frontend-{version}-win-x64.zip
+- logBee.Backend-{version}-win-x64.zip
+- logBee.Frontend-{version}-win-x64.zip
 
 Artifacts can be downloaded from `https://github.com/KissLog-net/KissLog-server <https://github.com/KissLog-net/KissLog-server>`_.
 
@@ -18,8 +18,8 @@ Update steps
 
 1) Stop both IIS applications:
 
-   * KissLog.Backend
-   * KissLog.Frontend
+   * logBee.Backend
+   * logBee.Frontend
 
 Create backup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,63 +29,63 @@ Create backup
    .. code-block:: none
 
        \Backups
-       ├── KissLog.Frontend\
-       └── KissLog.Backend\
+       ├── logBee.Frontend\
+       └── logBee.Backend\
 
 Copy new files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-3) Delete from the **KissLog.Backend** folder everything but:
+3) Delete from the **logBee.Backend** folder everything but:
 
    .. code-block:: none
 
-       \KissLog.Backend
+       \logBee.Backend
        ├── Configuration\
        ├── appsettings.json
        └── web.config
 
-4) Delete from the **KissLog.Frontend** folder everything but:
+4) Delete from the **logBee.Frontend** folder everything but:
 
    .. code-block:: none
 
-       \KissLog.Frontend
+       \logBee.Frontend
        ├── Configuration\
        ├── appsettings.json
        └── web.config
 
-5) Extract the contents of ``KissLog.Backend.AspNetCore.zip`` to KissLog.Backend folder.
+5) Extract the contents of ``logBee.Backend.AspNetCore.zip`` to logBee.Backend folder.
 
    Choose **not to override** the existing files (keep the local files).
 
-6) Extract the contents of ``KissLog.Frontend.AspNetCore.zip`` to KissLog.Frontend folder.
+6) Extract the contents of ``logBee.Frontend.AspNetCore.zip`` to logBee.Frontend folder.
 
    Choose **not to override** the existing files (keep the local files).
 
-Update KissLog.Backend configuration
+Update logBee.Backend configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-7) Apply the configuration changes (if any) by updating KissLog.json file.
+7) Apply the configuration changes (if any) by updating logBee.json file.
 
-   The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-backend/change-log>`.
+   The configuration changes will be listed in the :doc:`change log </on-premises/logBee-backend/change-log>`.
 
 
-Update KissLog.Frontend configuration
+Update logBee.Frontend configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-8) Apply the configuration changes (if any) by updating KissLog.json file.
+8) Apply the configuration changes (if any) by updating logBee.json file.
 
-   The configuration changes will be listed in the :doc:`change log </on-premises/kisslog-frontend/change-log>`.
+   The configuration changes will be listed in the :doc:`change log </on-premises/logBee-frontend/change-log>`.
 
-9) Change/increment the value of ``"StaticResourcesVersion"`` property from ``KissLog.json`` file.
+9) Change/increment the value of ``"StaticResourcesVersion"`` property from ``logBee.json`` file.
 
    This will refresh the browser cache for static resources.
 
    .. code-block:: json
        :emphasize-lines: 3
-       :caption: C:\\inetpub\\wwwroot\\KissLog.Frontend\\Configuration\\KissLog.json
+       :caption: C:\\inetpub\\wwwroot\\logBee.Frontend\\Configuration\\logBee.json
 
        {
-           "KissLogFrontendDomain": "kisslog.dev",
+           "KissLogFrontendDomain": "logBee.dev",
            "StaticResourcesVersion": "any-new-value"
        }
 
@@ -94,20 +94,20 @@ Start the applications
 
 10) Restart the IIS applications:
 
-    * KissLog.Backend
-    * KissLog.Frontend
+    * logBee.Backend
+    * logBee.Frontend
 
-11) Make a single request to KissLog.Backend root URL (http://kisslog-backend.your_domain.com).
+11) Make a single request to logBee.Backend root URL (http://logBee-backend.your_domain.com).
    
-    If everything went successful, you will see the KissLog.Backend home page.
+    If everything went successful, you will see the logBee.Backend home page.
    
-    .. figure:: images/installation-guide/kisslog-backend-running.png
-        :alt: KissLog.Backend home page
+    .. figure:: images/installation-guide/logBee.Backend-running.png
+        :alt: logBee.Backend home page
 
-12) Make a single request to the KissLog.Frontend root URL (http://kisslog-frontend.your_domain.com).
+12) Make a single request to the logBee.Frontend root URL (http://logBee-frontend.your_domain.com).
    
     If the startup process went successful, you will see the home page.
    
-    .. figure:: images/installation-guide/kisslog-frontend-running.png
-        :alt: KissLog.Frontend home page
+    .. figure:: images/installation-guide/logBee.Frontend-running.png
+        :alt: logBee.Frontend home page
 
